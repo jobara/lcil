@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "hot": "mix watch --hot",
+        "postinstall": "npm run dev",
+        "prod": "npm run production",
+        "production": "mix --production",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000"
+    },
+    "devDependencies": {
+        "axios": "^0.25",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14",
+        "resolve-url-loader": "^4.0.0",
+        "sass": "^1.35",
+        "sass-loader": "^12.1"
+    },
+    "dependencies": {
+        "@fluid-project/looseleaf": "^1.6",
+        "alpinejs": "^3.0",
+        "luxon": "^2.0"
+    }
+}

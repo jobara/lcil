@@ -20,8 +20,8 @@
         "sass-loader": "^12.1"
     },
     "dependencies": {
-        "@fluid-project/looseleaf": "^1.6",
         "alpinejs": "^3.0",
-        "luxon": "^2.0"
+        "luxon": "^2.0",
+        "modern-css-reset": "^1.4.0"
     }
 }

@@ -5,17 +5,17 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class ConstantsSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Seed the application's database with constant values that should be available in all instances.
      *
      * @return void
      */
     public function run()
     {
         $this->call([
-            ConstantsSeeder::class,
+            ConstantMeasureSeeder::class,
         ]);
     }
 }

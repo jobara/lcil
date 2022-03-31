@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MeasureController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,11 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::redirect('/', \locale());
 Route::multilingual('/', function () {
     return view('welcome');
 })->name('welcome');
 
+Route::multilingual('/measures', [MeasureController::class, 'index'])->name('measures');
+
+// Hearth generated routes
 Route::multilingual('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified:' . \locale() . '.verification.notice'])->name('dashboard');

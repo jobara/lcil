@@ -1,0 +1,320 @@
+[
+    {
+        "code": "1.0",
+        "description": "Scope of Participation",
+        "indicators": [
+            {
+                "code": "1.1",
+                "description": "People with disabilities enjoy and exercise legal capacity on an equal basis",
+                "measures": [
+                    {
+                        "code": "1.1.1",
+                        "title": "No disability-based exclusions",
+                        "description": "Provisions fully guard against restricting or excluding people, based on a disability diagnosis or status, from enjoying or exercising legal capacity.",
+                        "type": "Ability-based and disability-based criteria for legal capacity"
+                    },
+                    {
+                        "code": "1.1.2",
+                        "title": "No adverse impact of disability-neutral provisions",
+                        "description": "Provisions regulating the exercise of legal capacity do not have an adverse effect on the exercise and enjoyment of legal capacity by people with disabilities",
+                        "type": "Disability-neutral legal capacity restrictions "
+                    }
+                ]
+            },
+            {
+                "code": "1.2",
+                "description": "A person's will and preferences ground the legal recognition for a person to enjoy and exercise legal capacity",
+                "measures": [
+                    {
+                        "code": "1.2.1",
+                        "title": "Legal capacity grounded on will and preferences",
+                        "description": "The provision recognizes that the exercise of legal capacity is grounded upon a person’s will and preferences",
+                        "type": "Conditions for exercising legal capacity"
+                    }
+                ]
+            },
+            {
+                "code": "1.3",
+                "description": "The legal regime recognizes that persons may  exercise legal capacity independently or interdependently and may use a range of decision-making supports to do so",
+                "measures": [
+                    {
+                        "code": "1.3.1",
+                        "title": "Recognition of full range of decision-making supports",
+                        "description": "The provision recognizes a full range of supports that may be required for exercising legal capacity independently or interdependently",
+                        "type": "Whether legal capacity can be exercised with decision-making supports"
+                    },
+                    {
+                        "code": "1.3.2",
+                        "title": "Best interpretation of will and preferences",
+                        "description": "The provision recognizes the principle of best interpretation of a person's will and preferences where interpretive support is required",
+                        "type": "Whether interpretive supports can be used, and principles to guide interpretation of a person's wishes, will, or preferences"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "code": "2.0",
+        "description": "Decision-Making Supports",
+        "indicators": [
+            {
+                "code": "2.1",
+                "description": "All persons, without discrimination based on disability are authorized to make, change and terminate decision-making support arrangements and agreements that enable them to exercise legal capacity independently or interdependently",
+                "measures": [
+                    {
+                        "code": "2.1.1",
+                        "title": "Supported decision making agreements for both independent and inter-dependent legal capacity",
+                        "description": "The provision enables persons to make supported decision-making agreements for exercising legal capacity independently or interdependently",
+                        "type": "Opportunity and eligibility for making supported decision-making agreements"
+                    },
+                    {
+                        "code": "2.1.2",
+                        "title": "Full scope for appointing decision-making supporters",
+                        "description": "The provision enables decision-making supporters to be appointed where a person is unable to make these appointments on their own",
+                        "type": "Appointing decision-making supporters where a person is unable"
+                    },
+                    {
+                        "code": "2.1.3",
+                        "title": "Independent decision making - duties of decision making supports",
+                        "description": "The provision recognizes duties of decision-making supporters to respect, enhance and maximize autonomy where legal capacity is exercised independently",
+                        "type": "Duties of decision-making supporters - for people who exercise legal capacity independently"
+                    },
+                    {
+                        "code": "2.1.4",
+                        "title": "Inter-dependent decision making - duties of decision making supports",
+                        "description": "The provision explicitly recognizes duties of decision-making supporters to respect, enhance and maximize autonomy where legal capacity is exercised  interdependently",
+                        "type": "Duties of decision-making supporters - for people who exercise legal capacity interdependently"
+                    },
+                    {
+                        "code": "2.1.5",
+                        "title": "Liability protection for decision-making supporters",
+                        "description": "The provision provides liability protection for decision-making supporters to the extent they meet their obligations.",
+                        "type": "Liability of decision-making supporters"
+                    },
+                    {
+                        "code": "2.1.6",
+                        "title": "Able to change and terminate supported decision-making agreements",
+                        "description": "The provisions establishes mechanisms for changing and terminating supported decision-making agreements",
+                        "type": "Changing/terminating supported decision-making agreements"
+                    },
+                    {
+                        "code": "2.1.7",
+                        "title": "Effectively addresses concerns about decision-making supporters",
+                        "description": "Provisions mandate procedures for accessible and timely interventions where there is concern that decision-making supporters may not be fulfilling  their obligations in supporting a person to exercise legal capacity, including:",
+                        "type": ""
+                    },
+                    {
+                        "code": "2.1.7.1",
+                        "title": "Able to make complaints about decision-making supporters",
+                        "description": "Provision for making complaints that decision-making supporters are not fulfilling their obligations",
+                        "type": "Making complaints about decision-making supports"
+                    },
+                    {
+                        "code": "2.1.7.2",
+                        "title": "Process to evaluate and investigate concerns",
+                        "description": "Provision for evaluating concerns and investigating where necessary ",
+                        "type": "Investigating complaints about decision-making supporters"
+                    },
+                    {
+                        "code": "2.1.7.3",
+                        "title": "Able to remedy issues",
+                        "description": "Provision for remedying any issues that arise (e.g., appointing monitors, providing additional supports)",
+                        "type": "Remedying concerns about decision-making support arrangements"
+                    },
+                    {
+                        "code": "2.1.7.4",
+                        "title": "Effective appeals and dispute resolution processes",
+                        "description": "Provision for appeals and disputes resolutions with respect to concerns reported, investigations and remedies.",
+                        "type": "Appeals and disputes resolution about decision-making supports"
+                    },
+                    {
+                        "code": "2.1.8",
+                        "title": "Liability protection for third parties in supported decision-making process",
+                        "description": "The provision offers liability protection for honoring decisions made with decision-making supports, and decisions where a person refuses supports which they may not require to exercise legal capacity",
+                        "type": "Liability protection for entering legal agreements through a supported decision-making process"
+                    }
+                ]
+            },
+            {
+                "code": "2.2",
+                "description": "Decision-making supporters or representatives legally authorized under supported decision-making arrangements have a right to all information and documents to which the person is entitled",
+                "measures": [
+                    {
+                        "code": "2.2.1",
+                        "title": "Access by decision-making supporters to personal information and records",
+                        "description": "The provision enables access by decision-making supporters to personal information and records, related to the supporter’s area of authority under the relevant support agreement or arrangement",
+                        "type": "Protection of personal information"
+                    }
+                ]
+            },
+            {
+                "code": "2.3",
+                "description": "Access to needed decision-making supports is guaranteed, and processes are mandated to assist a person in arranging them, including at any point where a person may have independent or interdependent decision-making capability questioned",
+                "measures": [
+                    {
+                        "code": "2.3.1",
+                        "title": "Guaranteed access to decision-making supports",
+                        "description": "The provision recognizes a government obligation to ensure access to decision-making supports a person may require to  exercise legal capacity",
+                        "type": "Access provided to decision-making supports, and role government plays in ensuring access"
+                    },
+                    {
+                        "code": "2.3.2",
+                        "title": "Mandated exploration of options to meet decision-making support needs",
+                        "description": "The provision mandates exploration of options to meet decision-making support needs at all points where decision-making capability is questioned and/or needs to be enhanced.",
+                        "type": "What happens when a person's capacity to act legally independently is questioned"
+                    },
+                    {
+                        "code": "2.3.3",
+                        "title": "Effective remedies to address lack of decision-making supports",
+                        "description": "Provision for accessible and fair complaints and enforcement mechanisms to remedy lack of access to decision-making supports a person may require to exercise legal capacity",
+                        "type": "Complaints and enforcement mechanisms to address and remedy lack of access to needed decision-making supports"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "code": "3.0",
+        "description": "Duty to Accommodate",
+        "indicators": [
+            {
+                "code": "3.1",
+                "description": "Parties have a duty accommodate a person in exercising legal capacity either independently or interdependently",
+                "measures": [
+                    {
+                        "code": "3.1.1",
+                        "title": "Duty to accommodate in decision making",
+                        "description": "Provision recognizes the duty of all parties to accommodate persons in decision-making processes related to the exercise of their legal capacity, either independently or interdependently",
+                        "type": "Duty to accommodate provisions"
+                    },
+                    {
+                        "code": "3.1.2",
+                        "title": "Guidance on the duty to accommodate in exercising legal capacity",
+                        "description": "Provision gives guidance on how to accommodate persons in exercising legal capacity either independently or interdependently",
+                        "type": "Guidance provisions on the duty to accommodate "
+                    },
+                    {
+                        "code": "3.1.3",
+                        "title": "Effective remedies to address lack of accommodation",
+                        "description": "Provision for accessible and fair complaints and enforcement mechanisms to remedy lack of accommodation in exercising legal capacity independently or interdependently.",
+                        "type": "Complaints and enforcement mechanisms to address lack of accommodation in exercising legal capacity"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "code": "4.0",
+        "description": "Range of Planning Tools",
+        "indicators": [
+            {
+                "code": "4.1",
+                "description": "All persons are authorized to make plans to guide their decision making in the future, and such plans can specify: a) the decisions to be made, b) instructions to guide decision making, c) those who will assist a person in making decisions, and/or d) those who may make decisions on a person's behalf",
+                "measures": [
+                    {
+                        "code": "4.1.1",
+                        "title": "Provide for advance planning tools",
+                        "description": "Provision gives legal recognition and authority to a full range of tools to make plans for future decision making, consistent with the right to make decisions on an equal basis with others. Options for future planning include:",
+                        "type": ""
+                    },
+                    {
+                        "code": "4.1.1.1",
+                        "title": "Advance planning for personal care and life decisions",
+                        "description": "Provision authorizes advance planning documents - for  personal care and life decisions - which a person makes independently",
+                        "type": "The making and authority of advance planning documents for personal care and life decisions"
+                    },
+                    {
+                        "code": "4.1.1.2",
+                        "title": "Advance planning for health care decisions",
+                        "description": "Provision authorizes advance planning documents - for  health care decisions - which a person makes independently",
+                        "type": "The making and authority of advance planning documents for health care decisions"
+                    },
+                    {
+                        "code": "4.1.1.3",
+                        "title": "Advance planning for financial/property decisions",
+                        "description": "Provision authorizes advance planning documents - for financial/property decisions - which a person makes independently",
+                        "type": "The making and authority of advance planning documents for financial/property decisions"
+                    },
+                    {
+                        "code": "4.1.1.4",
+                        "title": "Appointing decision-making supporters to act as representatives",
+                        "description": "Provision authorizes the appointment of persons to represent a person in decision making, under supported decision making agreements.",
+                        "type": "The making and authority of supported decision making agreements "
+                    },
+                    {
+                        "code": "4.1.2",
+                        "title": "Authority of future planning documents",
+                        "description": "Provision ensures that the instructions a person specifies in their future planning documents cannot be over-ridden except where a) doing so would not be consistent with acting on an equal basis or b) doing so would violate best interpretation of a person",
+                        "type": "Circumstances in which the authority and direction granted by planning documents can be over-ridden"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "code": "5.0",
+        "description": "Scope for Balancing Right to Equality",
+        "indicators": [
+            {
+                "code": "5.1",
+                "description": "Where a person is in a situation that is causing or could cause serious harm, any measure to restrict their exercise of legal capacity, or to require them to use supports to make decisions, can be imposed only after a full and fair process to assess the need for restrictions and reasonable alternatives under the circumstances",
+                "measures": [
+                    {
+                        "code": "5.1.1",
+                        "title": "",
+                        "description": "Provisions for restricting the exercise of legal capacity in a situation that is causing, or could cause, serious harm, ensure as follows:",
+                        "type": ""
+                    },
+                    {
+                        "code": "5.1.1.1",
+                        "title": "Restrictive measures are a last resort",
+                        "description": "The provision ensures that restrictive measures are applied only as a last resort, and after all reasonable steps to ensure access to needed decision-making supports have failed",
+                        "type": "Conditions on which legal capacity can be restricted in situations of risk/harm"
+                    },
+                    {
+                        "code": "5.1.1.2",
+                        "title": "Measures are least restrictive",
+                        "description": "The provision ensures that any restrictive measures are the least restrictive in the circumstances",
+                        "type": "Principles to be applied in deciding nature and scope of restrictions in situations of risk/harm"
+                    },
+                    {
+                        "code": "5.1.1.3",
+                        "title": "Restrictive measures are proportional and tailored",
+                        "description": "The provision ensures that any restrictive measures are proportional and tailored to the person’s circumstances;",
+                        "type": "How restrictions are/are not required to be tailored to individual circumstances in situations of risk/harm"
+                    },
+                    {
+                        "code": "5.1.1.4",
+                        "title": "Restrictive measures are time-limited",
+                        "description": "The provision ensures that any restrictive measure is applied for only as long as is necessary to address or prevent the serious harm;",
+                        "type": "Duration of restrictions in situations of risk/harm"
+                    },
+                    {
+                        "code": "5.1.1.5",
+                        "title": "Restrictive measures are subject to regular review",
+                        "description": "The provision ensures that restrictive measures are subject to regular review by a competent authority to assess whether the benefits outweigh the harms and that the need for such restrictions continues to be justified;",
+                        "type": "Nature and timeliness of review of restrictions imposed to address situations of risk/harm"
+                    },
+                    {
+                        "code": "5.1.1.6",
+                        "title": "Restrictive measures combined with establishing decision-making supports",
+                        "description": "The provision ensures that imposition of restrictive measures are combined with steps to establish decision-making supports and restore legal capacity as soon as practically possible;",
+                        "type": "Requirements to put decision-making supports into place in situations of risk/harm where a person's legal capacity is restricted"
+                    },
+                    {
+                        "code": "5.1.1.7",
+                        "title": "Decision-making supports can be monitored as needed",
+                        "description": "The provision ensures decision-making supports may be monitored as may be needed under the circumstances;",
+                        "type": "Monitoring of decision-making support arrangements in situations of risk/harm"
+                    },
+                    {
+                        "code": "5.1.1.8",
+                        "title": "Restrictive measures are subject to appeal",
+                        "description": "The provision ensures that imposition of restrictive measures are subject to appeal through accessible and timely appeals and enforcement mechanisms.",
+                        "type": "Appeals and enforcement mechanisms in place to challenge restrictions of legal capacity in situations of risk/harm"
+                    }
+                ]
+            }
+        ]
+    }
+]

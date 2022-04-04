@@ -1,3 +1,5 @@
+/.idea
+/.vscode
 /node_modules
 /public/hot
 /public/storage
@@ -6,9 +8,8 @@
 .env
 .env.backup
 .phpunit.result.cache
+coverage.xml
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/.idea
-/.vscode

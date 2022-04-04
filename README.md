@@ -1,5 +1,8 @@
 # Legal Capacity Inclusion Lens
 
+[![codecov](https://codecov.io/gh/fluid-project/lcil/branch/main/graph/badge.svg?token=XZ7R5ISIBR)](https://codecov.io/gh/fluid-project/lcil)
+[![codecov](https://codecov.io/gh/fluid-project/lcil/branch/dev/graph/badge.svg?token=XZ7R5ISIBR)](https://codecov.io/gh/fluid-project/lcil)
+
 ## Overview
 
 The Legal Capacity Inclusion Lens (LCIL) is built using the [Laravel](https://laravel.com) PHP framework and

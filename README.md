@@ -106,7 +106,8 @@ file with the appropriate information for accessing it.
 ### Localization
 
 When entering text into the templates and etc, use translatable strings. The text can be retrieved using [default
-translation strings]() and passed to the `__()` helper function. For example:
+translation strings](https://laravel.com/docs/9.x/localization#using-translation-strings-as-keys) and passed to the
+`__()` helper function. For example:
 
 ```php
 __('String to be translated')
@@ -209,6 +210,37 @@ If using sail, in the `.env` file set `SAIL_XDEBUG_MODE=develop,debug,coverage` 
 
 _**NOTE:** Coverage reporting requires [Xdebug](https://xdebug.org/) or [PCOV](https://pecl.php.net/package/pcov).
 see: [Test coverage with Xdebug](https://laracasts.com/series/whats-new-in-laravel-9/episodes/7)_
+
+### Linting
+
+Static analysis of PHP files is done using [Larastan](https://github.com/nunomaduro/larastan). The default configuration
+is provided in the [`phpstan.neon.dist`](./phpstan.neon.dist) file. If you'd like to use a different local configuration
+or perhaps modified configuration in CI, a `phpstan.neon` file can be used to supersede the default config file.
+`phpstan.neon` has been added to the [`.gitignore`](./.gitignore) file and is excluded from version control.
+
+To perform the analysis run:
+
+```bash
+# if using sail
+sail composer lint
+
+# when running locally
+php composer lint
+```
+
+Linting of JavaScript, SCSS, MD and other files is handled by [fluid-lint-all](https://www.npmjs.com/package/fluid-lint-all).
+Configuration is contained within the [`.fluidlintallrc.json`](./fluidlintallrc.json), [`.eslintignore`](./.eslintignore),
+[`.eslintrc.json`](./.eslintrc.json) and [`.stylelintrc.json`](./.stylelintrc.json) files.
+
+To run linting:
+
+```bash
+# if using sail
+sail npm run lint
+
+# when running locally
+npm run lint
+```
 
 ## Production
 

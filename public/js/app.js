@@ -8,17 +8,18 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
-/* harmony import */ var _confirmPassword_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./confirmPassword.js */ "./resources/js/confirmPassword.js");
-/* harmony import */ var _dateInput_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./dateInput.js */ "./resources/js/dateInput.js");
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+/* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+/* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_bootstrap__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
+/* harmony import */ var _confirmPassword_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./confirmPassword.js */ "./resources/js/confirmPassword.js");
+/* harmony import */ var _dateInput_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dateInput.js */ "./resources/js/dateInput.js");
 
 
 
 
-alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].data('confirmPassword', _confirmPassword_js__WEBPACK_IMPORTED_MODULE_1__["default"]);
-alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].data('dateInput', _dateInput_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
-alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
+alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].data("confirmPassword", _confirmPassword_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
+alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].data("dateInput", _dateInput_js__WEBPACK_IMPORTED_MODULE_3__["default"]);
+alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
 
 /***/ }),
 
@@ -33,6 +34,8 @@ alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].start();
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
+
+/*global require*/
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
@@ -49,6 +52,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/*global axios */
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   var confirmedPasswordStatusRoute = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
   var confirmPasswordRoute = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
@@ -87,7 +91,7 @@ __webpack_require__.r(__webpack_exports__);
       document.body.style.position = "fixed";
       document.body.style.top = "-".concat(scrollY, "px");
       this.$nextTick(function () {
-        var elems = document.querySelectorAll('a, button, input, select, textarea, [contenteditable]');
+        var elems = document.querySelectorAll("a, button, input, select, textarea, [contenteditable]");
         Array.prototype.forEach.call(elems, function (elem) {
           if (!elem.closest(".modal")) {
             elem.setAttribute("tabindex", "-1");
@@ -103,7 +107,7 @@ __webpack_require__.r(__webpack_exports__);
       document.body.style.position = "";
       document.body.style.top = "";
       window.scrollTo(0, parseInt(scrollY || "0") * -1);
-      var elems = document.querySelectorAll('a, button, input, select, textarea, [contenteditable]');
+      var elems = document.querySelectorAll("a, button, input, select, textarea, [contenteditable]");
       Array.prototype.forEach.call(elems, function (elem) {
         if (!elem.closest(".modal")) {
           elem.removeAttribute("tabindex", "-1");

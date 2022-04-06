@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Measure extends Model
 {
@@ -12,7 +13,7 @@ class Measure extends Model
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<string>
      */
     protected $fillable = [
         'code',
@@ -21,7 +22,7 @@ class Measure extends Model
         'type'
     ];
 
-    public function indicator()
+    public function indicator(): BelongsTo
     {
         return $this->belongsTo(MeasureIndicator::class, 'measure_indicator_id');
     }

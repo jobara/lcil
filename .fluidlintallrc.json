@@ -1,0 +1,32 @@
+{
+    "sources": {
+        "js": [
+            "./*.js",
+            "./resources/**/*.js"
+        ],
+        "json": [
+            "./*.json",
+            "./database/**/*.json",
+            "./lang/**/*.json"
+        ],
+        "md": [
+            "./*.md",
+            "./.github/**/*.md"
+        ],
+        "scss": [
+            "./resources/**/*.scss"
+        ],
+        "yaml": [
+            "./*.yml",
+            "./.github/**/*.yml"
+        ]
+    },
+    "eslint": {
+        "json": {
+            "enabled": false
+        }
+    },
+    "json5lint": {
+        "enabled": false
+    }
+}

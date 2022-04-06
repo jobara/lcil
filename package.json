@@ -4,6 +4,7 @@
         "dev": "npm run development",
         "development": "mix",
         "hot": "mix watch --hot",
+        "lint": "fluid-lint-all",
         "postinstall": "npm run dev",
         "prod": "npm run production",
         "production": "mix --production",
@@ -12,6 +13,9 @@
     },
     "devDependencies": {
         "axios": "^0.25",
+        "eslint-config-fluid": "^2.0.1",
+        "eslint-plugin-jsdoc": "^38.1.6",
+        "fluid-lint-all": "1.1.5",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14",

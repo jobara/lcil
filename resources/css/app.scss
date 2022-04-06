@@ -99,11 +99,11 @@
 
 .modal {
     background: white;
-    border-radius: var(--ll-border-radius);
     border: var(--ll-border-thin);
+    border-radius: var(--ll-border-radius);
     display: block;
     left: var(--step-0);
-    margin-top: 0em;
+    margin-top: 0;
     padding: var(--step-0);
     position: absolute;
     top: 50%;

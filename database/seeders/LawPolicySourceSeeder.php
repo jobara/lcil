@@ -2,21 +2,19 @@
 
 namespace Database\Seeders;
 
+use App\Models\LawPolicySource;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class LawPolicySourceSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $this->call([
-            ConstantsSeeder::class,
-            ProvisionSeeder::class
-        ]);
+        LawPolicySource::factory(20)->create();
     }
 }

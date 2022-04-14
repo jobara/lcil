@@ -3,10 +3,7 @@
         <h1 itemprop="name">{{ __(':name: Measures', ['name' => config('app.name', 'LCIL')]) }}</h1>
     </x-slot>
 
-    {{-- {{ dd($lcilMeasures) }} --}}
-
     @foreach ($lcilMeasures as $dimension)
-    {{-- {{ dd($dimension->indicators->count()) }} --}}
         <h2>{{ $dimension['code'] }}: {{ $dimension['description'] }}</h2>
 
         @foreach ($dimension->indicators as $indicator)

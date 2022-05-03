@@ -26,11 +26,9 @@ class LawPolicySourceFactory extends Factory
         $province = $this->faker->boolean(70) ? $this->faker->randomElement($subdivisionRepository->getAll([$country])) : null;
         $jurisdiction = $province ? $province->getIsoCode() ?? $country : $country;
 
-        $lawTypes = array_column(LawPolicyTypeEnum::cases(), 'value');
-
         return [
             'name' => $this->faker->unique()->realTextBetween($minNbChars = 15, $maxNbChars = 50, $indexSize = 2),
-            'type' => $this->faker->boolean(50) ? $this->faker->randomElement($lawTypes) : null,
+            'type' => $this->faker->boolean(50) ? $this->faker->randomElement(LawPolicyTypeEnum::values()) : null,
             'is_core' => $this->faker->boolean(50) ? $this->faker->boolean() : null,
             'reference' => $this->faker->boolean(80) ? $this->faker->unique()->url() : null,
             'jurisdiction' => $jurisdiction,

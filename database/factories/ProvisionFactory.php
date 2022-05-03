@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
-use App\Enums\LegalChallengeTypeEnum;
+use App\Enums\ApproachToLegalCapacityEnum;
+use App\Enums\DecisionMakingCapabilityEnum;
+use App\Enums\ProvisionDecisionTypeEnum;
 use App\Models\LawPolicySource;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,7 +20,8 @@ class ProvisionFactory extends Factory
      */
     public function definition()
     {
-        $challengeTypes = array_column(LegalChallengeTypeEnum::cases(), 'value');
+        $challengeTypes = ProvisionDecisionTypeEnum::values();
+        $numChallengeTypesToSelect = $this->faker->numberBetween(1, count($challengeTypes));
 
         $isSubToChallenge = $this->faker->boolean(50) ? $this->faker->boolean() : null;
         $isResOfChallenge = $this->faker->boolean(50) ? $this->faker->boolean() : null;
@@ -28,7 +31,9 @@ class ProvisionFactory extends Factory
         return [
             'law_policy_source_id' => LawPolicySource::factory(),
             'section' => $this->faker->unique()->regexify('[a-zA-Z0-9]{1,2} [a-zA-Z0-9]{0,2}'),
-            'type_of_decision' => $this->faker->boolean(50) ? $this->faker->randomElement($challengeTypes) : null,
+            'decision_type' => $this->faker->boolean(50) ? $this->faker->randomElements($challengeTypes, $numChallengeTypesToSelect) : null,
+            'legal_capacity_approach' => $this->faker->boolean(50) ? $this->faker->randomElement(ApproachToLegalCapacityEnum::values()) : null,
+            'decision_making_capability' => $this->faker->boolean(50) ? $this->faker->randomElement(DecisionMakingCapabilityEnum::values()) : null,
             'body' => $this->faker->paragraph(3),
             'reference' => $this->faker->boolean(80) ? $this->faker->unique()->url() : null,
             'is_subject_to_challenge' => $isSubToChallenge,

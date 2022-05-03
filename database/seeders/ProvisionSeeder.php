@@ -2,22 +2,19 @@
 
 namespace Database\Seeders;
 
+use App\Models\Provision;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class ProvisionSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      *
      * @return void
      */
     public function run()
     {
-        $this->call([
-            ConstantsSeeder::class,
-            UserSeeder::class,
-            ProvisionSeeder::class
-        ]);
+        Provision::factory(20)->create();
     }
 }

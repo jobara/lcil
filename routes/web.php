@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LawPolicySourceController;
 use App\Http\Controllers\MeasureController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -15,10 +16,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Landing Page
 Route::multilingual('/', function () {
     return view('welcome');
 })->name('welcome');
 
+// Law and Policy Source
+Route::multilingual('/law-policy-sources/{lawPolicySource:slug}', [LawPolicySourceController::class, 'show'])
+    ->name('law-policy-sources.show');
+
+// Measures
 Route::multilingual('/measures', [MeasureController::class, 'index'])->name('measures');
 
 // Hearth generated routes

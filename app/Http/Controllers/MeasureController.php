@@ -9,7 +9,6 @@ class MeasureController extends Controller
 {
     public function index()
     {
-        // return view('measures.index');
         return view('measures.index', [
             'lcilMeasures' => MeasureDimension::with('indicators.measures')->get()
         ]);

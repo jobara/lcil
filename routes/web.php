@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\JurisdictionController;
 use App\Http\Controllers\LawPolicySourceController;
 use App\Http\Controllers\MeasureController;
 use App\Http\Controllers\UserController;
+use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,8 +27,18 @@ Route::multilingual('/', function () {
 Route::multilingual('/law-policy-sources/{lawPolicySource:slug}', [LawPolicySourceController::class, 'show'])
     ->name('law-policy-sources.show');
 
+Route::multilingual('/law-policy-sources', [LawPolicySourceController::class, 'index'])
+    ->name('law-policy-sources.index');
+
+Route::multilingual('/law-policy-sources/create', [LawPolicySourceController::class, 'create'])
+    ->name('law-policy-sources.create');
+
 // Measures
 Route::multilingual('/measures', [MeasureController::class, 'index'])->name('measures');
+
+// Jurisdictions
+Route::get('jurisdictions', [JurisdictionController::class, 'index'])->name('jurisdictions.index');
+Route::get('jurisdictions/{country}', [JurisdictionController::class, 'show'])->name('jurisdictions.show');
 
 // Hearth generated routes
 Route::multilingual('/dashboard', function () {

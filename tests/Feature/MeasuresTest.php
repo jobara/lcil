@@ -22,11 +22,11 @@ class MeasuresTest extends TestCase
     protected $seeder = ConstantMeasureSeeder::class;
 
     /**
-     * Verify that the route exists and responds correctly
+     * Verify that the index route exists and responds correctly
      *
      * @return void
      */
-    public function test_measures_route_responded_successfully()
+    public function test_index_route()
     {
         $response = $this->get(localized_route('measures'));
 
@@ -52,7 +52,7 @@ class MeasuresTest extends TestCase
      *
      * @return void
      */
-    public function test_the_measure_view_can_be_rendered()
+    public function test_the_measure_view_render()
     {
         $lcilMeasures = MeasureDimension::factory(2)
                             ->has(MeasureIndicator::factory(2)->has(Measure::factory(2), 'measures'), 'indicators')

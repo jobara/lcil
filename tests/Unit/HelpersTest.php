@@ -2,6 +2,8 @@
 
 namespace Tests\Unit;
 
+use CommerceGuys\Addressing\Country\CountryRepository;
+use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
 use PHPUnit\Framework\TestCase;
 
 class HelpersTest extends TestCase
@@ -161,7 +163,78 @@ class HelpersTest extends TestCase
 
         $this->assertEquals('Ontario, Canada', $jurisdiction);
     }
+
+    /**
+     * get_countries returns the countries list
+     *
+     * @return void
+     */
+    public function test_get_countries()
+    {
+        $countryRepository = new CountryRepository();
+
+        $this->assertEquals($countryRepository->getList(), get_countries());
+    }
+
+    /**
+     * get_countries returns the countries list in the requested locale
+     *
+     * @return void
+     */
+    public function test_get_countries_with_locale()
+    {
+        $countryRepository = new CountryRepository();
+        $locale = 'fr-CA';
+
+        $this->assertEquals($countryRepository->getList($locale), get_countries($locale));
+    }
+
+    /**
+     * get_subdivisions returns the subdivision list for the requested country
+     *
+     * @return void
+     */
+    public function test_get_subdivisions()
+    {
+        $subdivisionRepository = new SubdivisionRepository();
+        $countryCode = 'CA';
+
+        $this->assertEquals($subdivisionRepository->getList([$countryCode]), get_subdivisions($countryCode));
+    }
+
+    /**
+     * get_subdivisions returns an empty array if no country found
+     *
+     * @return void
+     */
+    public function test_get_subdivisions_with_invalid_country_code()
+    {
+        $countryCode = 'INVALID';
+
+        $this->assertEquals([], get_subdivisions($countryCode));
+    }
+
+    /**
+     * get_subdivisions returns an empty array if no country provided
+     *
+     * @return void
+     */
+    public function test_get_subdivisions_with_missing_country_code()
+    {
+        $this->assertEquals([], get_subdivisions(null));
+    }
+
+    /**
+     * get_subdivisions returns the subdivision list for the requested country in the correct locale
+     *
+     * @return void
+     */
+    public function test_get_subdivisions_with_locale()
+    {
+        $subdivisionRepository = new SubdivisionRepository();
+        $countryCode = 'CA';
+        $locale = 'fr-CA';
+
+        $this->assertEquals($subdivisionRepository->getList([$countryCode], $locale), get_subdivisions($countryCode, $locale));
+    }
 }
-
-
-// get_jurisdiction_name($code, $municipality, $locale = 'en', $separator = ', ')

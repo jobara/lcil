@@ -11,14 +11,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 /* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_bootstrap__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
-/* harmony import */ var _confirmPassword_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./confirmPassword.js */ "./resources/js/confirmPassword.js");
-/* harmony import */ var _dateInput_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./dateInput.js */ "./resources/js/dateInput.js");
+/* harmony import */ var _alpinejs_focus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @alpinejs/focus */ "./node_modules/@alpinejs/focus/dist/module.esm.js");
+/* harmony import */ var _confirmPassword_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./confirmPassword.js */ "./resources/js/confirmPassword.js");
+/* harmony import */ var _dateInput_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dateInput.js */ "./resources/js/dateInput.js");
 
 
 
 
-alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].data("confirmPassword", _confirmPassword_js__WEBPACK_IMPORTED_MODULE_2__["default"]);
-alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].data("dateInput", _dateInput_js__WEBPACK_IMPORTED_MODULE_3__["default"]);
+
+alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].data("confirmPassword", _confirmPassword_js__WEBPACK_IMPORTED_MODULE_3__["default"]);
+alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].data("dateInput", _dateInput_js__WEBPACK_IMPORTED_MODULE_4__["default"]);
+alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].plugin(_alpinejs_focus__WEBPACK_IMPORTED_MODULE_2__["default"]);
 alpinejs__WEBPACK_IMPORTED_MODULE_1__["default"].start();
 
 /***/ }),

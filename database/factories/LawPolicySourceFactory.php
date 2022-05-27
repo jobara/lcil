@@ -19,10 +19,8 @@ class LawPolicySourceFactory extends Factory
      */
     public function definition()
     {
-        $countryRepository = new CountryRepository();
         $subdivisionRepository = new SubdivisionRepository();
-
-        $country = $this->faker->boolean(50) ? $this->faker->randomElement(['CA', 'US']) : $this->faker->randomElement(array_keys($countryRepository->getAll()));
+        $country = $this->faker->boolean(50) ? $this->faker->randomElement(['CA', 'US']) : $this->faker->randomElement(array_keys(get_countries()));
         $province = $this->faker->boolean(70) ? $this->faker->randomElement($subdivisionRepository->getAll([$country])) : null;
         $jurisdiction = $province ? $province->getIsoCode() ?? $country : $country;
 

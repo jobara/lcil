@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('law_policy_sources', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->fulltext();
             $table->string('type')->nullable(); // LawPolicyTypeEnum
             $table->boolean('is_core')->nullable();
             $table->string('reference')->nullable(); // URL

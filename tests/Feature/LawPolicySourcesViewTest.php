@@ -12,7 +12,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class LawPolicySourcesTest extends TestCase
+class LawPolicySourcesViewTest extends TestCase
 {
     use RefreshDatabase;
     use WithFaker;
@@ -21,7 +21,7 @@ class LawPolicySourcesTest extends TestCase
      *
      * @return void
      */
-    public function test_law_policy_sources_show_route_responded_successfully()
+    public function test_show_route()
     {
         // create a Law and Policy Source to use for the test
         $lawPolicySource = LawPolicySource::factory()
@@ -41,7 +41,7 @@ class LawPolicySourcesTest extends TestCase
      *
      * @return void
      */
-    public function test_a_law_policy_source_view_with_all_fields_can_be_rendered()
+    public function test_a_view_with_all_fields_render()
     {
         // create a Law and Policy Source to use for the test
         $lawPolicySource = LawPolicySource::factory()
@@ -126,7 +126,7 @@ class LawPolicySourcesTest extends TestCase
      *
      * @return void
      */
-    public function test_a_law_policy_source_view_with_minimum_fields_can_be_rendered()
+    public function test_a_view_with_minimum_fields_render()
     {
         // create a Law and Policy Source to use for the test
         $lawPolicySource = LawPolicySource::factory()
@@ -164,7 +164,7 @@ class LawPolicySourcesTest extends TestCase
      *
      * @return void
      */
-    public function test_a_law_policy_source_view_with_minimum_provision_fields_can_be_rendered()
+    public function test_a_view_with_minimum_provision_fields_render()
     {
         // create a Law and Policy Source to use for the test
         $lawPolicySource = LawPolicySource::factory()

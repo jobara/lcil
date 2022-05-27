@@ -15,6 +15,6 @@ class ProvisionSeeder extends Seeder
      */
     public function run()
     {
-        Provision::factory(20)->create();
+        Provision::factory(25)->create();
     }
 }

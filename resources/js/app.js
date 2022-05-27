@@ -1,7 +1,7 @@
 import "./bootstrap";
 
 import Alpine from "alpinejs";
-import focus from '@alpinejs/focus'
+import focus from "@alpinejs/focus";
 
 import confirmPassword from "./confirmPassword.js";
 import dateInput from "./dateInput.js";

@@ -16,7 +16,7 @@ class LawPolicySourceFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         $subdivisionRepository = new SubdivisionRepository();
         $country = $this->faker->boolean(50) ? $this->faker->randomElement(['CA', 'US']) : $this->faker->randomElement(array_keys(get_countries()));

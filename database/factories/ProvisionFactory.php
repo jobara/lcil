@@ -18,7 +18,7 @@ class ProvisionFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         $challengeTypes = ProvisionDecisionTypeEnum::values();
         $numChallengeTypesToSelect = $this->faker->numberBetween(1, count($challengeTypes));

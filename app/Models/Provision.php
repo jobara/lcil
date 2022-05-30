@@ -31,12 +31,22 @@ class Provision extends Model implements Auditable
         'decision_citation',
     ];
 
+    /**
+     * The attributes which should be cast to other types.
+     *
+     * @var array<string, string>
+     */
     protected $casts = [
         'decision_type' => 'json',
         'legal_capacity_approach' => ApproachToLegalCapacityEnum::class,
         'decision_making_capability' => DecisionMakingCapabilityEnum::class,
     ];
 
+    /**
+     * Get the Law and Policy Source this Provision belongs to.
+     *
+     * @return BelongsTo
+     */
     public function lawPolicySource(): BelongsTo
     {
         return $this->belongsTo(LawPolicySource::class);

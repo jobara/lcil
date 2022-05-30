@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LawPolicySource;
+use Illuminate\Contracts\View\View;
 
 class LawPolicySourceController extends Controller
 {
@@ -11,7 +12,12 @@ class LawPolicySourceController extends Controller
         // placeholder for create controller
     }
 
-    public function index()
+    /**
+     * Display listing of Law and Policy sources, optionally filtered by jurisdiction and/or keywords.
+     *
+     * @return View
+     */
+    public function index(): View
     {
         if (! request('country')) {
             return view('law-policy-sources.index');
@@ -32,7 +38,14 @@ class LawPolicySourceController extends Controller
         }
     }
 
-    public function show(LawPolicySource $lawPolicySource)
+    /**
+     * Display the request Law or Policy source
+     *
+     * @param LawPolicySource $lawPolicySource the Law or Policy source to display
+     *
+     * @return View
+     */
+    public function show(LawPolicySource $lawPolicySource): View
     {
         return view('law-policy-sources.show', [
             'lawPolicySource' => $lawPolicySource,

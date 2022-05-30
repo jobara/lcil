@@ -2,6 +2,7 @@
 
 namespace App\View\Components;
 
+use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
 class SubdivisionSelect extends Component
@@ -14,7 +15,7 @@ class SubdivisionSelect extends Component
     public $country;
 
     /**
-     * The subdivision code.
+     * An ISO 3166-1 alpha-2 or ISO-3166-2 code.
      *
      * @var string
      */
@@ -26,13 +27,6 @@ class SubdivisionSelect extends Component
      * @var array
      */
     public $subdivisions;
-
-    /**
-     * The list of available countries
-     *
-     * @var array
-     */
-    protected $subdivisionRepository;
 
     /**
      * Create a new component instance.
@@ -49,9 +43,9 @@ class SubdivisionSelect extends Component
     /**
      * Get the view / contents that represent the component.
      *
-     * @return \Illuminate\Contracts\View\View|\Closure|string
+     * @return View|\Closure|string
      */
-    public function render()
+    public function render(): View|\Closure|string
     {
         return view('components.subdivision-select');
     }

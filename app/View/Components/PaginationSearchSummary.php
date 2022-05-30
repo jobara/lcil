@@ -42,6 +42,9 @@ class PaginationSearchSummary extends Component
      */
     public function __construct($paginator, $country = 'all', $subdivision = null, $keywords = null)
     {
+        /**
+         * @var array<string>
+         */
         $search = [get_jurisdiction_name(isset($subdivision) ? "{$country}-{$subdivision}" : $country) ?? __('All countries')];
         if (isset($keywords)) {
             $search[] = "keywords: {$keywords}";

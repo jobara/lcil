@@ -25,11 +25,21 @@ class MeasureIndicator extends Model
         'description',
     ];
 
+    /**
+     * Get the Measure Dimension that this Measure Indicator belongs to.
+     *
+     * @return BelongsTo
+     */
     public function dimension(): BelongsTo
     {
         return $this->belongsTo(MeasureDimension::class, 'measure_dimension_id');
     }
 
+    /**
+     *  Get the Measures that belong to this Measure Indicator
+     *
+     * @return HasMany
+     */
     public function measures(): HasMany
     {
         return $this->hasMany(Measure::class, 'measure_indicator_id');

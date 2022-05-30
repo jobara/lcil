@@ -58,6 +58,5 @@ class DestroyUserRequest extends FormRequest
                 }
             }
         })->validateWithBag('destroyAccount');
-
     }
 }

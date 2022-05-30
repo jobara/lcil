@@ -15,7 +15,7 @@ class MeasureFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'measure_indicator_id' => MeasureIndicator::factory(),

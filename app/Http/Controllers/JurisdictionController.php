@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
+
 class JurisdictionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Displays the set of available countries in JSON
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        return get_countries();
+        return response()->json(get_countries());
     }
 
     /**
-     * Display the specified resource.
+     * Display the set of available subdivisions for the specified country in JSON
      *
      * @param  string  $country
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function show($country)
+    public function show(string $country): JsonResponse
     {
-        return get_subdivisions($country);
+        return response()->json(get_subdivisions($country));
     }
 }

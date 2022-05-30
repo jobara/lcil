@@ -18,7 +18,6 @@ class LawPolicySourcesViewTest extends TestCase
     use WithFaker;
 
     /**
-     *
      * @return void
      */
     public function test_show_route()
@@ -38,7 +37,6 @@ class LawPolicySourcesViewTest extends TestCase
     }
 
     /**
-     *
      * @return void
      */
     public function test_a_view_with_all_fields_render()
@@ -49,7 +47,7 @@ class LawPolicySourcesViewTest extends TestCase
                 'type' => $this->faker->randomElement(LawPolicyTypeEnum::values()),
                 'is_core' => $this->faker->boolean(),
                 'reference' => $this->faker->unique()->url(),
-                'jurisdiction' => "CA-ON",
+                'jurisdiction' => 'CA-ON',
                 'municipality' => ucfirst($this->faker->word()),
             ]);
 
@@ -93,7 +91,7 @@ class LawPolicySourcesViewTest extends TestCase
         ];
 
         $urls = [
-            "href=\"{$lawPolicySource->reference}\""
+            "href=\"{$lawPolicySource->reference}\"",
         ];
 
         foreach ($lawPolicySource->provisions as $provision) {
@@ -105,10 +103,10 @@ class LawPolicySourcesViewTest extends TestCase
             $strings[] = "Recognizes {$provision->decision_making_capability->value} decision making capability";
             $strings[] = 'Legal Information';
             if ($provision->is_subject_to_challenge) {
-                $strings[] = "This provision is, or has been, subject to a constitutional or other court challenge.";
+                $strings[] = 'This provision is, or has been, subject to a constitutional or other court challenge.';
             }
             if ($provision->is_result_of_challenge) {
-                $strings[] = "This provision is the result of a court challenge.";
+                $strings[] = 'This provision is the result of a court challenge.';
             }
             $decision_types = implode(', ', $provision->decision_type);
             $strings[] = "Type of Decision: {$decision_types}";
@@ -123,7 +121,6 @@ class LawPolicySourcesViewTest extends TestCase
     }
 
     /**
-     *
      * @return void
      */
     public function test_a_view_with_minimum_fields_render()
@@ -134,15 +131,15 @@ class LawPolicySourcesViewTest extends TestCase
                 'type' => null,
                 'is_core' => null,
                 'reference' => null,
-                'jurisdiction' => "CA-ON",
-                'municipality' => null
+                'jurisdiction' => 'CA-ON',
+                'municipality' => null,
             ]);
 
         $removed_strings = [
             'Reference',
             'Type',
             'Effect on Legal Capacity',
-            'Provisions'
+            'Provisions',
         ];
 
         $strings = [
@@ -150,7 +147,7 @@ class LawPolicySourcesViewTest extends TestCase
             'Jurisdiction',
             'Ontario, Canada',
             'Year in Effect',
-            $lawPolicySource->year_in_effect
+            $lawPolicySource->year_in_effect,
         ];
 
         $view = $this->view('law-policy-sources.show', ['lawPolicySource' => $lawPolicySource]);
@@ -161,7 +158,6 @@ class LawPolicySourcesViewTest extends TestCase
     }
 
     /**
-     *
      * @return void
      */
     public function test_a_view_with_minimum_provision_fields_render()
@@ -172,8 +168,8 @@ class LawPolicySourcesViewTest extends TestCase
                 'type' => null,
                 'is_core' => null,
                 'reference' => null,
-                'jurisdiction' => "CA-ON",
-                'municipality' => null
+                'jurisdiction' => 'CA-ON',
+                'municipality' => null,
             ]);
 
         Provision::factory(3)
@@ -193,7 +189,7 @@ class LawPolicySourcesViewTest extends TestCase
             'Type',
             'Effect on Legal Capacity',
             'Other Information',
-            'Legal Information'
+            'Legal Information',
         ];
 
         $strings = [
@@ -202,7 +198,7 @@ class LawPolicySourcesViewTest extends TestCase
             'Ontario, Canada',
             'Year in Effect',
             $lawPolicySource->year_in_effect,
-            'Provisions'
+            'Provisions',
         ];
 
         foreach ($lawPolicySource->provisions as $provision) {

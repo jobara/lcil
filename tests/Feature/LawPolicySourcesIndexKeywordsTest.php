@@ -3,10 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\LawPolicySource;
-use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
@@ -21,7 +19,6 @@ class LawPolicySourcesIndexKeywordsTest extends TestCase
     use DatabaseMigrations;
 
     /**
-     *
      * @return void
      */
     public function test_index_route_with_keywords_parameter()
@@ -30,7 +27,7 @@ class LawPolicySourcesIndexKeywordsTest extends TestCase
         LawPolicySource::factory()
             ->create([
                 'name' => 'Test Law and Policy Source',
-                'jurisdiction' => 'CA'
+                'jurisdiction' => 'CA',
             ]);
         LawPolicySource::factory()
             ->create([
@@ -55,7 +52,6 @@ class LawPolicySourcesIndexKeywordsTest extends TestCase
     }
 
     /**
-     *
      * @return void
      */
     public function test_index_route_with_keywords_parameter_no_matches()
@@ -64,7 +60,7 @@ class LawPolicySourcesIndexKeywordsTest extends TestCase
         LawPolicySource::factory()
             ->create([
                 'name' => 'Test Law and Policy Source',
-                'jurisdiction' => 'CA'
+                'jurisdiction' => 'CA',
             ]);
 
         $response = $this->get(localized_route('law-policy-sources.index', ['country' =>'all', 'keywords' => 'None']));
@@ -76,7 +72,6 @@ class LawPolicySourcesIndexKeywordsTest extends TestCase
     }
 
     /**
-     *
      * @return void
      */
     public function test_index_route_with_keywords_parameter_no_country_matches()
@@ -85,7 +80,7 @@ class LawPolicySourcesIndexKeywordsTest extends TestCase
         LawPolicySource::factory()
             ->create([
                 'name' => 'Test Law and Policy Source',
-                'jurisdiction' => 'CA'
+                'jurisdiction' => 'CA',
             ]);
 
         $response = $this->get(localized_route('law-policy-sources.index', ['country' =>'US', 'keywords' => 'Test']));
@@ -97,7 +92,6 @@ class LawPolicySourcesIndexKeywordsTest extends TestCase
     }
 
     /**
-     *
      * @return void
      */
     public function test_index_route_with_keywords_but_no_country_parameter()
@@ -105,7 +99,7 @@ class LawPolicySourcesIndexKeywordsTest extends TestCase
         // create a Law and Policy Source to use for the test
         LawPolicySource::factory()
             ->create([
-                'name' => "Test Law and Policy Source",
+                'name' => 'Test Law and Policy Source',
             ]);
 
         $response = $this->get(localized_route('law-policy-sources.index', ['keywords' => 'test source']));

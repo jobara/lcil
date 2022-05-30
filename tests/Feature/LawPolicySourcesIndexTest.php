@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\LawPolicySource;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Log;
 use Tests\TestCase;
 
 class LawPolicySourcesIndexTest extends TestCase
@@ -13,7 +12,6 @@ class LawPolicySourcesIndexTest extends TestCase
     use RefreshDatabase;
 
     /**
-     *
      * @return void
      */
     public function test_index_route_without_parameters()
@@ -26,7 +24,6 @@ class LawPolicySourcesIndexTest extends TestCase
     }
 
     /**
-     *
      * @return void
      */
     public function test_index_route_with_all_country_parameter()
@@ -47,7 +44,6 @@ class LawPolicySourcesIndexTest extends TestCase
     }
 
     /**
-     *
      * @return void
      */
     public function test_index_route_with_country_parameter()
@@ -55,15 +51,15 @@ class LawPolicySourcesIndexTest extends TestCase
         // create Law and Policy Sources to use for the test
         LawPolicySource::factory()
             ->create([
-                'jurisdiction' => "CA-ON",
+                'jurisdiction' => 'CA-ON',
             ]);
         LawPolicySource::factory()
             ->create([
-                'jurisdiction' => "CA",
+                'jurisdiction' => 'CA',
             ]);
         LawPolicySource::factory()
             ->create([
-                'jurisdiction' => "US",
+                'jurisdiction' => 'US',
             ]);
 
         $response = $this->get(localized_route('law-policy-sources.index', ['country' => 'CA']));
@@ -80,7 +76,6 @@ class LawPolicySourcesIndexTest extends TestCase
     }
 
     /**
-     *
      * @return void
      */
     public function test_index_route_with_country_parameter_no_matching_records()
@@ -88,7 +83,7 @@ class LawPolicySourcesIndexTest extends TestCase
         // create a Law and Policy Source to use for the test
         LawPolicySource::factory()
             ->create([
-                'jurisdiction' => "US",
+                'jurisdiction' => 'US',
             ]);
 
         $response = $this->get(localized_route('law-policy-sources.index', ['country' => 'CA']));
@@ -101,7 +96,6 @@ class LawPolicySourcesIndexTest extends TestCase
     }
 
     /**
-     *
      * @return void
      */
     public function test_index_route_with_all_country_and_subdivision_parameter()
@@ -123,7 +117,6 @@ class LawPolicySourcesIndexTest extends TestCase
     }
 
     /**
-     *
      * @return void
      */
     public function test_index_route_with_country_and_subdivision_parameter()
@@ -131,15 +124,15 @@ class LawPolicySourcesIndexTest extends TestCase
         // create Law and Policy Sources to use for the test
         LawPolicySource::factory()
         ->create([
-            'jurisdiction' => "CA-ON",
+            'jurisdiction' => 'CA-ON',
         ]);
         LawPolicySource::factory()
         ->create([
-            'jurisdiction' => "CA",
+            'jurisdiction' => 'CA',
         ]);
         LawPolicySource::factory()
         ->create([
-            'jurisdiction' => "US",
+            'jurisdiction' => 'US',
         ]);
 
         $response = $this->get(localized_route('law-policy-sources.index', ['country' => 'CA', 'subdivision' => 'ON']));
@@ -156,7 +149,6 @@ class LawPolicySourcesIndexTest extends TestCase
     }
 
     /**
-     *
      * @return void
      */
     public function test_index_route_with_country_and_subdivision_parameter_no_matching_records()
@@ -164,7 +156,7 @@ class LawPolicySourcesIndexTest extends TestCase
         // create a Law and Policy Source to use for the test
         LawPolicySource::factory()
             ->create([
-                'jurisdiction' => "CA-ON",
+                'jurisdiction' => 'CA-ON',
             ]);
 
         $response = $this->get(localized_route('law-policy-sources.index', ['country' => 'CA', 'subdivision' => 'BC']));
@@ -177,7 +169,6 @@ class LawPolicySourcesIndexTest extends TestCase
     }
 
     /**
-     *
      * @return void
      */
     public function test_index_route_paged()
@@ -197,7 +188,6 @@ class LawPolicySourcesIndexTest extends TestCase
     }
 
     /**
-     *
      * @return void
      */
     public function test_index_route_without_parameters_render()
@@ -211,7 +201,7 @@ class LawPolicySourcesIndexTest extends TestCase
             'Select a country first',
             'Law or policy name contains keywords:',
             'Search',
-            'Search results will appear here'
+            'Search results will appear here',
         ];
 
         $strings_not_rendered = [
@@ -219,7 +209,7 @@ class LawPolicySourcesIndexTest extends TestCase
             'Create new law or policy source if it does not already exist',
             'Found',
             'Previous',
-            'Next'
+            'Next',
         ];
 
         $view = $this->view('law-policy-sources.index');
@@ -231,14 +221,13 @@ class LawPolicySourcesIndexTest extends TestCase
     }
 
     /**
-     *
      * @return void
      */
     public function test_index_route_with_authenticated_user_render()
     {
         $strings = [
             'Search for sources of law and policy to view or edit',
-            'Create new law or policy source if it does not already exist'
+            'Create new law or policy source if it does not already exist',
         ];
 
         $user = User::factory()->create();
@@ -247,8 +236,8 @@ class LawPolicySourcesIndexTest extends TestCase
 
         $response->assertSeeTextInOrder($strings);
     }
+
     /**
-     *
      * @return void
      */
     public function test_index_route_sort_order()
@@ -257,34 +246,34 @@ class LawPolicySourcesIndexTest extends TestCase
         LawPolicySource::factory()
             ->create([
                 'name' => 'Subdivision First',
-                'jurisdiction' => "CA-ON",
+                'jurisdiction' => 'CA-ON',
             ]);
         LawPolicySource::factory()
             ->create([
                 'name' => 'Subdivision Second',
-                'jurisdiction' => "CA-ON",
+                'jurisdiction' => 'CA-ON',
             ]);
         LawPolicySource::factory()
             ->create([
                 'name' => 'City Second',
-                'jurisdiction' => "CA-ON",
-                'municipality' => "Toronto"
+                'jurisdiction' => 'CA-ON',
+                'municipality' => 'Toronto',
             ]);
         LawPolicySource::factory()
             ->create([
                 'name' => 'City First',
-                'jurisdiction' => "CA-ON",
-                'municipality' => "Markham"
+                'jurisdiction' => 'CA-ON',
+                'municipality' => 'Markham',
             ]);
         LawPolicySource::factory()
             ->create([
                 'name' => 'Country First',
-                'jurisdiction' => "CA",
+                'jurisdiction' => 'CA',
             ]);
         LawPolicySource::factory()
             ->create([
                 'name' => 'Country Second',
-                'jurisdiction' => "US",
+                'jurisdiction' => 'US',
             ]);
 
         $order = ['Country First', 'Subdivision First', 'Subdivision Second', 'City First', 'City Second', 'Country Second'];

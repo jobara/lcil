@@ -7,7 +7,6 @@ use App\Models\MeasureDimension;
 use App\Models\MeasureIndicator;
 use Database\Seeders\ConstantMeasureSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class MeasuresTest extends TestCase
@@ -34,10 +33,10 @@ class MeasuresTest extends TestCase
         $response->assertViewIs('measures.index');
         $response->assertViewHas('lcilMeasures');
 
-        foreach($response['lcilMeasures'] as $dimension) {
+        foreach ($response['lcilMeasures'] as $dimension) {
             $this->assertInstanceOf(MeasureDimension::class, $dimension);
 
-            foreach($dimension->indicators as $indicator) {
+            foreach ($dimension->indicators as $indicator) {
                 $this->assertInstanceOf(MeasureIndicator::class, $indicator);
 
                 foreach ($indicator->measures as $measure) {
@@ -57,13 +56,13 @@ class MeasuresTest extends TestCase
         $lcilMeasures = MeasureDimension::factory(2)
                             ->has(MeasureIndicator::factory(2)->has(Measure::factory(2), 'measures'), 'indicators')
                             ->create();
-        $strings = array();
+        $strings = [];
 
-        foreach($lcilMeasures as $dimension) {
+        foreach ($lcilMeasures as $dimension) {
             $strings[] = $dimension['code'];
             $strings[] = $dimension['description'];
 
-            foreach($dimension->indicators as $indicator) {
+            foreach ($dimension->indicators as $indicator) {
                 $strings[] = $indicator['code'];
                 $strings[] = $indicator['description'];
 

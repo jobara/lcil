@@ -4,8 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\LawPolicySource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\ViewException;
 use Tests\TestCase;
 
@@ -108,7 +106,7 @@ class PaginationSearchSummaryTest extends TestCase
             '<x-pagination-search-summary :paginator="$paginator" :country="$country" />',
             [
                 'paginator' => $paginator,
-                'country' => 'CA'
+                'country' => 'CA',
             ]
         );
 
@@ -131,7 +129,7 @@ class PaginationSearchSummaryTest extends TestCase
             '<x-pagination-search-summary :paginator="$paginator" :country="$country" />',
             [
                 'paginator' => $paginator,
-                'country' => 'MISSING'
+                'country' => 'MISSING',
             ]
         );
 
@@ -155,7 +153,7 @@ class PaginationSearchSummaryTest extends TestCase
             [
                 'paginator' => $paginator,
                 'country' => 'CA',
-                'subdivision' => 'ON'
+                'subdivision' => 'ON',
             ]
         );
 
@@ -179,7 +177,7 @@ class PaginationSearchSummaryTest extends TestCase
             [
                 'paginator' => $paginator,
                 'country' => 'CA',
-                'subdivision' => 'MISSING'
+                'subdivision' => 'MISSING',
             ]
         );
 
@@ -202,7 +200,7 @@ class PaginationSearchSummaryTest extends TestCase
             '<x-pagination-search-summary :paginator="$paginator" :keywords="$keywords" />',
             [
                 'paginator' => $paginator,
-                'keywords' => 'testing foo bar'
+                'keywords' => 'testing foo bar',
             ]
         );
 
@@ -227,7 +225,7 @@ class PaginationSearchSummaryTest extends TestCase
                 'paginator' => $paginator,
                 'country' => 'CA',
                 'subdivision' => 'ON',
-                'keywords' => 'testing foo bar'
+                'keywords' => 'testing foo bar',
             ]
         );
 
@@ -250,7 +248,7 @@ class PaginationSearchSummaryTest extends TestCase
                 'paginator' => $paginator,
                 'country' => 'CA',
                 'subdivision' => 'ON',
-                'keywords' => 'testing foo bar'
+                'keywords' => 'testing foo bar',
             ]
         );
 

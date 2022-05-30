@@ -218,14 +218,19 @@ is provided in the [`phpstan.neon.dist`](./phpstan.neon.dist) file. If you'd lik
 or perhaps modified configuration in CI, a `phpstan.neon` file can be used to supersede the default config file.
 `phpstan.neon` has been added to the [`.gitignore`](./.gitignore) file and is excluded from version control.
 
+Additionally styling fixes can be addressed using [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) by
+running the provided `format` composer script.
+
 To perform the analysis run:
 
 ```bash
 # if using sail
 sail composer lint
+sail composer format
 
 # when running locally
 php composer lint
+php composer format
 ```
 
 Linting of JavaScript, SCSS, MD and other files is handled by [fluid-lint-all](https://www.npmjs.com/package/fluid-lint-all).

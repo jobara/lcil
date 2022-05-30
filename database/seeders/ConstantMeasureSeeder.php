@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Measure;
 use App\Models\MeasureDimension;
 use App\Models\MeasureIndicator;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ConstantMeasureSeeder extends Seeder
@@ -22,7 +21,7 @@ class ConstantMeasureSeeder extends Seeder
             return;
         }
 
-        $json = file_get_contents("database/data/measures.json");
+        $json = file_get_contents('database/data/measures.json');
         $dimensions = json_decode($json, true);
 
         foreach ($dimensions as $dimension) {
@@ -30,7 +29,7 @@ class ConstantMeasureSeeder extends Seeder
             $measureDimension = MeasureDimension::factory()
                 ->create([
                     'code' => $dimension['code'],
-                    'description' => $dimension['description']
+                    'description' => $dimension['description'],
                 ]);
 
             foreach ($dimension['indicators'] as $indicator) {

@@ -20,7 +20,7 @@ class MeasureIndicatorFactory extends Factory
         return [
             'measure_dimension_id' => MeasureDimension::factory(),
             'code' => $this->faker->unique()->numerify('##.##'),
-            'description' => $this->faker->paragraph()
+            'description' => $this->faker->paragraph(),
         ];
     }
 }

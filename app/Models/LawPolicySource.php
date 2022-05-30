@@ -29,7 +29,7 @@ class LawPolicySource extends Model implements Auditable
     ];
 
     protected $casts = [
-        'type' => LawPolicyTypeEnum::class
+        'type' => LawPolicyTypeEnum::class,
     ];
 
     public function provisions(): HasMany
@@ -39,9 +39,7 @@ class LawPolicySource extends Model implements Auditable
 
     public function scopeFilter($query, array $filters)
     {
-        $query->when($filters['jurisdiction'] ?? false, fn ($query, $jurisdiction) =>
-            $query->where(fn($query) =>
-                $query->where('jurisdiction', $jurisdiction)
+        $query->when($filters['jurisdiction'] ?? false, fn ($query, $jurisdiction) => $query->where(fn ($query) => $query->where('jurisdiction', $jurisdiction)
                       ->orWhere('jurisdiction', 'like', "{$jurisdiction}-%")
             )
         );

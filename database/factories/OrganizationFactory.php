@@ -26,7 +26,7 @@ class OrganizationFactory extends Factory
         return [
             'name' => $this->faker->company(),
             'locality' => $this->faker->city(),
-            'region' => array_keys($regions)[$this->faker->numberBetween(1, 13)]
+            'region' => array_keys($regions)[$this->faker->numberBetween(1, 13)],
         ];
     }
 }

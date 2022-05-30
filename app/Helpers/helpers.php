@@ -3,7 +3,7 @@
 use CommerceGuys\Addressing\Country\CountryRepository;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
 
-if (!function_exists('get_jurisdiction_name')) {
+if (! function_exists('get_jurisdiction_name')) {
     function get_jurisdiction_name($code, $municipality = null, $locale = 'en', $separator = ', ')
     {
         $countryRepository = new CountryRepository();
@@ -33,15 +33,16 @@ if (!function_exists('get_jurisdiction_name')) {
     }
 }
 
-if (!function_exists('get_countries')) {
+if (! function_exists('get_countries')) {
     function get_countries($locale = 'en')
     {
         $countryRepository = new CountryRepository();
+
         return $countryRepository->getList($locale);
     }
 }
 
-if (!function_exists('get_subdivisions')) {
+if (! function_exists('get_subdivisions')) {
     function get_subdivisions($code, $locale = 'en')
     {
         $subdivisionRepository = new SubdivisionRepository();

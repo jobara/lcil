@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class SubdivisionSelectTest extends TestCase
@@ -90,7 +88,7 @@ class SubdivisionSelectTest extends TestCase
             '<x-subdivision-select :country="$country" :subdivision="$subdivision"/>',
             [
                 'country' => 'CA',
-                'subdivision' => 'ON'
+                'subdivision' => 'ON',
             ]
         );
 

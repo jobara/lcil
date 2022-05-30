@@ -24,14 +24,14 @@ class PaginationSearchSummary extends Component
     /**
      * Start index for items on current page
      *
-     * @var integer
+     * @var int
      */
     public $start;
 
     /**
      * End index for items on current page
      *
-     * @var integer
+     * @var int
      */
     public $end;
 

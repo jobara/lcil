@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\LawPolicySource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class PaginationLinksTest extends TestCase
@@ -115,6 +114,6 @@ class PaginationLinksTest extends TestCase
         LawPolicySource::factory(15)->create();
         $paginator = LawPolicySource::paginate(5);
 
-        $this->assertEquals("components.pagination-links", $paginator->links()->name());
+        $this->assertEquals('components.pagination-links', $paginator->links()->name());
     }
 }

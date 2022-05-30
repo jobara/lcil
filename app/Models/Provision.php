@@ -34,7 +34,7 @@ class Provision extends Model implements Auditable
     protected $casts = [
         'decision_type' => 'json',
         'legal_capacity_approach' => ApproachToLegalCapacityEnum::class,
-        'decision_making_capability' => DecisionMakingCapabilityEnum::class
+        'decision_making_capability' => DecisionMakingCapabilityEnum::class,
     ];
 
     public function lawPolicySource(): BelongsTo

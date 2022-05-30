@@ -19,7 +19,7 @@ class Measure extends Model
         'code',
         'description',
         'title',
-        'type'
+        'type',
     ];
 
     public function indicator(): BelongsTo

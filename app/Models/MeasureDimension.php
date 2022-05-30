@@ -17,7 +17,7 @@ class MeasureDimension extends Model
      */
     protected $fillable = [
         'code',
-        'description'
+        'description',
     ];
 
     public function indicators(): HasMany

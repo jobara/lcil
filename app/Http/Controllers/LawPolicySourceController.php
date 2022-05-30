@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\LawPolicySource;
-use Illuminate\Http\Request;
 
 class LawPolicySourceController extends Controller
 {
@@ -14,7 +13,7 @@ class LawPolicySourceController extends Controller
 
     public function index()
     {
-        if (!request('country')) {
+        if (! request('country')) {
             return view('law-policy-sources.index');
         } else {
             $filters = request('keywords') ? request(['keywords']) : [];
@@ -28,11 +27,9 @@ class LawPolicySourceController extends Controller
                                         ->orderBy('municipality')
                                         ->orderBy('name')
                                         ->paginate(10)
-                                        ->withQueryString()
+                                        ->withQueryString(),
             ]);
         }
-
-
     }
 
     public function show(LawPolicySource $lawPolicySource)

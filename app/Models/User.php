@@ -98,7 +98,6 @@ class User extends Authenticatable implements HasLocalePreference, MustVerifyEma
      * Get the user's memberships.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     *
      */
     public function memberships(): HasMany
     {
@@ -109,7 +108,6 @@ class User extends Authenticatable implements HasLocalePreference, MustVerifyEma
      * Get the consulting organizations that belong to this user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
-     *
      */
     public function organizations(): MorphToMany
     {

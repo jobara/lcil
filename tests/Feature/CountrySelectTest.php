@@ -2,8 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class CountrySelectTest extends TestCase
@@ -89,6 +87,7 @@ class CountrySelectTest extends TestCase
         $view->assertDontSee('<option value="all" selected>All countries</option>', false);
         $view->assertSee('<option value="CA" selected>Canada</option>', false);
     }
+
     /**
      * Invalid country option provided
      *

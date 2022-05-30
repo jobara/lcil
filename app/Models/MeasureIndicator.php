@@ -22,7 +22,7 @@ class MeasureIndicator extends Model
      */
     protected $fillable = [
         'code',
-        'description'
+        'description',
     ];
 
     public function dimension(): BelongsTo

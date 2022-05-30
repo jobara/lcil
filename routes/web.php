@@ -4,7 +4,6 @@ use App\Http\Controllers\JurisdictionController;
 use App\Http\Controllers\LawPolicySourceController;
 use App\Http\Controllers\MeasureController;
 use App\Http\Controllers\UserController;
-use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
 use Illuminate\Support\Facades\Route;
 
 /*

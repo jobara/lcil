@@ -18,7 +18,7 @@ class MeasureDimensionFactory extends Factory
     {
         return [
             'code' => $this->faker->unique()->numerify('##.0'),
-            'description' => $this->faker->paragraph()
+            'description' => $this->faker->paragraph(),
         ];
     }
 }

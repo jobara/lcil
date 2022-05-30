@@ -17,6 +17,7 @@
     "require-dev": {
         "amirami/localizator": "^0.9.1@alpha",
         "fakerphp/faker": "^1.9.1",
+        "friendsofphp/php-cs-fixer": "^3.8",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
@@ -53,6 +54,7 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
+        "format": "vendor/bin/php-cs-fixer fix --config=.php_cs.dist.php --allow-risky=yes",
         "lint": [
             "./vendor/bin/phpstan analyse"
         ]

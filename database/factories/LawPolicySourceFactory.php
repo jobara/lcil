@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Enums\LawPolicyTypeEnum;
-use CommerceGuys\Addressing\Country\CountryRepository;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -32,7 +31,7 @@ class LawPolicySourceFactory extends Factory
             'jurisdiction' => $jurisdiction,
             'municipality' => $province && $this->faker->boolean(20) ? $this->faker->word() : null,
             'year_in_effect' => $this->faker->numberBetween(1800, 2030),
-            'slug' => $this->faker->unique->slug()
+            'slug' => $this->faker->unique->slug(),
         ];
     }
 }

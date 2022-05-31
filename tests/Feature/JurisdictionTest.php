@@ -1,47 +1,22 @@
 <?php
 
-namespace Tests\Feature;
+test('index route', function () {
+    $response = $this->getJson('/jurisdictions');
 
-use Tests\TestCase;
+    $response->assertStatus(200);
+    $response->assertExactJson(get_countries());
+});
 
-class JurisdictionTest extends TestCase
-{
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_index_route()
-    {
-        $response = $this->get('/jurisdictions');
+test('show route', function () {
+    $response = $this->getJson('/jurisdictions/CA');
 
-        $response->assertStatus(200);
-        $response->assertExactJson(get_countries());
-    }
+    $response->assertStatus(200);
+    $response->assertExactJson(get_subdivisions('CA'));
+});
 
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_show_route()
-    {
-        $response = $this->get('/jurisdictions/CA');
+test('show route with invalid country', function () {
+    $response = $this->getJson('/jurisdictions/missing');
 
-        $response->assertStatus(200);
-        $response->assertExactJson(get_subdivisions('CA'));
-    }
-
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_show_route_with_invalid_country()
-    {
-        $response = $this->get('/jurisdictions/missing');
-
-        $response->assertStatus(200);
-        $response->assertExactJson([]);
-    }
-}
+    $response->assertStatus(200);
+    $response->assertExactJson([]);
+});

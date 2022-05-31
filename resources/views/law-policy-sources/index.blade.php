@@ -37,7 +37,7 @@
 
     <section>
         @isset($lawPolicySources)
-            <x-pagination-search-summary
+            <x-paged-search-summary
                 :paginator="$lawPolicySources"
                 :country="old('country', request('country', 'all'))"
                 :subdivision="old('subdivision', request('subdivision', ''))"

@@ -1,240 +1,119 @@
 <?php
 
-namespace Tests\Unit;
+// get_jurisdiction_name() tests
 
 use CommerceGuys\Addressing\Country\CountryRepository;
 use CommerceGuys\Addressing\Subdivision\SubdivisionRepository;
-use PHPUnit\Framework\TestCase;
 
-class HelpersTest extends TestCase
-{
-    /**
-     * Ensure a Country name can be retrieved
-     *
-     * @return void
-     */
-    public function test_get_country_name()
-    {
-        $jurisdiction = get_jurisdiction_name('CA');
+test('get_jurisdiction_name: country name', function () {
+    $jurisdiction = get_jurisdiction_name('CA');
+    expect($jurisdiction)->toBe('Canada');
+})->group('get_jurisdiction_name');
 
-        $this->assertEquals('Canada', $jurisdiction);
-    }
+test('get_jurisdiction_name: country does not exist', function () {
+    $jurisdiction = get_jurisdiction_name('invalid');
+    expect($jurisdiction)->toBeNull();
+})->group('get_jurisdiction_name');
 
-    /**
-     * Ensure null is returned if the country code doesn't exist
-     *
-     * @return void
-     */
-    public function test_get_country_name_does_not_exist()
-    {
-        $jurisdiction = get_jurisdiction_name('invalid');
+test('get_jurisdiction_name: country does not exist - with subdivision code', function () {
+    $jurisdiction = get_jurisdiction_name('XX-ON');
+    expect($jurisdiction)->toBeNull();
+})->group('get_jurisdiction_name');
 
-        $this->assertNull($jurisdiction);
-    }
+test('get_jurisdiction_name: country name in requested locale', function () {
+    $jurisdiction = get_jurisdiction_name('US', locale: 'fr-CA');
+    expect($jurisdiction)->toBe('États-Unis');
+})->group('get_jurisdiction_name');
 
-    /**
-     * Ensure the country name is returned in the requested locale
-     *
-     * @return void
-     */
-    public function test_get_country_with_locale()
-    {
-        $jurisdiction = get_jurisdiction_name('US', locale: 'fr-CA');
+test('get_jurisdiction_name: ignore municipality if no subdivision', function () {
+    $jurisdiction = get_jurisdiction_name('CA', 'Toronto');
+    expect($jurisdiction)->toBe('Canada');
+})->group('get_jurisdiction_name');
 
-        $this->assertEquals('États-Unis', $jurisdiction);
-    }
+test('get_jurisdiction_name: subdivision name', function () {
+    $jurisdiction = get_jurisdiction_name('CA-ON');
+    expect($jurisdiction)->toBe('Ontario, Canada');
+})->group('get_jurisdiction_name');
 
-    /**
-     * Ignore municipality if no subdivision
-     *
-     * @return void
-     */
-    public function test_get_country_ignore_municipality()
-    {
-        $jurisdiction = get_jurisdiction_name('CA', 'Toronto');
+test('get_jurisdiction_name: subdivision name in requested locale', function () {
+    $jurisdiction = get_jurisdiction_name('BR-AP', locale: 'pt-BR');
+    expect($jurisdiction)->toBe('Amapá, Brasil');
+})->group('get_jurisdiction_name');
 
-        $this->assertEquals('Canada', $jurisdiction);
-    }
+test('get_jurisdiction_name: ignore missing/invalid subdivision name', function () {
+    $jurisdiction = get_jurisdiction_name('CA-XX');
+    expect($jurisdiction)->toBe('Canada');
+})->group('get_jurisdiction_name');
 
-    /**
-     * Ensure subdivision can be retrieved
-     *
-     * @return void
-     */
-    public function test_get_subdivision_name()
-    {
-        $jurisdiction = get_jurisdiction_name('CA-ON');
+test('get_jurisdiction_name: municipality name', function () {
+    $jurisdiction = get_jurisdiction_name('CA-ON', 'Toronto');
+    expect($jurisdiction)->toBe('Toronto, Ontario, Canada');
+})->group('get_jurisdiction_name');
 
-        $this->assertEquals('Ontario, Canada', $jurisdiction);
-    }
+test('get_jurisdiction_name: uppercase municipality name', function () {
+    $jurisdiction = get_jurisdiction_name('CA-ON', 'toronto');
+    expect($jurisdiction)->toBe('Toronto, Ontario, Canada');
+})->group('get_jurisdiction_name');
 
-    /**
-     * Ensure subdivision can be retrieved in the requested locale
-     *
-     * @return void
-     */
-    public function test_get_subdivision_name_with_locale()
-    {
-        $jurisdiction = get_jurisdiction_name('BR-AP', locale: 'pt-BR');
+test('get_jurisdiction_name: ignore municipality if subdivision is missing', function () {
+    $jurisdiction = get_jurisdiction_name('CA', 'Toronto');
+    expect($jurisdiction)->toBe('Canada');
+})->group('get_jurisdiction_name');
 
-        $this->assertEquals('Amapá, Brasil', $jurisdiction);
-    }
+test('get_jurisdiction_name: ignore municipality if subdivision is invalid', function () {
+    $jurisdiction = get_jurisdiction_name('CA-XX', 'Toronto');
+    expect($jurisdiction)->toBe('Canada');
+})->group('get_jurisdiction_name');
 
-    /**
-     * Ignore subdivision if it isn't located
-     *
-     * @return void
-     */
-    public function test_get_subdivision_missing()
-    {
-        $jurisdiction = get_jurisdiction_name('CA-XX');
+test('get_jurisdiction_name: jurisdiction name with custom separator', function () {
+    $jurisdiction = get_jurisdiction_name('CA-ON', 'toronto', separator: '_');
+    expect($jurisdiction)->toBe('Toronto_Ontario_Canada');
+})->group('get_jurisdiction_name');
 
-        $this->assertEquals('Canada', $jurisdiction);
-    }
+test('get_jurisdiction_name: ignore additional code segments', function () {
+    $jurisdiction = get_jurisdiction_name('CA-ON-BC');
+    expect($jurisdiction)->toBe('Ontario, Canada');
+})->group('get_jurisdiction_name');
 
-    /**
-     * Ensure subdivision can be retrieved with municipality
-     *
-     * @return void
-     */
-    public function test_get_subdivision_with_municipality()
-    {
-        $jurisdiction = get_jurisdiction_name('CA-ON', 'Toronto');
+// get_countries() tests
 
-        $this->assertEquals('Toronto, Ontario, Canada', $jurisdiction);
-    }
+test('get_countries: list of available countries', function () {
+    $countryRepository = new CountryRepository();
+    $countries = get_countries();
+    expect($countries)->toBe($countryRepository->getList());
+})->group('get_countries');
 
-    /**
-     * Ensure subdivision can be retrieved with municipality
-     *
-     * @return void
-     */
-    public function test_uppercase_first_char_of_municipality()
-    {
-        $jurisdiction = get_jurisdiction_name('CA-ON', 'toronto');
+test('get_countries: list of available countries in the requested locale', function () {
+    $countryRepository = new CountryRepository();
+    $locale = 'fr-CA';
+    $countries = get_countries($locale);
+    expect($countries)->toBe($countryRepository->getList($locale));
+})->group('get_countries');
 
-        $this->assertEquals('Toronto, Ontario, Canada', $jurisdiction);
-    }
 
-    /**
-     * Ignore municipality of subdivision missing
-     *
-     * @return void
-     */
-    public function test_get_subdivision_missing_with_municipality()
-    {
-        $jurisdiction = get_jurisdiction_name('CA-XX', 'Toronto');
+// get_subdivisions() tests
 
-        $this->assertEquals('Canada', $jurisdiction);
-    }
+test('get_subdivisions: list of available subdivisions', function () {
+    $subdivisionRepository = new SubdivisionRepository();
+    $countryCode = 'CA';
+    $subdivisions = get_subdivisions($countryCode);
+    expect($subdivisions)->toBe($subdivisionRepository->getList([$countryCode]));
+})->group('get_subdivisions');
 
-    /**
-     * Ensure null is returned if the country code doesn't exist
-     *
-     * @return void
-     */
-    public function test_get_subdivision_country_name_does_not_exist()
-    {
-        $jurisdiction = get_jurisdiction_name('XX-ON');
+test('get_subdivisions: list of available subdivisions in the requested locale', function () {
+    $subdivisionRepository = new SubdivisionRepository();
+    $countryCode = 'CA';
+    $locale = 'fr-CA';
+    $subdivisions = get_subdivisions($countryCode, $locale);
+    expect($subdivisions)->toBe($subdivisionRepository->getList([$countryCode], $locale));
+})->group('get_subdivisions');
 
-        $this->assertNull($jurisdiction);
-    }
+test('get_subdivisions: no country found', function () {
+    $subdivisions = get_subdivisions('INVALID');
+    expect($subdivisions)->toBe([]);
+})->group('get_subdivisions');
 
-    /**
-     * Ensure subdivision can be retrieved with municipality
-     *
-     * @return void
-     */
-    public function test_jurisdiction_with_custom_separator()
-    {
-        $jurisdiction = get_jurisdiction_name('CA-ON', 'toronto', separator: '_');
-
-        $this->assertEquals('Toronto_Ontario_Canada', $jurisdiction);
-    }
-
-    /**
-     * Ignore additional codes
-     *
-     * @return void
-     */
-    public function test_jurisdiction_with_extra_code_values()
-    {
-        $jurisdiction = get_jurisdiction_name('CA-ON-BC');
-
-        $this->assertEquals('Ontario, Canada', $jurisdiction);
-    }
-
-    /**
-     * get_countries returns the countries list
-     *
-     * @return void
-     */
-    public function test_get_countries()
-    {
-        $countryRepository = new CountryRepository();
-
-        $this->assertEquals($countryRepository->getList(), get_countries());
-    }
-
-    /**
-     * get_countries returns the countries list in the requested locale
-     *
-     * @return void
-     */
-    public function test_get_countries_with_locale()
-    {
-        $countryRepository = new CountryRepository();
-        $locale = 'fr-CA';
-
-        $this->assertEquals($countryRepository->getList($locale), get_countries($locale));
-    }
-
-    /**
-     * get_subdivisions returns the subdivision list for the requested country
-     *
-     * @return void
-     */
-    public function test_get_subdivisions()
-    {
-        $subdivisionRepository = new SubdivisionRepository();
-        $countryCode = 'CA';
-
-        $this->assertEquals($subdivisionRepository->getList([$countryCode]), get_subdivisions($countryCode));
-    }
-
-    /**
-     * get_subdivisions returns an empty array if no country found
-     *
-     * @return void
-     */
-    public function test_get_subdivisions_with_invalid_country_code()
-    {
-        $countryCode = 'INVALID';
-
-        $this->assertEquals([], get_subdivisions($countryCode));
-    }
-
-    /**
-     * get_subdivisions returns an empty array if no country provided
-     *
-     * @return void
-     */
-    public function test_get_subdivisions_with_missing_country_code()
-    {
-        $this->assertEquals([], get_subdivisions(null));
-    }
-
-    /**
-     * get_subdivisions returns the subdivision list for the requested country in the correct locale
-     *
-     * @return void
-     */
-    public function test_get_subdivisions_with_locale()
-    {
-        $subdivisionRepository = new SubdivisionRepository();
-        $countryCode = 'CA';
-        $locale = 'fr-CA';
-
-        $this->assertEquals($subdivisionRepository->getList([$countryCode], $locale), get_subdivisions($countryCode, $locale));
-    }
-}
+test('get_subdivisions: no country provided', function () {
+    $subdivisions = get_subdivisions();
+    expect($subdivisions)->toBe([]);
+})->group('get_subdivisions');

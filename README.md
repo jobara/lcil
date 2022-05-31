@@ -195,6 +195,22 @@ php artisan test --filter ExampleTest
 php artisan test --filter ExampleTest::test_that_true_is_true
 ```
 
+For PEST tests, use the `--group` flag to only run a group of tests.
+
+```bash
+# if using sail
+sail artisan test --group=groupOne,groupeTwo
+
+# when running locally
+php artisan test --group=groupOne,groupTwo
+```
+
+For PEST tests, use [`->only()`](https://pestphp.com/docs/skipping-tests#running-single-test) to run a single test
+
+```php
+test('test case', function () {})->only();
+```
+
 You can also get a test coverage report by using the `--coverage` flag and can also specify a minimum with the `--min`
 flag. For example:
 

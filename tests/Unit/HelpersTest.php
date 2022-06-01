@@ -90,7 +90,6 @@ test('get_countries: list of available countries in the requested locale', funct
     expect($countries)->toBe($countryRepository->getList($locale));
 })->group('get_countries');
 
-
 // get_subdivisions() tests
 
 test('get_subdivisions: list of available subdivisions', function () {

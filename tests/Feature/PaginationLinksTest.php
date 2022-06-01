@@ -56,7 +56,7 @@ test('render - last page', function () {
     );
 
     $view->assertSeeText("Previous {$perPage} items");
-    $view->assertDontSeeText("Next");
+    $view->assertDontSeeText('Next');
 });
 
 test('render - remaining items less than per page number', function () {

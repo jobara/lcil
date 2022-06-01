@@ -12,6 +12,7 @@
 .php-cs-fixer.cache
 .phpunit.result.cache
 coverage.xml
+docker/provision/mysql/init/02_perms_test_db.sql
 Homestead.json
 Homestead.yaml
 npm-debug.log

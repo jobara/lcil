@@ -39,13 +39,21 @@ The Legal Capacity Inclusion Lens (LCIL) is built using the [Laravel](https://la
 
 ### Setup for developing in a container
 
-Using [Laravel Sail](https://laravel.com/docs/8.x/sail) provides a container with a development environment. For
+Using [Laravel Sail](https://laravel.com/docs/9.x/sail) provides a container with a development environment. For
 example, deploying and configuring the database and serving the application. Sail is already included as a dev
 dependency, but you'll likely want to
-[configure a `sail` bash alias](https://laravel.com/docs/8.x/sail#configuring-a-bash-alias), as is assumed in the
+[configure a `sail` bash alias](https://laravel.com/docs/9.x/sail#configuring-a-bash-alias), as is assumed in the
 examples below. For Windows users, Sail is supported via [WSL2](https://docs.microsoft.com/en-us/windows/wsl/about).
 
-1. Launch with Laravel Sail
+1. If you change `DB_USERNAME`, you'll need to add the file
+   `docker/provision/mysql/init/02_perms_test_db.sql` with the following contents where `{username}` is replaced with
+   the value assigned to `DB_USERNAME`.
+
+   ```sql
+   GRANT ALL ON `lcil_test`.* TO '{username}'@'%';
+   ```
+
+2. Launch with Laravel Sail
 
    ```bash
    # Will be served at the location specified in the .env file
@@ -53,19 +61,25 @@ examples below. For Windows users, Sail is supported via [WSL2](https://docs.mic
    sail up -d
    ```
 
-2. Generate an application key
+3. Generate an application key
 
    ```bash
    sail artisan key:generate
    ```
 
-3. Run the migrations and seed the database
+4. Run the migrations and seed the database
 
    ```bash
    sail artisan migrate:refresh --seed
    ```
 
-4. When you need to stop the application
+5. Run the migrations for the test database
+
+   ```bash
+   sail artisan migrate:fresh --database=mysql-test
+   ```
+
+6. When you need to stop the application
 
    ```bash
    sail down
@@ -89,13 +103,25 @@ file with the appropriate information for accessing it.
    * `DB_USERNAME`
    * `DB_PASSWORD`
 
-3. Run the migrations and seed the database
+3. Ensure that a database called `lcil_test` is also created in your local database. This is used for running the tests.
+   If you prefer to use a different database you'll need to add a .env.testing file with the modified DB_DATABASE name.
+   You'll also need to add DB_DATABASE_TEST with the new database name to your main .env file to setup the database for
+   running the migrations as mentioned below.
+
+4. Run the migrations and seed the database
 
    ```bash
    php artisan migrate:refresh --seed
    ```
 
-4. Serve the application
+5. Run the migrations for the test database
+
+   ```bash
+   php artisan migrate:fresh --database=mysql-test
+   ```
+
+6. Serve the application. If using [Laravel Valet](https://laravel.com/docs/9.x/valet), this step shouldn't be
+   necessary.
 
    ```bash
    php artisan serve
@@ -295,4 +321,4 @@ There are some "constant" database entries that should be populated into the pro
 
 * [Clockwork](https://underground.works/clockwork/): php dev tools in the browser
 * [Sequel Ace](https://github.com/Sequel-Ace/Sequel-Ace): Mac database management application
-* [Laravel Valet](https://laravel.com/docs/8.x/valet): development environment for macOS
+* [Laravel Valet](https://laravel.com/docs/9.x/valet): development environment for macOS

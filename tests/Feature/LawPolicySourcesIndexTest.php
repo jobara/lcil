@@ -289,5 +289,4 @@ test('index route item sort order', function () {
     $itemNames = array_column($response->viewData('lawPolicySources')->items(), 'name');
 
     expect($itemNames)->toBe($order);
-
 })->group('LawPolicySources');

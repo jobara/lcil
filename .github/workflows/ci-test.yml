@@ -28,7 +28,7 @@ jobs:
     - name: Create test database
       run: |
         sudo systemctl start mysql.service
-        mysqladmin create lcil --user="root" --password="root"
+        mysqladmin create lcil_test --user="root" --password="root"
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
@@ -42,7 +42,7 @@ jobs:
         DB_PASSWORD: root
         DB_HOST: localhost
       run: |
-        php artisan migrate
+        php artisan migrate --database=mysql-test
         php artisan storage:link
         vendor/bin/pest --ci --coverage --coverage-clover coverage.xml
     - name: Upload coverage to Codecov

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Enums\LawPolicyTypeEnum;
+use App\Enums\LawPolicyTypes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -35,14 +35,9 @@ class LawPolicySource extends Model implements Auditable
      * @var array<string, string>
      */
     protected $casts = [
-        'type' => LawPolicyTypeEnum::class,
+        'type' => LawPolicyTypes::class,
     ];
 
-    /**
-     * Get the Provisions that belong to this law or policy source.
-     *
-     * @return HasMany
-     */
     public function provisions(): HasMany
     {
         return $this->hasMany(Provision::class);
@@ -52,11 +47,12 @@ class LawPolicySource extends Model implements Auditable
      * Filter Law and Policy sources based on jurisdiction and keywords.
      *
      * @param Builder $query
-     * @param array $filters The filters (jurisdiction, keywords), to apply to the search results.
+     * @param array{jurisdiction: ?string, keywords: ?string} $filters The jurisdiction and keywords to filter the search
+     * results with.
      *
      * @return void
      */
-    public function scopeFilter(Builder $query, array $filters)
+    public function scopeFilter(Builder $query, array $filters): void
     {
         $query->when($filters['jurisdiction'] ?? false, fn ($query, $jurisdiction) => $query->where(fn ($query) => $query->where('jurisdiction', $jurisdiction)
                       ->orWhere('jurisdiction', 'like', "{$jurisdiction}-%")

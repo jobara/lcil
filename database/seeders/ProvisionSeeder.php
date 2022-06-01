@@ -7,12 +7,7 @@ use Illuminate\Database\Seeder;
 
 class ProvisionSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
         Provision::factory(25)->create();
     }

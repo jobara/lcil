@@ -31,10 +31,10 @@ test('index route with keywords parameter', function () {
             'name' => 'An Act',
         ]);
 
-    $response = $this->get(localized_route('law-policy-sources.index', ['country' =>'all', 'keywords' => 'Test Source']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' =>'all', 'keywords' => 'Test Source']));
 
     $response->assertStatus(200);
-    $response->assertViewIs('law-policy-sources.index');
+    $response->assertViewIs('lawPolicySources.index');
     $response->assertViewHas('lawPolicySources');
     // Should find 3 Law and Policy Sources
     $this->assertEquals(3, $response['lawPolicySources']->count(), 'Expected 3 law and policy sources returned');
@@ -48,10 +48,10 @@ test('index route with keywords parameter - no keyword matches', function () {
             'jurisdiction' => 'CA',
         ]);
 
-    $response = $this->get(localized_route('law-policy-sources.index', ['country' =>'all', 'keywords' => 'None']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' =>'all', 'keywords' => 'None']));
 
     $response->assertStatus(200);
-    $response->assertViewIs('law-policy-sources.index');
+    $response->assertViewIs('lawPolicySources.index');
     $response->assertViewHas('lawPolicySources');
     $this->assertEquals(0, $response['lawPolicySources']->count(), 'Expected 0 law and policy sources returned');
 })->group('LawPolicySources');
@@ -64,10 +64,10 @@ test('index route with keywords parameter - no country matches', function () {
             'jurisdiction' => 'CA',
         ]);
 
-    $response = $this->get(localized_route('law-policy-sources.index', ['country' =>'US', 'keywords' => 'Test']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' =>'US', 'keywords' => 'Test']));
 
     $response->assertStatus(200);
-    $response->assertViewIs('law-policy-sources.index');
+    $response->assertViewIs('lawPolicySources.index');
     $response->assertViewHas('lawPolicySources');
     $this->assertEquals(0, $response['lawPolicySources']->count(), 'Expected 0 law and policy sources returned');
 })->group('LawPolicySources');
@@ -79,9 +79,9 @@ test('index route with keywords parameter, without country parameter', function 
             'name' => 'Test Law and Policy Source',
         ]);
 
-    $response = $this->get(localized_route('law-policy-sources.index', ['keywords' => 'test source']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['keywords' => 'test source']));
 
     $response->assertStatus(200);
-    $response->assertViewIs('law-policy-sources.index');
+    $response->assertViewIs('lawPolicySources.index');
     $response->assertViewMissing('lawPolicySources');
 })->group('LawPolicySources');

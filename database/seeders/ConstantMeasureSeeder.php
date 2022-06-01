@@ -9,15 +9,18 @@ use Illuminate\Database\Seeder;
 
 class ConstantMeasureSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
         // Don't seed if the database tables are already populated
-        if (MeasureDimension::count() || MeasureIndicator::count() || Measure::count()) {
+        if (MeasureDimension::count()) {
+            return;
+        }
+
+        if (MeasureIndicator::count()) {
+            return;
+        }
+
+        if (Measure::count()) {
             return;
         }
 
@@ -25,7 +28,6 @@ class ConstantMeasureSeeder extends Seeder
         $dimensions = json_decode($json, true);
 
         foreach ($dimensions as $dimension) {
-            // dd($dimension);
             $measureDimension = MeasureDimension::factory()
                 ->create([
                     'code' => $dimension['code'],

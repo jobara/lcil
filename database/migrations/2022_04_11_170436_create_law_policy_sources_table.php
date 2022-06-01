@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('law_policy_sources', function (Blueprint $table) {
             $table->id();
             $table->string('name')->fulltext();
-            $table->string('type')->nullable(); // LawPolicyTypeEnum
+            $table->string('type')->nullable(); // LawPolicyTypes
             $table->boolean('is_core')->nullable();
             $table->string('reference')->nullable(); // URL
             $table->string('jurisdiction'); // ISO 3166-1 alpha-2 code or ISO 3166-2 code

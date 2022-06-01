@@ -53,10 +53,10 @@ test('render - last page', function () {
 });
 
 test('throws an error if paginator not provided', function () {
-    $view = $this->blade(
+    $this->blade(
         '<x-paged-search-summary />'
     );
-})->throws(ViewException::class, 'Unresolvable dependency resolving [Parameter #0 [ <required> $paginator ]]');
+})->throws(ViewException::class, 'Unresolvable dependency resolving [Parameter #0');
 
 test('render search with country', function () {
     $paginator = LawPolicySource::paginate(10);

@@ -5,7 +5,7 @@ namespace App\View\Components;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\Component;
 
-class PaginationSearchSummary extends Component
+class PagedSearchSummary extends Component
 {
     /**
      * The string of the search parameters used.
@@ -63,6 +63,6 @@ class PaginationSearchSummary extends Component
      */
     public function render()
     {
-        return view('components.pagination-search-summary');
+        return view('components.paged-search-summary');
     }
 }

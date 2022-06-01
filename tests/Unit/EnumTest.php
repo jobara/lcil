@@ -1,56 +1,26 @@
 <?php
 
-namespace Tests\Unit;
-
 use App\Enums\ApproachToLegalCapacityEnum;
 use App\Enums\DecisionMakingCapabilityEnum;
 use App\Enums\LawPolicyTypeEnum;
 use App\Enums\ProvisionDecisionTypeEnum;
-use PHPUnit\Framework\TestCase;
 
-class EnumTest extends TestCase
-{
-    /**
-     * Ensures the ApproachToLegalCapacityEnum contains the Values trait
-     *
-     * @return void
-     */
-    public function test_values_trait_in_ApproachToLegalCapacityEnum()
-    {
-        $expected = array_column(ApproachToLegalCapacityEnum::cases(), 'value');
-        $this->assertEquals($expected, ApproachToLegalCapacityEnum::values());
-    }
+test('Values trait in ApproachToLegalCapacityEnum returns case values', function () {
+    $values = ApproachToLegalCapacityEnum::values();
+    expect($values)->toBe(array_column(ApproachToLegalCapacityEnum::cases(), 'value'));
+});
 
-    /**
-     * Ensures the DecisionMakingCapabilityEnum contains the Values trait
-     *
-     * @return void
-     */
-    public function test_values_trait_in_DecisionMakingCapabilityEnum()
-    {
-        $expected = array_column(DecisionMakingCapabilityEnum::cases(), 'value');
-        $this->assertEquals($expected, DecisionMakingCapabilityEnum::values());
-    }
+test('Values trait in DecisionMakingCapabilityEnum returns case values', function () {
+    $values = DecisionMakingCapabilityEnum::values();
+    expect($values)->toBe(array_column(DecisionMakingCapabilityEnum::cases(), 'value'));
+});
 
-    /**
-     * Ensures the LawPolicyTypeEnum contains the Values trait
-     *
-     * @return void
-     */
-    public function test_values_trait_in_LawPolicyTypeEnum()
-    {
-        $expected = array_column(LawPolicyTypeEnum::cases(), 'value');
-        $this->assertEquals($expected, LawPolicyTypeEnum::values());
-    }
+test('Values trait in LawPolicyTypeEnum returns case values', function () {
+    $values = LawPolicyTypeEnum::values();
+    expect($values)->toBe(array_column(LawPolicyTypeEnum::cases(), 'value'));
+});
 
-    /**
-     * Ensures the ProvisionDecisionTypeEnum contains the Values trait
-     *
-     * @return void
-     */
-    public function test_values_trait_in_ProvisionDecisionTypeEnum()
-    {
-        $expected = array_column(ProvisionDecisionTypeEnum::cases(), 'value');
-        $this->assertEquals($expected, ProvisionDecisionTypeEnum::values());
-    }
-}
+test('Values trait in ProvisionDecisionTypeEnum returns case values', function () {
+    $values = ProvisionDecisionTypeEnum::values();
+    expect($values)->toBe(array_column(ProvisionDecisionTypeEnum::cases(), 'value'));
+});

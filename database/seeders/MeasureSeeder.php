@@ -7,12 +7,7 @@ use Illuminate\Database\Seeder;
 
 class MeasureSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
         Measure::factory(10)->create();
     }

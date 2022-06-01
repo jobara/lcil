@@ -28,11 +28,11 @@ test('render - first page', function () {
         ['paginator' => $paginator]
     );
 
-    $view->assertSee('<li class="disabled" aria-disabled="true"><span>&laquo; Previous</span></li>', false);
-    $view->assertDontSee("<li><a href=\"{$paginator->previousPageUrl()}\" rel=\"prev\">&laquo; Previous</a></li>", false);
+    $view->assertSee('<li class="disabled" aria-disabled="true"><span>&lsaquo; Previous</span></li>', false);
+    $view->assertDontSee("<li><a href=\"{$paginator->previousPageUrl()}\" rel=\"prev\">&lsaquo; Previous</a></li>", false);
 
-    $view->assertSee("<li><a href=\"{$paginator->nextPageUrl()}\" rel=\"next\">Next &raquo;</a></li>", false);
-    $view->assertDontSee('<li class="disabled" aria-disabled="true"><span>Next &raquo;</span></li>', false);
+    $view->assertSee("<li><a href=\"{$paginator->nextPageUrl()}\" rel=\"next\">Next &rsaquo;</a></li>", false);
+    $view->assertDontSee('<li class="disabled" aria-disabled="true"><span>Next &rsaquo;</span></li>', false);
 });
 
 test('render - middle page', function () {
@@ -43,11 +43,11 @@ test('render - middle page', function () {
         ['paginator' => $paginator]
     );
 
-    $view->assertSee("<li><a href=\"{$paginator->previousPageUrl()}\" rel=\"prev\">&laquo; Previous</a></li>", false);
-    $view->assertDontSee('<li class="disabled" aria-disabled="true"><span>&laquo; Previous</span></li>', false);
+    $view->assertSee("<li><a href=\"{$paginator->previousPageUrl()}\" rel=\"prev\">&lsaquo; Previous</a></li>", false);
+    $view->assertDontSee('<li class="disabled" aria-disabled="true"><span>&lsaquo; Previous</span></li>', false);
 
-    $view->assertSee("<li><a href=\"{$paginator->nextPageUrl()}\" rel=\"next\">Next &raquo;</a></li>", false);
-    $view->assertDontSee('<li class="disabled" aria-disabled="true"><span>Next &raquo;</span></li>', false);
+    $view->assertSee("<li><a href=\"{$paginator->nextPageUrl()}\" rel=\"next\">Next &rsaquo;</a></li>", false);
+    $view->assertDontSee('<li class="disabled" aria-disabled="true"><span>Next &rsaquo;</span></li>', false);
 });
 
 test('render - last page', function () {
@@ -58,11 +58,11 @@ test('render - last page', function () {
         ['paginator' => $paginator]
     );
 
-    $view->assertSee("<li><a href=\"{$paginator->previousPageUrl()}\" rel=\"prev\">&laquo; Previous</a></li>", false);
-    $view->assertDontSee('<li class="disabled" aria-disabled="true"><span>&laquo; Previous</span></li>', false);
+    $view->assertSee("<li><a href=\"{$paginator->previousPageUrl()}\" rel=\"prev\">&lsaquo; Previous</a></li>", false);
+    $view->assertDontSee('<li class="disabled" aria-disabled="true"><span>&lsaquo; Previous</span></li>', false);
 
-    $view->assertSee('<li class="disabled" aria-disabled="true"><span>Next &raquo;</span></li>', false);
-    $view->assertDontSee("<li><a href=\"{$paginator->nextPageUrl()}\" rel=\"next\">Next &raquo;</a></li>", false);
+    $view->assertSee('<li class="disabled" aria-disabled="true"><span>Next &rsaquo;</span></li>', false);
+    $view->assertDontSee("<li><a href=\"{$paginator->nextPageUrl()}\" rel=\"next\">Next &rsaquo;</a></li>", false);
 });
 
 test('paginator uses correct view', function () {

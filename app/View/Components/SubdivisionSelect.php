@@ -8,43 +8,38 @@ use Illuminate\View\Component;
 class SubdivisionSelect extends Component
 {
     /**
-     * The country code.
+     * An ISO 3166-1 alpha-2 country code.
      *
      * @var string
      */
-    public $country;
+    public string $country;
 
     /**
      * An ISO 3166-1 alpha-2 or ISO-3166-2 code.
      *
      * @var string
      */
-    public $subdivision;
+    public string $subdivision;
 
     /**
      * The list of available subdivisions
      *
-     * @var array
+     * @var array<string, string>
      */
-    public $subdivisions;
+    public array $subdivisions;
 
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($country = 'all', $subdivision = '')
+    public function __construct(string $country = 'all', string $subdivision = '')
     {
         $this->country = $country;
         $this->subdivisions = $country === 'all' ? [] : get_subdivisions($country);
         $this->subdivision = isset($this->subdivisions[$subdivision]) ? $subdivision : '';
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     *
-     * @return View|\Closure|string
-     */
     public function render(): View|\Closure|string
     {
         return view('components.subdivision-select');

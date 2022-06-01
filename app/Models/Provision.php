@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Enums\ApproachToLegalCapacityEnum;
-use App\Enums\DecisionMakingCapabilityEnum;
+use App\Enums\DecisionMakingCapabilities;
+use App\Enums\LegalCapacityApproaches;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -38,15 +38,10 @@ class Provision extends Model implements Auditable
      */
     protected $casts = [
         'decision_type' => 'json',
-        'legal_capacity_approach' => ApproachToLegalCapacityEnum::class,
-        'decision_making_capability' => DecisionMakingCapabilityEnum::class,
+        'legal_capacity_approach' => LegalCapacityApproaches::class,
+        'decision_making_capability' => DecisionMakingCapabilities::class,
     ];
 
-    /**
-     * Get the Law and Policy Source this Provision belongs to.
-     *
-     * @return BelongsTo
-     */
     public function lawPolicySource(): BelongsTo
     {
         return $this->belongsTo(LawPolicySource::class);

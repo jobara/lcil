@@ -18,9 +18,9 @@ return new class extends Migration {
             $table->string('section');
             $table->text('body');
             $table->string('reference')->nullable(); // URL
-            $table->json('decision_type')->nullable(); // Array of ProvisionDecisionTypeEnum values
-            $table->string('legal_capacity_approach')->nullable(); // ApproachToLegalCapacityEnum
-            $table->string('decision_making_capability')->nullable(); // DecisionMakingCapabilityEnum
+            $table->json('decision_type')->nullable(); // Array of ProvisionDecisionTypes values
+            $table->string('legal_capacity_approach')->nullable(); // LegalCapacityApproaches
+            $table->string('decision_making_capability')->nullable(); // DecisionMakingCapabilities
             $table->boolean('is_subject_to_challenge')->nullable();
             $table->boolean('is_result_of_challenge')->nullable();
             $table->text('decision_citation')->nullable();

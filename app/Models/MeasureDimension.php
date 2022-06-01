@@ -20,11 +20,6 @@ class MeasureDimension extends Model
         'description',
     ];
 
-    /**
-     * Get the Measure Indicators that belong to this Measure Dimension
-     *
-     * @return HasMany
-     */
     public function indicators(): HasMany
     {
         return $this->hasMany(MeasureIndicator::class, 'measure_dimension_id');

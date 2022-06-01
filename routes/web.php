@@ -23,36 +23,36 @@ Route::multilingual('/', function () {
 })->name('welcome');
 
 // Law and Policy Source
-Route::multilingual('/law-policy-sources/{lawPolicySource:slug}', [LawPolicySourceController::class, 'show'])
-    ->name('law-policy-sources.show');
+Route::multilingual('law-policy-sources/{lawPolicySource:slug}', [LawPolicySourceController::class, 'show'])
+    ->name('lawPolicySources.show');
 
-Route::multilingual('/law-policy-sources', [LawPolicySourceController::class, 'index'])
-    ->name('law-policy-sources.index');
+Route::multilingual('law-policy-sources', [LawPolicySourceController::class, 'index'])
+    ->name('lawPolicySources.index');
 
-Route::multilingual('/law-policy-sources/create', [LawPolicySourceController::class, 'create'])
-    ->name('law-policy-sources.create');
+Route::multilingual('law-policy-sources/create', [LawPolicySourceController::class, 'create'])
+    ->name('lawPolicySources.create');
 
 // Measures
-Route::multilingual('/measures', [MeasureController::class, 'index'])->name('measures');
+Route::multilingual('measures', [MeasureController::class, 'index'])->name('measures');
 
 // Jurisdictions
 Route::get('jurisdictions', [JurisdictionController::class, 'index'])->name('jurisdictions.index');
 Route::get('jurisdictions/{country}', [JurisdictionController::class, 'show'])->name('jurisdictions.show');
 
 // Hearth generated routes
-Route::multilingual('/dashboard', function () {
+Route::multilingual('dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified:' . \locale() . '.verification.notice'])->name('dashboard');
 
-Route::multilingual('/account/edit', [UserController::class, 'edit'])
+Route::multilingual('account/edit', [UserController::class, 'edit'])
     ->middleware(['auth'])
     ->name('users.edit');
 
-Route::multilingual('/account/admin', [UserController::class, 'admin'])
+Route::multilingual('account/admin', [UserController::class, 'admin'])
     ->middleware(['auth'])
     ->name('users.admin');
 
-Route::multilingual('/account/delete', [UserController::class, 'destroy'])
+Route::multilingual('account/delete', [UserController::class, 'destroy'])
     ->method('delete')
     ->middleware(['auth'])
     ->name('users.destroy');

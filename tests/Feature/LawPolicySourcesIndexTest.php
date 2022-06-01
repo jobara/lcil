@@ -7,10 +7,10 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 test('index route without parameters', function () {
-    $response = $this->get(localized_route('law-policy-sources.index'));
+    $response = $this->get(localized_route('lawPolicySources.index'));
 
     $response->assertStatus(200);
-    $response->assertViewIs('law-policy-sources.index');
+    $response->assertViewIs('lawPolicySources.index');
     $response->assertViewMissing('lawPolicySources');
 })->group('LawPolicySources');
 
@@ -19,10 +19,10 @@ test('index route with all countries', function () {
     // create Law and Policy Sources to use for the test
     LawPolicySource::factory($count)->create();
 
-    $response = $this->get(localized_route('law-policy-sources.index', ['country' => 'all']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'all']));
 
     $response->assertStatus(200);
-    $response->assertViewIs('law-policy-sources.index');
+    $response->assertViewIs('lawPolicySources.index');
     $response->assertViewHas('lawPolicySources');
 
     expect($response['lawPolicySources'])->toHaveCount($count);
@@ -46,10 +46,10 @@ test('index route with country parameter', function () {
             'jurisdiction' => 'US',
         ]);
 
-    $response = $this->get(localized_route('law-policy-sources.index', ['country' => 'CA']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'CA']));
 
     $response->assertStatus(200);
-    $response->assertViewIs('law-policy-sources.index');
+    $response->assertViewIs('lawPolicySources.index');
     $response->assertViewHas('lawPolicySources');
 
     // only 2 are from the CA country code
@@ -69,10 +69,10 @@ test('index route with country parameter - no matches', function () {
             'jurisdiction' => 'US',
         ]);
 
-    $response = $this->get(localized_route('law-policy-sources.index', ['country' => 'CA']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'CA']));
 
     $response->assertStatus(200);
-    $response->assertViewIs('law-policy-sources.index');
+    $response->assertViewIs('lawPolicySources.index');
     $response->assertViewHas('lawPolicySources');
 
     // none have the CA country code
@@ -84,10 +84,10 @@ test('index route with subdivision parameter for all countries', function () {
     // create Law and Policy Sources to use for the test
     LawPolicySource::factory($count)->create();
 
-    $response = $this->get(localized_route('law-policy-sources.index', ['country' => 'all', 'subdivision' => 'any']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'all', 'subdivision' => 'any']));
 
     $response->assertStatus(200);
-    $response->assertViewIs('law-policy-sources.index');
+    $response->assertViewIs('lawPolicySources.index');
     $response->assertViewHas('lawPolicySources');
 
     expect($response['lawPolicySources'])->toHaveCount($count);
@@ -111,10 +111,10 @@ test('index route with country and subdivision parameters', function () {
             'jurisdiction' => 'US',
         ]);
 
-    $response = $this->get(localized_route('law-policy-sources.index', ['country' => 'CA', 'subdivision' => 'ON']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'CA', 'subdivision' => 'ON']));
 
     $response->assertStatus(200);
-    $response->assertViewIs('law-policy-sources.index');
+    $response->assertViewIs('lawPolicySources.index');
     $response->assertViewHas('lawPolicySources');
 
     // only 1 are from the CA country code and subdivision ON
@@ -139,10 +139,10 @@ test('index route with country and subdivision parameters - no matches', functio
             'jurisdiction' => 'CA',
         ]);
 
-    $response = $this->get(localized_route('law-policy-sources.index', ['country' => 'CA', 'subdivision' => 'BC']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'CA', 'subdivision' => 'BC']));
 
     $response->assertStatus(200);
-    $response->assertViewIs('law-policy-sources.index');
+    $response->assertViewIs('lawPolicySources.index');
     $response->assertViewHas('lawPolicySources');
 
     // none have the CA country code and Subdivision BC
@@ -154,10 +154,10 @@ test('index route paged', function () {
     $count = 20;
     LawPolicySource::factory($count)->create();
 
-    $response = $this->get(localized_route('law-policy-sources.index', ['country' => 'all']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'all']));
 
     $response->assertStatus(200);
-    $response->assertViewIs('law-policy-sources.index');
+    $response->assertViewIs('lawPolicySources.index');
     $response->assertViewHas('lawPolicySources');
 
     expect($response['lawPolicySources'])->toHaveCount(10);
@@ -185,7 +185,7 @@ test('index route rendered - without parameters', function () {
         'Next',
     ];
 
-    $response = $this->get(localized_route('law-policy-sources.index'));
+    $response = $this->get(localized_route('lawPolicySources.index'));
 
     $response->assertSeeTextInOrder($strings);
     foreach ($strings_not_rendered as $notRendered) {
@@ -208,7 +208,7 @@ test('index route rendered - with parameters', function () {
         'Next',
     ];
 
-    $response = $this->get(localized_route('law-policy-sources.index', ['country' => 'all']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'all']));
 
     $response->assertSeeTextInOrder($strings);
     foreach ($strings_not_rendered as $notRendered) {
@@ -228,7 +228,7 @@ test('index route rendered - paged', function () {
         'Search results will appear here',
     ];
 
-    $response = $this->get(localized_route('law-policy-sources.index', ['country' => 'all', 'page' => 2]));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'all', 'page' => 2]));
 
     $response->assertSeeTextInOrder($strings);
     foreach ($strings_not_rendered as $notRendered) {
@@ -244,7 +244,7 @@ test('index route rendered - with authenticated user', function () {
 
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->get(localized_route('law-policy-sources.index'));
+    $response = $this->actingAs($user)->get(localized_route('lawPolicySources.index'));
 
     $response->assertSeeTextInOrder($strings);
 })->group('LawPolicySources');
@@ -285,7 +285,7 @@ test('index route item sort order', function () {
         ]);
 
     $order = ['Country First', 'Subdivision First', 'Subdivision Second', 'City First', 'City Second', 'Country Second'];
-    $response = $this->get(localized_route('law-policy-sources.index', ['country' => 'all']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'all']));
     $itemNames = array_column($response->viewData('lawPolicySources')->items(), 'name');
 
     expect($itemNames)->toBe($order);

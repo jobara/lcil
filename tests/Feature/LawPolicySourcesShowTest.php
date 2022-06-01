@@ -1,9 +1,9 @@
 <?php
 
-use App\Enums\ApproachToLegalCapacityEnum;
-use App\Enums\DecisionMakingCapabilityEnum;
-use App\Enums\LawPolicyTypeEnum;
-use App\Enums\ProvisionDecisionTypeEnum;
+use App\Enums\DecisionMakingCapabilities;
+use App\Enums\LawPolicyTypes;
+use App\Enums\LegalCapacityApproaches;
+use App\Enums\ProvisionDecisionTypes;
 use App\Models\LawPolicySource;
 use App\Models\Provision;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -17,10 +17,10 @@ test('show route display', function () {
         ->has(Provision::factory()->count(3))
         ->create();
 
-    $response = $this->get(localized_route('law-policy-sources.show', $lawPolicySource));
+    $response = $this->get(localized_route('lawPolicySources.show', $lawPolicySource));
 
     $response->assertStatus(200);
-    $response->assertViewIs('law-policy-sources.show');
+    $response->assertViewIs('lawPolicySources.show');
     $response->assertViewHas('lawPolicySource');
 
     expect($response['lawPolicySource'])->toBeInstanceOf(LawPolicySource::class);
@@ -30,18 +30,18 @@ test('show route render - all fields', function () {
     // create a Law and Policy Source to use for the test
     $lawPolicySource = LawPolicySource::factory()
         ->create([
-            'type' => $this->faker->randomElement(LawPolicyTypeEnum::values()),
+            'type' => $this->faker->randomElement(LawPolicyTypes::values()),
             'is_core' => $this->faker->boolean(),
             'reference' => $this->faker->unique()->url(),
             'jurisdiction' => 'CA-ON',
             'municipality' => ucfirst($this->faker->word()),
         ]);
 
-    $provisionDecisionTypes = ProvisionDecisionTypeEnum::values();
+    $provisionDecisionTypes = ProvisionDecisionTypes::values();
     $provisionConfig = [
         'decision_type' => $this->faker->randomElements($provisionDecisionTypes, $this->faker->numberBetween(1, count($provisionDecisionTypes))),
-        'legal_capacity_approach' => $this->faker->randomElement(ApproachToLegalCapacityEnum::values()),
-        'decision_making_capability' => $this->faker->randomElement(DecisionMakingCapabilityEnum::values()),
+        'legal_capacity_approach' => $this->faker->randomElement(LegalCapacityApproaches::values()),
+        'decision_making_capability' => $this->faker->randomElement(DecisionMakingCapabilities::values()),
         'reference' => $this->faker->unique()->url(),
         'is_subject_to_challenge' => true,
         'is_result_of_challenge' => false,
@@ -101,7 +101,7 @@ test('show route render - all fields', function () {
         $urls[] = "href=\"{$provision->reference}\"";
     }
 
-    $view = $this->view('law-policy-sources.show', ['lawPolicySource' => $lawPolicySource]);
+    $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
     $view->assertSeeTextInOrder($strings);
     $view->assertSeeInOrder($urls, false);
 })->group('LawPolicySources');
@@ -132,7 +132,7 @@ test('show route render - minimum fields', function () {
         $lawPolicySource->year_in_effect,
     ];
 
-    $view = $this->view('law-policy-sources.show', ['lawPolicySource' => $lawPolicySource]);
+    $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
     $view->assertSeeTextInOrder($strings);
     foreach ($removed_strings as $removed_string) {
         $view->assertDontSeeText($removed_string);
@@ -185,7 +185,7 @@ test('show route render - minimum provision fields', function () {
         $removed_strings[] = "Section / Subsection: {$provision->section} Reference";
     }
 
-    $view = $this->view('law-policy-sources.show', ['lawPolicySource' => $lawPolicySource]);
+    $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
     $view->assertSeeTextInOrder($strings);
     foreach ($removed_strings as $removed_string) {
         $view->assertDontSeeText($removed_string);

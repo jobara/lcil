@@ -9,7 +9,7 @@
             <a href="#" @click.prevent="$focus.within($refs.search).first()">
                 {{ __('Search for sources of law and policy to view or edit') }}
             </a>
-            <a href="{{ localized_route('law-policy-sources.create') }}">{{ __('Create new law or policy source if it does not already exist') }}</a>
+            <a href="{{ localized_route('lawPolicySources.create') }}">{{ __('Create new law or policy source if it does not already exist') }}</a>
         @else
             <p>{{ __('Search for sources of law and policy to view') }}</p>
         @endauth
@@ -47,7 +47,7 @@
                 <ul>
                     @foreach ($lawPolicySources as $lawPolicySource)
                         <li>
-                            <h2><a href="{{ localized_route('law-policy-sources.show', $lawPolicySource->slug) }}">{{ $lawPolicySource->name }}</a></h2>
+                            <h2><a href="{{ localized_route('lawPolicySources.show', $lawPolicySource->slug) }}">{{ $lawPolicySource->name }}</a></h2>
                             <dl>
                                 @php
                                     $jurisdictionName = get_jurisdiction_name($lawPolicySource->jurisdiction, $lawPolicySource->municipality)

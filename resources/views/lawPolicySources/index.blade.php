@@ -3,7 +3,7 @@
         <h1 itemprop="name">{{ __('Law and Policy Sources') }}</h1>
     </x-slot>
 
-    <section x-data="{country: '{{ old('country', request('country', 'all')) }}'}">
+    <div x-data="{country: '{{ old('country', request('country', 'all')) }}'}">
         @auth
             {{-- push focus to the first focusable element in the search form --}}
             <a href="#" @click.prevent="$focus.within($refs.search).first()">
@@ -14,11 +14,11 @@
             <p>{{ __('Search for sources of law and policy to view') }}</p>
         @endauth
 
-        <form method="GET" action="">
+        <form method="GET">
             <ul x-ref="search">
                 <li>
                     <label for="country">{{ __('Country:') }}</label>
-                    <x-country-select :country="old('country', request('country', 'all'))" required/>
+                    <x-country-select :country="old('country', request('country', 'all'))" />
                 </li>
                 <li>
                     <label for="subdivision">{{ __('Province / Territory:') }}</label>
@@ -33,9 +33,9 @@
                 </li>
             </ul>
         </form>
-    </section>
+    </div>
 
-    <section>
+    <div>
         @isset($lawPolicySources)
             <x-paged-search-summary
                 :paginator="$lawPolicySources"
@@ -64,5 +64,5 @@
         @else
             <p role="status">{{ __('Search results will appear here') }}</p>
         @endisset
-    </section>
+    </div>
 </x-app-layout>

@@ -19,7 +19,7 @@ test('render cards', function () {
     );
 
     $toSee = [
-        '<ul>',
+        '<ul role="list">',
         '<li>',
     ];
 

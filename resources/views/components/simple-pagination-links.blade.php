@@ -1,6 +1,6 @@
 @if ($paginator->hasPages())
     <nav aria-label="{{ __('Pagination') }}">
-        <ul class="pagination">
+        <ul role="list" class="pagination">
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
                 <li class="disabled" aria-disabled="true"><span>&lsaquo; {{ __('Previous') }}</span></li>

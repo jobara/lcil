@@ -12,6 +12,7 @@ test('render - all values', function () {
         ->has(Provision::factory()->count(3))
         ->create([
             'jurisdiction' => 'CA-ON',
+            'municipality' => null,
             'name' => 'test-lawPolicySource',
             'type' => LawPolicyTypes::CaseLaw,
         ]);

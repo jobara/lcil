@@ -22,22 +22,32 @@ Route::multilingual('/', function () {
     return view('welcome');
 })->name('welcome');
 
-// Law and Policy Source
-Route::multilingual('law-policy-sources/{lawPolicySource:slug}', [LawPolicySourceController::class, 'show'])
-    ->name('lawPolicySources.show');
+// About Page
+Route::multilingual('about', function () {
+})
+    ->name('about'); // rough-in web route
 
+// Jurisdictions
+Route::get('jurisdictions', [JurisdictionController::class, 'index'])->name('jurisdictions.index');
+Route::get('jurisdictions/{country}', [JurisdictionController::class, 'show'])->name('jurisdictions.show');
+
+// Law and Policy Sources
 Route::multilingual('law-policy-sources', [LawPolicySourceController::class, 'index'])
     ->name('lawPolicySources.index');
 
 Route::multilingual('law-policy-sources/create', [LawPolicySourceController::class, 'create'])
     ->name('lawPolicySources.create');
 
-// Measures
+Route::multilingual('law-policy-sources/{lawPolicySource:slug}', [LawPolicySourceController::class, 'show'])
+    ->name('lawPolicySources.show');
+
+// Measures Page
 Route::multilingual('measures', [MeasureController::class, 'index'])->name('measures');
 
-// Jurisdictions
-Route::get('jurisdictions', [JurisdictionController::class, 'index'])->name('jurisdictions.index');
-Route::get('jurisdictions/{country}', [JurisdictionController::class, 'show'])->name('jurisdictions.show');
+// Regime Assessments
+Route::multilingual('regime-assessments', function () {
+})
+    ->name('regimeAssessments.index'); // rough-in web route
 
 // Hearth generated routes
 Route::multilingual('dashboard', function () {

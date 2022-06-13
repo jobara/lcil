@@ -47,7 +47,7 @@
                 @endisset
                 @if (isset($provision->legal_capacity_approach) or isset($provision->decision_making_capability))
                     <h4>{{ __('Other Information') }}</h4>
-                    <ul>
+                    <ul role="list">
                         @isset($provision->legal_capacity_approach)
                             <li>{{ __(':approach approach to legal capacity', ['approach' => $provision->legal_capacity_approach->value]) }}</li>
                         @endisset
@@ -58,7 +58,7 @@
                 @endif
                 @if ($provision->is_subject_to_challenge or $provision->is_result_of_challenge)
                     <h4>{{ __('Legal Information') }}</h4>
-                    <ul>
+                    <ul role="list">
                         @if($provision->is_subject_to_challenge)
                             <li>{{ __('This provision is, or has been, subject to a constitutional or other court challenge.') }}</li>
                         @else

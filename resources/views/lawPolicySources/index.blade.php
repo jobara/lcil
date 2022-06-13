@@ -15,7 +15,7 @@
         @endauth
 
         <form method="GET">
-            <ul x-ref="search">
+            <ul role="list" x-ref="search">
                 <li>
                     <label for="country">{{ __('Country:') }}</label>
                     <x-country-select :country="old('country', request('country', 'all'))" />
@@ -44,11 +44,11 @@
                 :keywords="old('keywords', request('keywords'))"
             />
             @if (count($lawPolicySources))
-                <ul>
+                <ul role="list">
                     @foreach (group_by_jurisdiction($lawPolicySources->items()) as $countryName => $subdivisionGroups)
                         <li>
                             <h2>{{ $countryName }}</h2>
-                            <ul>
+                            <ul role="list">
                                 @foreach ($subdivisionGroups as $subdivisionName => $groupedLawPolicySources)
                                     <li>
                                         <h3>{{ $subdivisionName ? $subdivisionName : __('Federal') }}</h3>

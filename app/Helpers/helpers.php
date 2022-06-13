@@ -65,7 +65,7 @@ if (! function_exists('get_subdivisions')) {
     /**
      * Returns the list of all available subdivisions for the specified country .
      *
-     * @param null|string $code An ISO 3166-1 alpha-2 code.
+     * @param ?string $code An ISO 3166-1 alpha-2 code.
      * @param string $locale An ISO 639-1 language code.
      *
      * @return array<string, string> The list of all available subdivisions for the specified country.
@@ -80,5 +80,52 @@ if (! function_exists('get_subdivisions')) {
         }
 
         return $subdivisions;
+    }
+}
+
+if (! function_exists('group_by_jurisdiction')) {
+    /**
+     * Splits a list of items containing jurisdiction information to be grouped by their jurisdiction. It will
+     * create an array with nested arrays for country and then subdivision.
+     *
+     * @param array<mixed> $items the set of items to split by jurisdiction
+     *
+     * @return array<string, array> The array of the items split into nested arrays based on their jurisdiction.
+     */
+    function group_by_jurisdiction(array $items = [], string $locale = 'en'): array
+    {
+        $grouped = [];
+
+        foreach ($items as $item) {
+            if (isset($item->jurisdiction)) {
+                $codes = explode('-', $item->jurisdiction);
+
+                $countryName = get_jurisdiction_name($codes[0], locale: $locale);
+
+                if ($countryName) {
+                    $subdivision = isset($codes[1]) ? get_region_name($codes[1], [$codes[0]], $locale) ?? '' : '';
+                    $grouped[$countryName][$subdivision][] = $item;
+                }
+            }
+        }
+
+        return $grouped;
+    }
+}
+
+if (! function_exists('clamp')) {
+    /**
+     * Restricts a number to be within a given range.
+     * API based off of https://wiki.php.net/rfc/clamp
+     *
+     * @param int|float $num The number to restrict to the range
+     * @param int|float $min The lower bound
+     * @param int|float $max The upper bound
+     *
+     * @return int|float the restricted value
+     */
+    function clamp(int|float $num, int|float $min, int|float $max): int|float
+    {
+        return max($min, min($num, $max));
     }
 }

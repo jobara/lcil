@@ -249,6 +249,51 @@ test('index route rendered - with authenticated user', function () {
     $response->assertSeeTextInOrder($strings);
 })->group('LawPolicySources');
 
+test('index route rendered - sources', function () {
+    // create Law and Policy Sources to use for the test
+    LawPolicySource::factory()
+        ->create([
+            'name' => 'Subdivision Policy',
+            'jurisdiction' => 'CA-ON',
+        ]);
+    LawPolicySource::factory()
+        ->create([
+            'name' => 'Country Policy',
+            'jurisdiction' => 'CA',
+        ]);
+    LawPolicySource::factory()
+        ->create([
+            'name' => 'Second Country Policy',
+            'jurisdiction' => 'US',
+        ]);
+    LawPolicySource::factory()
+        ->create([
+            'name' => 'Second Subdivision Policy',
+            'jurisdiction' => 'US-NY',
+        ]);
+
+    $toSee = [
+        '<h2>Canada</h2>',
+        '<h3>Federal</h3>',
+        '<h4>',
+        'Country Policy',
+        '<h3>Ontario</h3>',
+        '<h4>',
+        'Subdivision Policy',
+        '<h2>United States</h2>',
+        '<h3>Federal</h3>',
+        '<h4>',
+        'Second Country Policy',
+        '<h3>New York</h3>',
+        '<h4>',
+        'Second Subdivision Policy',
+    ];
+
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'all']));
+
+    $response->assertSeeInOrder($toSee, false);
+})->group('LawPolicySources');
+
 test('index route item sort order', function () {
     // create Law and Policy Sources to use for the test
     LawPolicySource::factory()

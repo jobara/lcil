@@ -45,24 +45,17 @@
             />
             @if (count($lawPolicySources))
                 <ul>
-                    @foreach ($lawPolicySources as $lawPolicySource)
+                    @foreach (group_by_jurisdiction($lawPolicySources->items()) as $countryName => $subdivisionGroups)
                         <li>
-                            <h2><a href="{{ localized_route('lawPolicySources.show', $lawPolicySource->slug) }}">{{ $lawPolicySource->name }}</a></h2>
-                            <dl>
-                                @php
-                                    $jurisdictionName = get_jurisdiction_name($lawPolicySource->jurisdiction, $lawPolicySource->municipality)
-                                @endphp
-                                <dt>{{ __('Jurisdiction') }}</dt>
-                                <dd>{{ $jurisdictionName }}</dd>
-                                <dt>{{ __('Year in Effect') }}</dt>
-                                <dd>{{ $lawPolicySource->year_in_effect }}</dd>
-                                @isset($lawPolicySource->type)
-                                    <dt>{{ __('Type') }}</dt>
-                                    <dd>{{ $lawPolicySource->type->value }}</dd>
-                                @endisset
-                                <dt>{{ __('Provisions') }}</dt>
-                                <dd>{{ count($lawPolicySource->provisions) }}</dd>
-                            </dl>
+                            <h2>{{ $countryName }}</h2>
+                            <ul>
+                                @foreach ($subdivisionGroups as $subdivisionName => $groupedLawPolicySources)
+                                    <li>
+                                        <h3>{{ $subdivisionName ? $subdivisionName : __('Federal') }}</h3>
+                                        <x-law-policy-source-cards :lawPolicySources="$groupedLawPolicySources" />
+                                    </li>
+                                @endforeach
+                            </ul>
                         </li>
                     @endforeach
                 </ul>

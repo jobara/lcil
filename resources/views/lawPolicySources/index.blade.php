@@ -3,7 +3,7 @@
         <h1 itemprop="name">{{ __('Law and Policy Sources') }}</h1>
     </x-slot>
 
-    <section x-data="{country: '{{ old('country', request('country', 'all')) }}'}">
+    <div x-data="{country: '{{ old('country', request('country', 'all')) }}'}">
         @auth
             {{-- push focus to the first focusable element in the search form --}}
             <a href="#" @click.prevent="$focus.within($refs.search).first()">
@@ -14,11 +14,11 @@
             <p>{{ __('Search for sources of law and policy to view') }}</p>
         @endauth
 
-        <form method="GET" action="">
+        <form method="GET">
             <ul x-ref="search">
                 <li>
                     <label for="country">{{ __('Country:') }}</label>
-                    <x-country-select :country="old('country', request('country', 'all'))" required/>
+                    <x-country-select :country="old('country', request('country', 'all'))" />
                 </li>
                 <li>
                     <label for="subdivision">{{ __('Province / Territory:') }}</label>
@@ -33,9 +33,9 @@
                 </li>
             </ul>
         </form>
-    </section>
+    </div>
 
-    <section>
+    <div>
         @isset($lawPolicySources)
             <x-paged-search-summary
                 :paginator="$lawPolicySources"
@@ -45,24 +45,17 @@
             />
             @if (count($lawPolicySources))
                 <ul>
-                    @foreach ($lawPolicySources as $lawPolicySource)
+                    @foreach (group_by_jurisdiction($lawPolicySources->items()) as $countryName => $subdivisionGroups)
                         <li>
-                            <h2><a href="{{ localized_route('lawPolicySources.show', $lawPolicySource->slug) }}">{{ $lawPolicySource->name }}</a></h2>
-                            <dl>
-                                @php
-                                    $jurisdictionName = get_jurisdiction_name($lawPolicySource->jurisdiction, $lawPolicySource->municipality)
-                                @endphp
-                                <dt>{{ __('Jurisdiction') }}</dt>
-                                <dd>{{ $jurisdictionName }}</dd>
-                                <dt>{{ __('Year in Effect') }}</dt>
-                                <dd>{{ $lawPolicySource->year_in_effect }}</dd>
-                                @isset($lawPolicySource->type)
-                                    <dt>{{ __('Type') }}</dt>
-                                    <dd>{{ $lawPolicySource->type->value }}</dd>
-                                @endisset
-                                <dt>{{ __('Provisions') }}</dt>
-                                <dd>{{ count($lawPolicySource->provisions) }}</dd>
-                            </dl>
+                            <h2>{{ $countryName }}</h2>
+                            <ul>
+                                @foreach ($subdivisionGroups as $subdivisionName => $groupedLawPolicySources)
+                                    <li>
+                                        <h3>{{ $subdivisionName ? $subdivisionName : __('Federal') }}</h3>
+                                        <x-law-policy-source-cards :lawPolicySources="$groupedLawPolicySources" />
+                                    </li>
+                                @endforeach
+                            </ul>
                         </li>
                     @endforeach
                 </ul>
@@ -71,5 +64,5 @@
         @else
             <p role="status">{{ __('Search results will appear here') }}</p>
         @endisset
-    </section>
+    </div>
 </x-app-layout>

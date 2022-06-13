@@ -116,3 +116,96 @@ test('get_subdivisions: no country provided', function () {
     $subdivisions = get_subdivisions();
     expect($subdivisions)->toBe([]);
 })->group('get_subdivisions');
+
+// group_by_jurisdiction() tests
+
+test('group_by_jurisdiction: no arguments', function () {
+    $groupedItems = group_by_jurisdiction();
+    expect($groupedItems)->toBe([]);
+})->group('group_by_jurisdiction');
+
+test('group_by_jurisdiction: group items', function () {
+    $items = [
+        (object) ['jurisdiction' => 'CA'],
+        (object) ['jurisdiction' => 'CA-AB', 'item' => 1],
+        (object) ['jurisdiction' => 'CA-AB', 'item' => 2],
+        (object) ['jurisdiction' => 'CA-ON'],
+        (object) ['jurisdiction' => 'US'],
+        (object) ['jurisdiction' => 'US-NY'],
+    ];
+
+    $expected = [
+        'Canada' => [
+            '' => [
+                $items[0],
+            ],
+            'Alberta' => [
+                $items[1],
+                $items[2],
+            ],
+            'Ontario' => [
+                $items[3],
+            ],
+        ],
+        'United States' => [
+            '' => [
+                $items[4],
+            ],
+            'New York' => [
+                $items[5],
+            ],
+        ],
+    ];
+
+    $groupedItems = group_by_jurisdiction($items);
+    expect($groupedItems)->toMatchArray($expected);
+    // expect($groupedItems)->toBe($expected);
+})->group('group_by_jurisdiction');
+
+test('group_by_jurisdiction: invalid country', function () {
+    $items = [
+        (object) ['jurisdiction' => 'INVALID'],
+        (object) ['jurisdiction' => 'INVALID-AB'],
+        (object) ['jurisdiction' => 'CA-INVALID'],
+    ];
+
+    $expected = [
+        'Canada' => [
+            '' => [
+                $items[2],
+            ],
+        ],
+    ];
+
+    $groupedItems = group_by_jurisdiction($items);
+    expect($groupedItems)->toBe($expected);
+})->group('group_by_jurisdiction');
+
+test('group_by_jurisdiction: with locale', function () {
+    $items = [
+        (object) ['jurisdiction' => 'BR-SP'],
+    ];
+
+    $expected = [
+        'Brasil' => [
+            'São Paulo' => [
+                $items[0],
+            ],
+        ],
+    ];
+
+    $groupedItems = group_by_jurisdiction($items, 'pt-BR');
+    expect($groupedItems)->toBe($expected);
+})->group('group_by_jurisdiction');
+
+test('clamp', function ($num, $min, $max, $expected) {
+    $clamped = clamp($num, $min, $max);
+    expect($clamped)->toBe($expected);
+})->with([
+    'int in range' => [2, 1, 3, 2],
+    'int below range' => [0, 1, 3, 1],
+    'int above range' => [4, 1, 3, 3],
+    'float in range' => [2.5, 0.5, 3.5, 2.5],
+    'float below range' => [0.1, 0.5, 3.5, 0.5],
+    'float above range' => [4.5, 0.5, 3.5, 3.5],
+]);

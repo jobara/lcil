@@ -35,7 +35,7 @@ test('render - first page', function () {
 
 test('render - middle page', function () {
     $perPage = 5;
-    $paginator = LawPolicySource::paginate($perPage, ['*'], 'page', 2);
+    $paginator = LawPolicySource::paginate($perPage, page: 2);
 
     $view = $this->blade(
         '<x-pagination-links :paginator="$paginator" />',
@@ -48,7 +48,7 @@ test('render - middle page', function () {
 
 test('render - last page', function () {
     $perPage = 5;
-    $paginator = LawPolicySource::paginate($perPage, ['*'], 'page', 3);
+    $paginator = LawPolicySource::paginate($perPage, page: 3);
 
     $view = $this->blade(
         '<x-pagination-links :paginator="$paginator" />',
@@ -61,7 +61,7 @@ test('render - last page', function () {
 
 test('render - remaining items less than per page number', function () {
     $perPage = 4;
-    $paginator = LawPolicySource::paginate($perPage, ['*'], 'page', 3);
+    $paginator = LawPolicySource::paginate($perPage, page: 3);
 
     $view = $this->blade(
         '<x-pagination-links :paginator="$paginator" />',

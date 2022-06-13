@@ -26,8 +26,7 @@ test('render - first page', function () {
 
 test('render - middle page', function () {
     // From Illuminate\Database\Eloquent\Builder
-    // parameters: $perPage, $columns, $pageName, $page
-    $paginator = LawPolicySource::paginate(5, ['*'], 'page', 2);
+    $paginator = LawPolicySource::paginate(5, page: 2);
 
     $view = $this->blade(
         '<x-paged-search-summary :paginator="$paginator" />',
@@ -40,7 +39,7 @@ test('render - middle page', function () {
 });
 
 test('render - last page', function () {
-    $paginator = LawPolicySource::paginate(10, ['*'], 'page', 2);
+    $paginator = LawPolicySource::paginate(10, page: 2);
 
     $view = $this->blade(
         '<x-paged-search-summary :paginator="$paginator" />',

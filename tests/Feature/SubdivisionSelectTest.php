@@ -9,9 +9,9 @@ test('default render', function () {
     $view->assertSee('name="subdivision"', false);
     $view->assertSee('x-data="{subdivision: \'\', subdivisions: {}}"', false);
     $view->assertSee('subdivisions = await (async () => {await $nextTick(); return [];})();', false);
-    $view->assertSee('country = \'all\'', false);
+    $view->assertSee('country = \'\'', false);
     $view->assertSee('subdivision = \'\'', false);
-    $view->assertSee('$watch(\'country\', async () => {let response = await axios.get(`/jurisdictions/${country}`); subdivisions = response.data; subdivision = \'\'});', false);
+    $view->assertSee('$watch(\'country\', async () => {let response = country ? await axios.get(`/jurisdictions/${country}`) : {}; subdivisions = response.data ?? []; subdivision = \'\'});', false);
     $view->assertSee('x-model="subdivision"', false);
 });
 
@@ -67,7 +67,7 @@ test('render with subdivision data - without country data', function () {
         ['subdivision' => 'ON']
     );
 
-    $view->assertSee('country = \'all\'', false);
+    $view->assertSee('country = \'\'', false);
     $view->assertSee('subdivision = \'\'', false);
     $view->assertSee('subdivisions = await (async () => {await $nextTick(); return [];})();', false);
 });

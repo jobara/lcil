@@ -3,7 +3,7 @@
         <h1 itemprop="name">{{ __('Law and Policy Sources') }}</h1>
     </x-slot>
 
-    <div x-data="{country: '{{ old('country', request('country', 'all')) }}'}">
+    <div x-data="{country: '{{ old('country', request('country')) }}'}">
         @auth
             {{-- push focus to the first focusable element in the search form --}}
             <a href="#" @click.prevent="$focus.within($refs.search).first()">
@@ -18,11 +18,11 @@
             <ul role="list" x-ref="search">
                 <li>
                     <label for="country">{{ __('Country:') }}</label>
-                    <x-country-select :country="old('country', request('country', 'all'))" />
+                    <x-country-select :country="old('country', request('country'))" :placeholder="__('All countries')" />
                 </li>
                 <li>
                     <label for="subdivision">{{ __('Province / Territory:') }}</label>
-                    <x-subdivision-select :country="old('country', request('country', 'all'))" :subdivision="old('subdivision', request('subdivision', ''))"/>
+                    <x-subdivision-select :country="old('country', request('country'))" :subdivision="old('subdivision', request('subdivision'))"/>
                 </li>
                 <li>
                     <label for="keywords">{{ __('Law or policy name contains keywords:') }}</label>
@@ -39,8 +39,8 @@
         @isset($lawPolicySources)
             <x-paged-search-summary
                 :paginator="$lawPolicySources"
-                :country="old('country', request('country', 'all'))"
-                :subdivision="old('subdivision', request('subdivision', ''))"
+                :country="old('country', request('country'))"
+                :subdivision="old('subdivision', request('subdivision'))"
                 :keywords="old('keywords', request('keywords'))"
             />
             @if (count($lawPolicySources))

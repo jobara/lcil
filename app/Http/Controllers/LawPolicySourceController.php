@@ -19,7 +19,7 @@ class LawPolicySourceController extends Controller
      */
     public function index(): View
     {
-        if (! request('country')) {
+        if (! array_key_exists('country', request(['country']))) {
             return view('lawPolicySources.index');
         }
 
@@ -27,7 +27,7 @@ class LawPolicySourceController extends Controller
             request(['keywords']) :
             [];
 
-        if (request('country') !== 'all') {
+        if (request('country') !== null) {
             $filters['jurisdiction'] = request('subdivision') ?
             request('country') . '-' . request('subdivision') :
             request('country');

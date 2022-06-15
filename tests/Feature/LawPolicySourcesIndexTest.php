@@ -19,7 +19,7 @@ test('index route with all countries', function () {
     // create Law and Policy Sources to use for the test
     LawPolicySource::factory($count)->create();
 
-    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'all']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => '']));
 
     $response->assertStatus(200);
     $response->assertViewIs('lawPolicySources.index');
@@ -84,7 +84,7 @@ test('index route with subdivision parameter for all countries', function () {
     // create Law and Policy Sources to use for the test
     LawPolicySource::factory($count)->create();
 
-    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'all', 'subdivision' => 'any']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => '', 'subdivision' => 'any']));
 
     $response->assertStatus(200);
     $response->assertViewIs('lawPolicySources.index');
@@ -154,7 +154,7 @@ test('index route paged', function () {
     $count = 20;
     LawPolicySource::factory($count)->create();
 
-    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'all']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => '']));
 
     $response->assertStatus(200);
     $response->assertViewIs('lawPolicySources.index');
@@ -208,7 +208,7 @@ test('index route rendered - with parameters', function () {
         'Next',
     ];
 
-    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'all']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => '']));
 
     $response->assertSeeTextInOrder($strings);
     foreach ($strings_not_rendered as $notRendered) {
@@ -228,7 +228,7 @@ test('index route rendered - paged', function () {
         'Search results will appear here',
     ];
 
-    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'all', 'page' => 2]));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => '', 'page' => 2]));
 
     $response->assertSeeTextInOrder($strings);
     foreach ($strings_not_rendered as $notRendered) {
@@ -289,7 +289,7 @@ test('index route rendered - sources', function () {
         'Second Subdivision Policy',
     ];
 
-    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'all']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => '']));
 
     $response->assertSeeInOrder($toSee, false);
 })->group('LawPolicySources');
@@ -330,7 +330,7 @@ test('index route item sort order', function () {
         ]);
 
     $order = ['Country First', 'Subdivision First', 'Subdivision Second', 'City First', 'City Second', 'Country Second'];
-    $response = $this->get(localized_route('lawPolicySources.index', ['country' => 'all']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' => '']));
     $itemNames = array_column($response->viewData('lawPolicySources')->items(), 'name');
 
     expect($itemNames)->toBe($order);

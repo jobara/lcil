@@ -31,7 +31,7 @@ test('index route with keywords parameter', function () {
             'name' => 'An Act',
         ]);
 
-    $response = $this->get(localized_route('lawPolicySources.index', ['country' =>'all', 'keywords' => 'Test Source']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' =>'', 'keywords' => 'Test Source']));
 
     $response->assertStatus(200);
     $response->assertViewIs('lawPolicySources.index');
@@ -48,7 +48,7 @@ test('index route with keywords parameter - no keyword matches', function () {
             'jurisdiction' => 'CA',
         ]);
 
-    $response = $this->get(localized_route('lawPolicySources.index', ['country' =>'all', 'keywords' => 'None']));
+    $response = $this->get(localized_route('lawPolicySources.index', ['country' =>'', 'keywords' => 'None']));
 
     $response->assertStatus(200);
     $response->assertViewIs('lawPolicySources.index');

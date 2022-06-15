@@ -8,7 +8,7 @@ test('default render', function () {
     $view->assertSee('id="country"', false);
     $view->assertSee('name="country"', false);
     $view->assertSee('x-model="country"', false);
-    $view->assertSee('<option value="all" selected>All countries</option>', false);
+    $view->assertSee('<option value="" selected></option>', false);
     $view->assertSee('<option value="CA" >Canada</option>', false);
     $view->assertSee('<option value="US" >United States</option>', false);
 });
@@ -33,13 +33,23 @@ test('render with name data and custom id', function () {
     $view->assertSee('name="test"', false);
 });
 
-test('render with country data - all', function () {
+test('render with placeholder', function () {
     $view = $this->blade(
-        '<x-country-select :country="$country"/>',
-        ['country' => 'all']
+        '<x-country-select :placeholder="$placeholder" />',
+        ['placeholder' => 'Default Option']
     );
 
-    $view->assertSee('<option value="all" selected>All countries</option>', false);
+    $view->assertSee('<option value="" selected>Default Option</option>', false);
+    $view->assertDontSee('<option value="" selected></option>', false);
+});
+
+test('render with country data - empty string', function () {
+    $view = $this->blade(
+        '<x-country-select :country="$country"/>',
+        ['country' => '']
+    );
+
+    $view->assertSee('<option value="" selected></option>', false);
 });
 
 test('render with country data - country code', function () {
@@ -48,7 +58,7 @@ test('render with country data - country code', function () {
         ['country' => 'CA']
     );
 
-    $view->assertDontSee('<option value="all" selected>All countries</option>', false);
+    $view->assertDontSee('<option value="" selected></option>', false);
     $view->assertSee('<option value="CA" selected>Canada</option>', false);
 });
 
@@ -58,5 +68,5 @@ test('render with country data - invalid', function () {
         ['country' => 'INVALID']
     );
 
-    $view->assertSee('<option value="all" selected>All countries</option>', false);
+    $view->assertSee('<option value="" selected></option>', false);
 });

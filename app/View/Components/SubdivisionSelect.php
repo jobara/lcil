@@ -33,10 +33,10 @@ class SubdivisionSelect extends Component
      *
      * @return void
      */
-    public function __construct(string $country = 'all', string $subdivision = '')
+    public function __construct(?string $country = null, ?string $subdivision = '')
     {
-        $this->country = $country;
-        $this->subdivisions = $country === 'all' ? [] : get_subdivisions($country);
+        $this->country = $country ?? '';
+        $this->subdivisions = $country ? get_subdivisions($country) : [];
         $this->subdivision = isset($this->subdivisions[$subdivision]) ? $subdivision : '';
     }
 

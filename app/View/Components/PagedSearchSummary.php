@@ -21,20 +21,26 @@ class PagedSearchSummary extends Component
      *
      * @return void
      */
-    public function __construct(LengthAwarePaginator $paginator, string $country = 'all', ?string $subdivision = null, ?string $keywords = null)
+    public function __construct(LengthAwarePaginator $paginator, ?string $country = null, ?string $subdivision = null, ?string $keywords = null)
     {
         /** @var array<string> */
-        $searchData = [
-            get_jurisdiction_name(isset($subdivision) ?
+        $searchData = [];
+
+        if ($country) {
+            $searchData[] = get_jurisdiction_name(
+                $subdivision ?
                 "{$country}-{$subdivision}" :
-                $country) ?? __('All countries'),
-        ];
+                $country
+            ) ?? __('All countries');
+        } else {
+            $searchData[] = __('All countries');
+        }
 
         if (isset($keywords)) {
             $searchData[] = "keywords: {$keywords}";
         }
 
-        $this->search = implode(', ', $searchData);
+        $this->search = implode(', ', $searchData); /* @phpstan-ignore-line */
         $this->paginator = $paginator;
         $this->start = ($paginator->currentPage() - 1) * $paginator->perPage() + 1;
         $this->end = $this->start + $paginator->count() - 1;

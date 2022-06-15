@@ -171,7 +171,7 @@ test('index route rendered - without parameters', function () {
         'Country:',
         'All countries',
         'Province / Territory:',
-        'Select a country first',
+        'Choose a country first',
         'Law or policy name contains keywords:',
         'Search',
         'Search results will appear here',

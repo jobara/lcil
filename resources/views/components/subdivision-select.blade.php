@@ -18,7 +18,7 @@
             <option value="">{{ __('Not available') }}</option>
         </template>
         <template x-if="!Object.keys(subdivisions).length && !country">
-            <option value="">{{ __('Select a country first') }}</option>
+            <option value="">{{ __('Choose a country first') }}</option>
         </template>
         <template x-for="(subdivisionName, subdivisionCode) in subdivisions">
             <option :value="subdivisionCode" x-text="subdivisionName"></option>

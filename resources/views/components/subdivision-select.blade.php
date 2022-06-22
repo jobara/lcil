@@ -1,7 +1,8 @@
-@props(['name' => 'subdivision'])
 <select
     {{ $attributes->merge(['id' => $name]) }}
     name="{{ $name }}"
+    {!! $describedBy() ? 'aria-describedby="' . $describedBy() . '"' : '' !!}
+    {!! $invalid ? 'aria-invalid="true"' : '' !!}
     x-data="{subdivision: '', subdivisions: {}}"
     x-init="
         subdivisions = await (async () => {await $nextTick(); return {{ Js::from($subdivisions) }};})();

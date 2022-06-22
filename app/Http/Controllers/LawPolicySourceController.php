@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\LawPolicyTypes;
+use App\Http\Requests\StoreLawPolicySourceRequest;
 use App\Models\LawPolicySource;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Validation\Rules\Enum;
 
 class LawPolicySourceController extends Controller
 {
     public function create()
     {
-        // placeholder for create controller
+        return view('lawPolicySources.create');
     }
 
     /**
@@ -48,5 +52,22 @@ class LawPolicySourceController extends Controller
         return view('lawPolicySources.show', [
             'lawPolicySource' => $lawPolicySource,
         ]);
+    }
+
+    public function store(StoreLawPolicySourceRequest $request): RedirectResponse
+    {
+        $validated = $request->validated();
+
+        $jurisdiction = isset($validated['subdivision']) ?
+            "{$validated['country']}-{$validated['subdivision']}" :
+            "{$validated['country']}";
+
+        $data = $request->safe()
+                        ->merge(['jurisdiction' => $jurisdiction])
+                        ->except(['country', 'subdivision']);
+
+        $lawPolicySource = LawPolicySource::create($data);
+
+        return redirect(\localized_route('lawPolicySources.show', $lawPolicySource));
     }
 }

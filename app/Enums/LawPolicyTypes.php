@@ -11,4 +11,5 @@ enum LawPolicyTypes: string
     case Policy = 'policy';
     case QuasiConstitutional = 'quasi-constitutional';
     case Regulation = 'regulation';
+    case Statute = 'statute';
 }

@@ -231,7 +231,9 @@ sail artisan test --group=groupOne,groupeTwo
 php artisan test --group=groupOne,groupTwo
 ```
 
-For PEST tests, use [`->only()`](https://pestphp.com/docs/skipping-tests#running-single-test) to run a single test
+For PEST tests, use [`->only()`](https://pestphp.com/docs/skipping-tests#running-single-test) to run a single test.
+However, not that this applies globally to all tests. If you run a specific test file using `--filter` and `only()` is
+specified in a different file, no tests will be found to run.
 
 ```php
 test('test case', function () {})->only();

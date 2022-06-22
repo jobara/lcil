@@ -13,7 +13,8 @@
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-        "owen-it/laravel-auditing": "^13.0"
+        "owen-it/laravel-auditing": "^13.0",
+        "spatie/laravel-sluggable": "^3.4"
     },
     "require-dev": {
         "amirami/localizator": "^0.9.1@alpha",

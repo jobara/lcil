@@ -47,8 +47,9 @@ class LawPolicySourceFactory extends Factory
             'municipality' => $province && $this->faker->boolean(20) ?
                 $this->faker->word() :
                 null,
-            'year_in_effect' => $this->faker->numberBetween(1800, 2030),
-            'slug' => $this->faker->unique->slug(),
+            'year_in_effect' => $this->faker->boolean(50) ?
+                $this->faker->numberBetween(config('settings.year.min'), config('settings.year.max')) :
+                null,
         ];
     }
 }

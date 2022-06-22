@@ -8,10 +8,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\Sluggable\HasSlug;
+use Spatie\Sluggable\SlugOptions;
 
 class LawPolicySource extends Model implements Auditable
 {
     use HasFactory;
+    use HasSlug;
     use \OwenIt\Auditing\Auditable;
 
     /**
@@ -41,6 +44,18 @@ class LawPolicySource extends Model implements Auditable
     public function provisions(): HasMany
     {
         return $this->hasMany(Provision::class);
+    }
+
+    public function getSlugOptions(): SlugOptions
+    {
+        return SlugOptions::create()
+            ->generateSlugsFrom(['jurisdiction', 'name'])
+            ->saveSlugsTo('slug');
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 
     /**

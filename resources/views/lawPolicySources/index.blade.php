@@ -17,16 +17,16 @@
         <form method="GET">
             <ul role="list" x-ref="search">
                 <li>
-                    <label for="country">{{ __('Country:') }}</label>
-                    <x-country-select :country="old('country', request('country'))" :placeholder="__('All countries')" />
+                    <x-forms.label for="country" :value="__('Country:')" />
+                    <x-country-select :country="old('country', request('country'))" :placeholder="__('All countries')" x-model="country" />
                 </li>
                 <li>
-                    <label for="subdivision">{{ __('Province / Territory:') }}</label>
+                    <x-forms.label for="subdivision" :value="__('Province / Territory:')" />
                     <x-subdivision-select :country="old('country', request('country'))" :subdivision="old('subdivision', request('subdivision'))"/>
                 </li>
                 <li>
-                    <label for="keywords">{{ __('Law or policy name contains keywords:') }}</label>
-                    <input type="text" name="keywords" id="keywords" value="{{ old('keywords', request('keywords')) }}">
+                    <x-forms.label for="keywords" :value="__('Law or policy name contains keywords:')" />
+                    <x-hearth-input type="text" name="keywords" :value="old('keywords', request('keywords'))" />
                 </li>
                 <li>
                     <button type="submit">{{ __('Search') }}</button>

@@ -22,10 +22,10 @@ class CountrySelect extends Component
      *
      * @return void
      */
-    public function __construct(?string $country = '')
+    public function __construct(?string $country = '', ?string $placeholder = '')
     {
-        $this->countries = get_countries();
-        $this->country = isset($this->countries[$country]) ? $country : '';
+        $this->countries = array_merge(['' => $placeholder ?? ''], get_countries());
+        $this->country = isset($this->countries[$country]) ? $country ?? '' : '';
     }
 
     public function render(): View|\Closure|string

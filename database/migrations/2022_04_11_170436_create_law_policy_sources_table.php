@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string('jurisdiction'); // ISO 3166-1 alpha-2 code or ISO 3166-2 code
             $table->string('municipality')->nullable();
             $table->string('slug')->unique();
-            $table->unsignedSmallInteger('year_in_effect'); // the year type only satisfies years from 1901 - 2155
+            $table->unsignedSmallInteger('year_in_effect')->nullable(); // the year type only satisfies years from 1901 - 2155
             $table->timestamps();
         });
     }

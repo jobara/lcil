@@ -20,8 +20,7 @@ test('create route render', function () {
 
     $toSee = [
         '<h1 itemprop="name">Create a Law or Policy Source</h1>',
-        '<form method="POST" action="http://',
-        '/law-policy-sources">',
+        '<form method="POST" action="' . route('lawPolicySources.store') . '">',
         '<label id="name-label" for="name">Law or Policy Name (required)</label>',
         '<input',
         'name="name" id="name" type="text"',
@@ -70,7 +69,7 @@ test('create route render', function () {
         '<input  type="radio" name="is_core" id="is_core-0" value="0"',
         '<label for="is_core-0">',
         'Supplemental - indirectly affects legal capacity',
-        '<a href="http://lcil.test/law-policy-sources">Cancel</a>',
+        '<a href="' . \localized_route('lawPolicySources.index') . '">Cancel</a>',
         '<button type="submit">Submit</button>',
     ];
 

@@ -7,7 +7,7 @@ use Illuminate\View\Component;
 
 class CountrySelect extends Component
 {
-    /** An ISO 3166-1 alpha-2 code or 'all' keyword.*/
+    /** An ISO 3166-1 alpha-2 code.*/
     public string $country;
 
     /**
@@ -22,10 +22,10 @@ class CountrySelect extends Component
      *
      * @return void
      */
-    public function __construct(string $country = 'all')
+    public function __construct(?string $country = '', ?string $placeholder = '')
     {
-        $this->countries = get_countries();
-        $this->country = isset($this->countries[$country]) ? $country : 'all';
+        $this->countries = array_merge(['' => $placeholder ?? ''], get_countries());
+        $this->country = isset($this->countries[$country]) ? $country ?? '' : '';
     }
 
     public function render(): View|\Closure|string

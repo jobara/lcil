@@ -36,10 +36,15 @@ Route::multilingual('law-policy-sources', [LawPolicySourceController::class, 'in
     ->name('lawPolicySources.index');
 
 Route::multilingual('law-policy-sources/create', [LawPolicySourceController::class, 'create'])
-    ->name('lawPolicySources.create');
+    ->name('lawPolicySources.create')
+    ->middleware('auth');
 
-Route::multilingual('law-policy-sources/{lawPolicySource:slug}', [LawPolicySourceController::class, 'show'])
+Route::multilingual('law-policy-sources/{lawPolicySource}', [LawPolicySourceController::class, 'show'])
     ->name('lawPolicySources.show');
+
+Route::post('law-policy-sources', [LawPolicySourceController::class, 'store'])
+    ->name('lawPolicySources.store')
+    ->middleware('auth');
 
 // Measures Page
 Route::multilingual('measures', [MeasureController::class, 'index'])->name('measures');

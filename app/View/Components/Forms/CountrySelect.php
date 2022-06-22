@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Forms;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
@@ -30,6 +30,6 @@ class CountrySelect extends Component
 
     public function render(): View|\Closure|string
     {
-        return view('components.country-select');
+        return view('components.forms.country-select');
     }
 }

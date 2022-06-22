@@ -16,12 +16,12 @@
             </li>
             <li>
                 <x-forms.label for="country" :value="__('Country (required)')" />
-                <x-country-select :country="old('country')" x-model="country" />
+                <x-forms.country-select :country="old('country')" x-model="country" />
                 <x-hearth-error for="country" />
             </li>
             <li>
                 <x-forms.label for="subdivision" :value="__('Province / Territory')" />
-                <x-subdivision-select :country="old('country')" :subdivision="old('subdivision')"/>
+                <x-forms.subdivision-select :country="old('country')" :subdivision="old('subdivision')"/>
                 <x-hearth-error for="subdivision" />
             </li>
             <li>

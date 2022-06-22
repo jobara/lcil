@@ -2,7 +2,7 @@
 
 test('default render', function () {
     $view = $this->withViewErrors([])->blade(
-        '<x-subdivision-select />'
+        '<x-forms.subdivision-select />'
     );
 
     $view->assertSee('id="subdivision"', false);
@@ -17,7 +17,7 @@ test('default render', function () {
 
 test('render with name data', function () {
     $view = $this->withViewErrors([])->blade(
-        '<x-subdivision-select :name="$name"/>',
+        '<x-forms.subdivision-select :name="$name"/>',
         ['name' => 'test']
     );
 
@@ -27,7 +27,7 @@ test('render with name data', function () {
 
 test('render with name data and custom id', function () {
     $view = $this->withViewErrors([])->blade(
-        '<x-subdivision-select :name="$name" id="other"/>',
+        '<x-forms.subdivision-select :name="$name" id="other"/>',
         ['name' => 'test']
     );
 
@@ -37,7 +37,7 @@ test('render with name data and custom id', function () {
 
 test('render with country data', function () {
     $view = $this->withViewErrors([])->blade(
-        '<x-subdivision-select :country="$country"/>',
+        '<x-forms.subdivision-select :country="$country"/>',
         ['country' => 'CA']
     );
 
@@ -51,7 +51,7 @@ test('render with country data', function () {
 
 test('render with subdivision data', function () {
     $view = $this->withViewErrors([])->blade(
-        '<x-subdivision-select :country="$country" :subdivision="$subdivision"/>',
+        '<x-forms.subdivision-select :country="$country" :subdivision="$subdivision"/>',
         [
             'country' => 'CA',
             'subdivision' => 'ON',
@@ -63,7 +63,7 @@ test('render with subdivision data', function () {
 
 test('render with subdivision data - without country data', function () {
     $view = $this->withViewErrors([])->blade(
-        '<x-subdivision-select :subdivision="$subdivision"/>',
+        '<x-forms.subdivision-select :subdivision="$subdivision"/>',
         ['subdivision' => 'ON']
     );
 
@@ -74,8 +74,8 @@ test('render with subdivision data - without country data', function () {
 
 test('render with hint', function ($data, $hint) {
     $tag = isset($data['name']) ?
-        '<x-subdivision-select :name="$name" :hinted="$hinted" />' :
-        '<x-subdivision-select :hinted="$hinted" />';
+        '<x-forms.subdivision-select :name="$name" :hinted="$hinted" />' :
+        '<x-forms.subdivision-select :hinted="$hinted" />';
 
     $view = $this->withViewErrors([])->blade($tag, $data);
 
@@ -89,8 +89,8 @@ test('render with hint', function ($data, $hint) {
 
 test('render with error hint', function ($data, $hint) {
     $tag = isset($data['name']) ?
-        '<x-subdivision-select :name="$name" />' :
-        '<x-subdivision-select />';
+        '<x-forms.subdivision-select :name="$name" />' :
+        '<x-forms.subdivision-select />';
 
     $view = $this->withViewErrors([
         $data['name'] ?? 'subdivision' => 'The subdivision field is required when municipality is present.',

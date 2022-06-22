@@ -2,7 +2,7 @@
 
 test('default render', function () {
     $view = $this->withViewErrors([])->blade(
-        '<x-country-select />'
+        '<x-forms.country-select />'
     );
 
     $view->assertSee('id="country"', false);
@@ -14,7 +14,7 @@ test('default render', function () {
 
 test('render with name data', function () {
     $view = $this->withViewErrors([])->blade(
-        '<x-country-select :name="$name"/>',
+        '<x-forms.country-select :name="$name"/>',
         ['name' => 'test']
     );
 
@@ -24,7 +24,7 @@ test('render with name data', function () {
 
 test('render with name data and custom id', function () {
     $view = $this->withViewErrors([])->blade(
-        '<x-country-select :name="$name" id="other"/>',
+        '<x-forms.country-select :name="$name" id="other"/>',
         ['name' => 'test']
     );
 
@@ -34,7 +34,7 @@ test('render with name data and custom id', function () {
 
 test('render with placeholder', function () {
     $view = $this->withViewErrors([])->blade(
-        '<x-country-select :placeholder="$placeholder" />',
+        '<x-forms.country-select :placeholder="$placeholder" />',
         ['placeholder' => 'Default Option']
     );
 
@@ -44,7 +44,7 @@ test('render with placeholder', function () {
 
 test('render with country data - empty string', function () {
     $view = $this->withViewErrors([])->blade(
-        '<x-country-select :country="$country"/>',
+        '<x-forms.country-select :country="$country"/>',
         ['country' => '']
     );
 
@@ -53,7 +53,7 @@ test('render with country data - empty string', function () {
 
 test('render with country data - country code', function () {
     $view = $this->withViewErrors([])->blade(
-        '<x-country-select :country="$country"/>',
+        '<x-forms.country-select :country="$country"/>',
         ['country' => 'CA']
     );
 
@@ -63,7 +63,7 @@ test('render with country data - country code', function () {
 
 test('render with country data - invalid', function () {
     $view = $this->withViewErrors([])->blade(
-        '<x-country-select :country="$country"/>',
+        '<x-forms.country-select :country="$country"/>',
         ['country' => 'INVALID']
     );
 

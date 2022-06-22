@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components;
+namespace App\View\Components\Forms;
 
 use Hearth\Traits\AriaDescribable;
 use Hearth\Traits\HandlesValidation;
@@ -84,6 +84,6 @@ class SubdivisionSelect extends Component
 
     public function render(): View|\Closure|string
     {
-        return view('components.subdivision-select');
+        return view('components.forms.subdivision-select');
     }
 }

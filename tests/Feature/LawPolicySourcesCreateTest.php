@@ -20,7 +20,8 @@ test('create route render', function () {
 
     $toSee = [
         '<h1 itemprop="name">Create a Law or Policy Source</h1>',
-        '<form method="POST" action="http://lcil.test/law-policy-sources">',
+        '<form method="POST" action="http://',
+        '/law-policy-sources">',
         '<label id="name-label" for="name">Law or Policy Name (required)</label>',
         '<input',
         'name="name" id="name" type="text"',

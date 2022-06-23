@@ -205,6 +205,7 @@ test('parse_country_code', function ($code, $expected) {
     'ISO 3166-1 alpha-2 code' => ['CA', 'CA'],
     'ISO-3166-2 code' => ['CA-ON', 'CA'],
     'extra code segment' => ['CA-ON-extra', 'CA'],
+    'null' => [null, null],
 ]);
 
 test('parse_subdivision_code', function ($code, $expected) {
@@ -214,6 +215,7 @@ test('parse_subdivision_code', function ($code, $expected) {
     'ISO 3166-1 alpha-2 code' => ['CA', null],
     'ISO-3166-2 code' => ['CA-ON', 'ON'],
     'extra code segment' => ['CA-ON-extra', 'ON'],
+    'null' => [null, null],
 ]);
 
 test('clamp', function ($num, $min, $max, $expected) {

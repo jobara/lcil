@@ -115,12 +115,16 @@ if (! function_exists('group_by_jurisdiction')) {
 
 if (! function_exists('parse_country_code')) {
     /**
-     * @param string $code An ISO 3166-1 alpha-2 or ISO-3166-2 code.
+     * @param ?string $code An ISO 3166-1 alpha-2 or ISO-3166-2 code.
      *
-     * @return string The country portion of the ISO 3166-1 alpha-2 or ISO-3166-2 code.
+     * @return ?string The country portion of the ISO 3166-1 alpha-2 or ISO-3166-2 code.
      */
-    function parse_country_code(string $code): string
+    function parse_country_code(?string $code): ?string
     {
+        if (!isset($code)) {
+            return null;
+        }
+
         $codes = explode('-', $code);
 
         return $codes[0];
@@ -133,8 +137,12 @@ if (! function_exists('parse_subdivision_code')) {
      *
      * @return ?string The subdivision portion of the ISO-3166-2 code.
      */
-    function parse_subdivision_code(string $code): ?string
+    function parse_subdivision_code(?string $code): ?string
     {
+        if (!isset($code)) {
+            return null;
+        }
+
         $codes = explode('-', $code);
 
         if (count($codes) <= 1) {

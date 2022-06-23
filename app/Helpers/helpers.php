@@ -113,6 +113,38 @@ if (! function_exists('group_by_jurisdiction')) {
     }
 }
 
+if (! function_exists('parse_country_code')) {
+    /**
+     * @param string $code An ISO 3166-1 alpha-2 or ISO-3166-2 code.
+     *
+     * @return string The country portion of the ISO 3166-1 alpha-2 or ISO-3166-2 code.
+     */
+    function parse_country_code(string $code): string
+    {
+        $codes = explode('-', $code);
+
+        return $codes[0];
+    }
+}
+
+if (! function_exists('parse_subdivision_code')) {
+    /**
+     * @param string $code An ISO-3166-2 code.
+     *
+     * @return ?string The subdivision portion of the ISO-3166-2 code.
+     */
+    function parse_subdivision_code(string $code): ?string
+    {
+        $codes = explode('-', $code);
+
+        if (count($codes) <= 1) {
+            return null;
+        }
+
+        return $codes[1];
+    }
+}
+
 if (! function_exists('clamp')) {
     /**
      * Restricts a number to be within a given range.

@@ -36,6 +36,12 @@
         @endisset
     </dl>
 
+    @auth
+        <a href="{{ \localized_route('lawPolicySources.edit', $lawPolicySource) }}">
+            {{ __('Edit :name', ['name' => $lawPolicySource->name]) }}
+        </a>
+    @endauth
+
     @if(count($lawPolicySource->provisions) > 0)
         <section>
             <h2>{{ __('Provisions') }}</h2>

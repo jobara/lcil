@@ -121,7 +121,7 @@ if (! function_exists('parse_country_code')) {
      */
     function parse_country_code(?string $code): ?string
     {
-        if (!isset($code)) {
+        if (! isset($code)) {
             return null;
         }
 
@@ -139,7 +139,7 @@ if (! function_exists('parse_subdivision_code')) {
      */
     function parse_subdivision_code(?string $code): ?string
     {
-        if (!isset($code)) {
+        if (! isset($code)) {
             return null;
         }
 

@@ -2,18 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\LawPolicyTypes;
 use App\Http\Requests\StoreLawPolicySourceRequest;
 use App\Models\LawPolicySource;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Validation\Rules\Enum;
 
 class LawPolicySourceController extends Controller
 {
-    public function create()
+    public function create(): View
     {
         return view('lawPolicySources.create');
+    }
+
+    public function edit(LawPolicySource $lawPolicySource): View
+    {
+        return view('lawPolicySources.edit', [
+            'lawPolicySource' => $lawPolicySource,
+        ]);
     }
 
     /**
@@ -56,18 +61,34 @@ class LawPolicySourceController extends Controller
 
     public function store(StoreLawPolicySourceRequest $request): RedirectResponse
     {
-        $validated = $request->validated();
-
-        $jurisdiction = isset($validated['subdivision']) ?
-            "{$validated['country']}-{$validated['subdivision']}" :
-            "{$validated['country']}";
-
-        $data = $request->safe()
-                        ->merge(['jurisdiction' => $jurisdiction])
-                        ->except(['country', 'subdivision']);
-
+        $data = $this->assembleData($request);
         $lawPolicySource = LawPolicySource::create($data);
 
         return redirect(\localized_route('lawPolicySources.show', $lawPolicySource));
+    }
+
+    public function update(StoreLawPolicySourceRequest $request, LawPolicySource $lawPolicySource): RedirectResponse
+    {
+        $data = $this->assembleData($request);
+        $lawPolicySource->fill($data);
+
+        if ($lawPolicySource->isDirty()) {
+            $lawPolicySource->save();
+        }
+
+        return redirect(\localized_route('lawPolicySources.show', $lawPolicySource));
+    }
+
+    protected function assembleData(StoreLawPolicySourceRequest $request): array
+    {
+        $validated = $request->validated();
+
+        $jurisdiction = isset($validated['subdivision']) ?
+        "{$validated['country']}-{$validated['subdivision']}" :
+        "{$validated['country']}";
+
+        return $request->safe()
+            ->merge(['jurisdiction' => $jurisdiction])
+            ->except(['country', 'subdivision']);
     }
 }

@@ -18,11 +18,11 @@
             <ul role="list" x-ref="search">
                 <li>
                     <x-forms.label for="country" :value="__('Country:')" />
-                    <x-country-select :country="old('country', request('country'))" :placeholder="__('All countries')" x-model="country" />
+                    <x-forms.country-select :country="old('country', request('country'))" :placeholder="__('All countries')" x-model="country" />
                 </li>
                 <li>
                     <x-forms.label for="subdivision" :value="__('Province / Territory:')" />
-                    <x-subdivision-select :country="old('country', request('country'))" :subdivision="old('subdivision', request('subdivision'))"/>
+                    <x-forms.subdivision-select :country="old('country', request('country'))" :subdivision="old('subdivision', request('subdivision'))"/>
                 </li>
                 <li>
                     <x-forms.label for="keywords" :value="__('Law or policy name contains keywords:')" />

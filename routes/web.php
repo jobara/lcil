@@ -32,6 +32,10 @@ Route::get('jurisdictions', [JurisdictionController::class, 'index'])->name('jur
 Route::get('jurisdictions/{country}', [JurisdictionController::class, 'show'])->name('jurisdictions.show');
 
 // Law and Policy Sources
+Route::multilingual('law-policy-sources/{lawPolicySource}/edit', [LawPolicySourceController::class, 'edit'])
+    ->name('lawPolicySources.edit')
+    ->middleware('auth');
+
 Route::multilingual('law-policy-sources', [LawPolicySourceController::class, 'index'])
     ->name('lawPolicySources.index');
 
@@ -44,6 +48,10 @@ Route::multilingual('law-policy-sources/{lawPolicySource}', [LawPolicySourceCont
 
 Route::post('law-policy-sources', [LawPolicySourceController::class, 'store'])
     ->name('lawPolicySources.store')
+    ->middleware('auth');
+
+Route::patch('law-policy-sources/{lawPolicySource}', [LawPolicySourceController::class, 'update'])
+    ->name('lawPolicySources.update')
     ->middleware('auth');
 
 // Measures Page

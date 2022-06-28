@@ -18,5 +18,11 @@ Breadcrumbs::for('lawPolicySources.create', function (BreadcrumbTrail $trail) {
 // Law and Policy Sources > [Law and Policy Source]
 Breadcrumbs::for('lawPolicySources.show', function (BreadcrumbTrail $trail, LawPolicySource $lawPolicySource) {
     $trail->parent('lawPolicySources.index');
-    $trail->push($lawPolicySource->name);
+    $trail->push($lawPolicySource->name, \localized_route('lawPolicySources.show', $lawPolicySource));
+});
+
+// Law and Policy Sources > [Law and Policy Source]
+Breadcrumbs::for('lawPolicySources.edit', function (BreadcrumbTrail $trail, LawPolicySource $lawPolicySource) {
+    $trail->parent('lawPolicySources.show', $lawPolicySource);
+    $trail->push(__('Edit Law or Policy Source'));
 });

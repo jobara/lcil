@@ -28,7 +28,8 @@ class LawPolicySourceController extends Controller
      */
     public function index(): View
     {
-        if (! array_key_exists('country', request(['country']))) {
+        // The pagination strips empty/null queries, so assume that we're searching all countries if a page query is set
+        if (! array_key_exists('country', request(['country'])) && empty(request(['page']))) {
             return view('lawPolicySources.index');
         }
 

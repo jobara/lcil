@@ -32,17 +32,19 @@ test('create route render', function () {
     $view->assertSeeInOrder($toSee, false);
 })->group('LawPolicySources');
 
-test('create route render errors', function ($data, $errors) {
+test('create route render errors', function ($data, $errors, $anchors = []) {
     $user = User::factory()->create();
 
     $toSee = ['<div id="error-summary" role="alert">'];
 
     foreach ($errors as $key => $message) {
-        $toSee[] = "<li><a href=\"#{$key}\">{$message}</a></li>";
+        $anchor = $anchors[$key] ?? $key;
+        $toSee[] = "<li><a href=\"#{$anchor}\">{$message}</a></li>";
     }
 
     foreach ($errors as $key => $message) {
-        $toSee[] = "id=\"{$key}";
+        $id = $anchors[$key] ?? $key;
+        $toSee[] = "id=\"{$id}";
     }
 
     $view = $this->actingAs($user)

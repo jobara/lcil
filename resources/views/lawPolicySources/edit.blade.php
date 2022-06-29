@@ -5,7 +5,7 @@
     </x-slot>
 
     @auth
-        <x-forms.error-summary />
+        <x-forms.error-summary :anchors="['is_core' => 'is_core-1']" />
 
         <x-forms.law-policy-source :lawPolicySource="$lawPolicySource" />
     @endauth

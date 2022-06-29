@@ -107,6 +107,7 @@ dataset('lawPolicySourceValidationErrors', function () {
                 'is_core' => 'not a boolean value',
             ],
             ['is_core' => 'The Effect on Legal Capacity (is_core) must be true or false.'],
+            ['is_core' => 'is_core-1']
         ],
     ];
 });

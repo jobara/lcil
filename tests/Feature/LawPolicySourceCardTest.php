@@ -63,7 +63,7 @@ test('render - all values - list provisions', function () {
             'year_in_effect' => 2022,
             'name' => 'test-lawPolicySource',
             'type' => LawPolicyTypes::CaseLaw,
-            'reference' => 'http://example.com'
+            'reference' => 'http://example.com',
         ]);
 
     Provision::factory()

@@ -4,7 +4,6 @@ use App\Models\LawPolicySource;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Str;
 
 uses(RefreshDatabase::class);
 
@@ -21,7 +20,7 @@ test('create route display', function () {
 test('create route render', function () {
     $user = User::factory()->create();
     $lawPolicySource = LawPolicySource::factory()->create([
-        'name' => 'test policy'
+        'name' => 'test policy',
     ]);
 
     $toSee = [
@@ -92,12 +91,11 @@ test('create route render', function () {
         '<textarea',
         'name="decision_citation" id="decision_citation"',
 
-
         '<a href="' . \localized_route('lawPolicySources.show', $lawPolicySource) . '">Cancel</a>',
         '<button type="submit">Submit</button>',
         '<aside>',
-        "<h2>",
-        '<a href="' . \localized_route('lawPolicySources.show', $lawPolicySource) .  "\">{$lawPolicySource->name}</a>",
+        '<h2>',
+        '<a href="' . \localized_route('lawPolicySources.show', $lawPolicySource) . "\">{$lawPolicySource->name}</a>",
     ];
 
     $view = $this->actingAs($user)
@@ -110,7 +108,7 @@ test('create route render', function () {
 test('create route render errors', function ($data, $errors, $anchors = []) {
     $user = User::factory()->create();
     $lawPolicySource = LawPolicySource::factory()->create([
-        'name' => 'test policy'
+        'name' => 'test policy',
     ]);
 
     $toSee = ['<div id="error-summary" role="alert">'];

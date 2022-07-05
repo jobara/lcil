@@ -13,9 +13,10 @@ uses(DatabaseMigrations::class);
 
 test('index route - keywords parameter', function ($data, $query, $expectedCount) {
     // create Law and Policy Sources to use for the test
-    foreach($data as $attributes)
-    LawPolicySource::factory()
+    foreach ($data as $attributes) {
+        LawPolicySource::factory()
         ->create($attributes);
+    }
 
     $response = $this->get(localized_route('lawPolicySources.index', $query));
 
@@ -29,26 +30,26 @@ test('index route - keywords parameter', function ($data, $query, $expectedCount
             ['name' => 'Test Law and Policy Source', 'jurisdiction' => 'CA'],
             ['name' => 'Test LP'],
             ['name' => 'Act Source'],
-            ['name' => 'An Act']
+            ['name' => 'An Act'],
         ],
         ['country' => '', 'keywords' => 'Test Source'],
         3,
     ],
     'no keyword matches' => [
         [
-            ['name' => 'Test Law and Policy Source', 'jurisdiction' => 'CA']
+            ['name' => 'Test Law and Policy Source', 'jurisdiction' => 'CA'],
         ],
         ['country' => '', 'keywords' => 'None'],
         0,
     ],
     'no country matches' => [
         [
-            ['name' => 'Test Law and Policy Source', 'jurisdiction' => 'CA']
+            ['name' => 'Test Law and Policy Source', 'jurisdiction' => 'CA'],
         ],
         ['country' => 'US', 'keywords' => 'Test'],
         0,
     ],
-  ])
+])
   ->group('LawPolicySources');
 
 test('index route with keywords parameter, without country parameter', function () {

@@ -15,7 +15,7 @@ uses(RefreshDatabase::class, WithFaker::class);
 test('store route - required values', function () {
     $user = User::factory()->create();
     $lawPolicySource = LawPolicySource::factory()->create([
-        'name' => 'test policy'
+        'name' => 'test policy',
     ]);
     $data = [
         'section' => '21.b',
@@ -34,7 +34,7 @@ test('store route - required values', function () {
 test('store route - all values', function () {
     $user = User::factory()->create();
     $lawPolicySource = LawPolicySource::factory()->create([
-        'name' => 'test policy'
+        'name' => 'test policy',
     ]);
     $data = [
         'section' => '21.b',
@@ -64,7 +64,7 @@ test('store route - all values', function () {
 test('store route - validation errors', function ($data, $errors) {
     $user = User::factory()->create();
     $lawPolicySource = LawPolicySource::factory()->create([
-        'name' => 'test policy'
+        'name' => 'test policy',
     ]);
 
     $response = $this->actingAs($user)->post(route('provisions.store', $lawPolicySource), $data);
@@ -77,7 +77,7 @@ test('store route - validation errors', function ($data, $errors) {
 test('store route - array validation errors', function ($data, $errors) {
     $user = User::factory()->create();
     $lawPolicySource = LawPolicySource::factory()->create([
-        'name' => 'test policy'
+        'name' => 'test policy',
     ]);
 
     $response = $this->actingAs($user)->post(route('provisions.store', $lawPolicySource), $data);
@@ -87,7 +87,7 @@ test('store route - array validation errors', function ($data, $errors) {
 
 test('store route - unauthenticated throws AuthenticationException', function () {
     $lawPolicySource = LawPolicySource::factory()->create([
-        'name' => 'test policy'
+        'name' => 'test policy',
     ]);
 
     $this->withoutExceptionHandling()->post(route('provisions.store', $lawPolicySource), [
@@ -99,7 +99,7 @@ test('store route - unauthenticated throws AuthenticationException', function ()
 
 test('store route - unauthenticated redirected to login', function () {
     $lawPolicySource = LawPolicySource::factory()->create([
-        'name' => 'test policy'
+        'name' => 'test policy',
     ]);
     $response = $this->post(route('provisions.store', $lawPolicySource), [
         'section' => '21.b',

@@ -96,10 +96,10 @@ test('show route render - all fields', function () {
         $strings[] = "Section / Subsection: {$provision->section} Reference";
         $strings[] = 'Other Information';
         $strings[] = "{$provision->legal_capacity_approach->value} approach to legal capacity";
-        $strings[] = "Recognizes Independent Only decision making capability";
+        $strings[] = 'Recognizes Independent Only decision making capability';
         $strings[] = 'Legal Information';
         $strings[] = 'This provision is the result of a court challenge.';
-        $strings[] = "Type of Decision: Financial Property";
+        $strings[] = 'Type of Decision: Financial Property';
         $strings[] = "Decision Citation: {$provision->decision_citation}";
 
         $urls[] = "href=\"{$provision->reference}\"";
@@ -137,7 +137,7 @@ test('show route render - minimum fields', function () {
         'Ontario, Canada',
         'Year in Effect',
         $lawPolicySource->year_in_effect,
-        'No provisions have been added.'
+        'No provisions have been added.',
     ];
 
     $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
@@ -226,7 +226,6 @@ test('show route render - provision order', function () {
 
     $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
     $view->assertSeeTextInOrder($strings);
-
 })->group('LawPolicySources');
 
 test('show route render - decision making capabilities', function ($data, $expected) {
@@ -240,26 +239,25 @@ test('show route render - decision making capabilities', function ($data, $expec
     $strings = [
         'Provisions',
         'Other Information',
-        "Recognizes {$expected} decision making capability"
+        "Recognizes {$expected} decision making capability",
     ];
 
     $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
     $view->assertSeeTextInOrder($strings);
-
 })->with([
     'independent' => [
         ['decision_making_capability' => [DecisionMakingCapabilities::Independent->value]],
-        'Independent Only'
+        'Independent Only',
     ],
     'interdependent' => [
         ['decision_making_capability' => [DecisionMakingCapabilities::Interdependent->value]],
-        'Interdependent Only'
+        'Interdependent Only',
     ],
     'independent and interdependent' => [
         ['decision_making_capability' => [DecisionMakingCapabilities::Independent->value, DecisionMakingCapabilities::Interdependent->value]],
-        'Independent and Interdependent'
+        'Independent and Interdependent',
     ],
-  ])
+])
   ->group('LawPolicySources');
 
 test('show route render - court challenges', function ($data, $expected) {
@@ -273,7 +271,7 @@ test('show route render - court challenges', function ($data, $expected) {
     $strings = [
         'Provisions',
         'Legal Information',
-        $expected
+        $expected,
     ];
 
     $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
@@ -286,17 +284,17 @@ test('show route render - court challenges', function ($data, $expected) {
 })->with([
     'not related' => [
         ['court_challenge' => ProvisionCourtChallenges::NotRelated->value],
-        null
+        null,
     ],
     'result of' => [
         ['court_challenge' => ProvisionCourtChallenges::ResultOf->value],
-        'This provision is the result of a court challenge.'
+        'This provision is the result of a court challenge.',
     ],
     'subject to' => [
         ['court_challenge' => ProvisionCourtChallenges::SubjectTo->value],
-        'This provision is, or has been, subject to a constitutional or other court challenge.'
+        'This provision is, or has been, subject to a constitutional or other court challenge.',
     ],
-  ])
+])
   ->group('LawPolicySources');
 
 test('show route render - decision types', function ($data, $expected) {
@@ -321,11 +319,11 @@ test('show route render - decision types', function ($data, $expected) {
 })->with([
     'single decision type' => [
         ['decision_type' => [ProvisionDecisionTypes::Financial->value]],
-        'Financial Property'
+        'Financial Property',
     ],
     'multiple decision types' => [
         ['decision_type' => ProvisionDecisionTypes::values()],
-        'Financial Property, Health Care, Personal Life and Care'
+        'Financial Property, Health Care, Personal Life and Care',
     ],
-  ])
+])
   ->group('LawPolicySources');

@@ -61,7 +61,7 @@ class StoreProvisionRequest extends FormRequest
             'reference' => ['nullable', 'url'],
             'decision_type' => [
                 'nullable',
-                'prohibited_if:court_challenge,null,' . ProvisionCourtChallenges::NotRelated->value
+                'prohibited_if:court_challenge,null,' . ProvisionCourtChallenges::NotRelated->value,
             ],
             'decision_type.*' => [new Enum(ProvisionDecisionTypes::class)],
             'legal_capacity_approach' => ['nullable', new Enum(LegalCapacityApproaches::class)],
@@ -71,7 +71,7 @@ class StoreProvisionRequest extends FormRequest
             'decision_citation' => [
                 'nullable',
                 'string',
-                'prohibited_if:court_challenge,null,' . ProvisionCourtChallenges::NotRelated->value
+                'prohibited_if:court_challenge,null,' . ProvisionCourtChallenges::NotRelated->value,
             ],
         ];
     }

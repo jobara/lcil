@@ -1,6 +1,5 @@
 <?php
 
-use App\Enums\DecisionMakingCapabilities;
 use App\Enums\LegalCapacityApproaches;
 use App\Enums\ProvisionCourtChallenges;
 use App\Enums\ProvisionDecisionTypes;
@@ -9,27 +8,27 @@ dataset('provisionValidationErrors', function () {
     return [
         'missing section' => [
             [
-                'body' => 'body text'
+                'body' => 'body text',
             ],
             ['section' => 'The Section or Subsection (section) is required.'],
         ],
         'empty section name' => [
             [
                 'section' => '',
-                'body' => 'body text'
+                'body' => 'body text',
             ],
             ['section' => 'The Section or Subsection (section) is required.'],
         ],
         'missing body' => [
             [
-                'section' => '123'
+                'section' => '123',
             ],
             ['body' => 'The Provision Text (body) is required.'],
         ],
         'empty body name' => [
             [
                 'section' => '123',
-                'body' => ''
+                'body' => '',
             ],
             ['body' => 'The Provision Text (body) is required.'],
         ],
@@ -64,7 +63,7 @@ dataset('provisionValidationErrors', function () {
             [
                 'section' => '123',
                 'body' => 'body text',
-                'legal_capacity_approach' => 'invalid'
+                'legal_capacity_approach' => 'invalid',
             ],
             ['legal_capacity_approach' => 'The Approach to Legal Capacity (legal_capacity_approach) must be one of the following: ' . implode(', ', LegalCapacityApproaches::values()) . '.'],
         ],
@@ -72,7 +71,7 @@ dataset('provisionValidationErrors', function () {
             [
                 'section' => '123',
                 'body' => 'body text',
-                'court_challenge' => 'invalid'
+                'court_challenge' => 'invalid',
             ],
             ['court_challenge' => 'The Court Challenge (court_challenge) must be one of the following: ' . implode(', ', ProvisionCourtChallenges::values()) . '.'],
             ['court_challenge' => 'court_challenge-not_related'],

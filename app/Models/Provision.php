@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\DecisionMakingCapabilities;
 use App\Enums\LegalCapacityApproaches;
 use App\Enums\ProvisionCourtChallenges;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

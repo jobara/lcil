@@ -3,9 +3,11 @@
 use App\Enums\DecisionMakingCapabilities;
 use App\Enums\LawPolicyTypes;
 use App\Enums\LegalCapacityApproaches;
+use App\Enums\ProvisionCourtChallenges;
 use App\Enums\ProvisionDecisionTypes;
 use App\Models\LawPolicySource;
 use App\Models\Provision;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 
@@ -26,6 +28,20 @@ test('show route display', function () {
     expect($response['lawPolicySource'])->toBeInstanceOf(LawPolicySource::class);
 })->group('LawPolicySources');
 
+test('show route render - authenticated', function () {
+    // create a Law and Policy Source and user to use for the test
+    $lawPolicySource = LawPolicySource::factory()->create();
+    $user = User::factory()->create();
+
+    $strings = [
+        'Provisions',
+        '<a href="' . \localized_route('provisions.create', $lawPolicySource) . '">Add Provision</a>',
+    ];
+
+    $view = $this->actingAs($user)->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
+    $view->assertSeeInOrder($strings, false);
+})->group('LawPolicySources');
+
 test('show route render - all fields', function () {
     // create a Law and Policy Source to use for the test
     $lawPolicySource = LawPolicySource::factory()
@@ -37,29 +53,18 @@ test('show route render - all fields', function () {
             'municipality' => ucfirst($this->faker->word()),
         ]);
 
-    $provisionDecisionTypes = ProvisionDecisionTypes::values();
     $provisionConfig = [
-        'decision_type' => $this->faker->randomElements($provisionDecisionTypes, $this->faker->numberBetween(1, count($provisionDecisionTypes))),
+        'decision_type' => [ProvisionDecisionTypes::Financial->value],
         'legal_capacity_approach' => $this->faker->randomElement(LegalCapacityApproaches::values()),
-        'decision_making_capability' => $this->faker->randomElement(DecisionMakingCapabilities::values()),
+        'decision_making_capability' => [DecisionMakingCapabilities::Independent->value],
         'reference' => $this->faker->unique()->url(),
-        'is_subject_to_challenge' => true,
-        'is_result_of_challenge' => false,
+        'court_challenge' => ProvisionCourtChallenges::ResultOf->value,
         'decision_citation' => $this->faker->paragraph(),
     ];
-
-    $provisionConfigAlternate = array_merge($provisionConfig, [
-        'is_subject_to_challenge' => false,
-        'is_result_of_challenge' => true,
-    ]);
 
     Provision::factory()
         ->for($lawPolicySource)
         ->create($provisionConfig);
-
-    Provision::factory()
-        ->for($lawPolicySource)
-        ->create($provisionConfigAlternate);
 
     $strings = [
         $lawPolicySource->name,
@@ -76,6 +81,11 @@ test('show route render - all fields', function () {
         'Provisions',
     ];
 
+    $removed_strings = [
+        'No provisions have been added.',
+        'Add Provision',
+    ];
+
     $urls = [
         "href=\"{$lawPolicySource->reference}\"",
     ];
@@ -86,16 +96,10 @@ test('show route render - all fields', function () {
         $strings[] = "Section / Subsection: {$provision->section} Reference";
         $strings[] = 'Other Information';
         $strings[] = "{$provision->legal_capacity_approach->value} approach to legal capacity";
-        $strings[] = "Recognizes {$provision->decision_making_capability->value} decision making capability";
+        $strings[] = "Recognizes Independent Only decision making capability";
         $strings[] = 'Legal Information';
-        if ($provision->is_subject_to_challenge) {
-            $strings[] = 'This provision is, or has been, subject to a constitutional or other court challenge.';
-        }
-        if ($provision->is_result_of_challenge) {
-            $strings[] = 'This provision is the result of a court challenge.';
-        }
-        $decision_types = implode(', ', $provision->decision_type);
-        $strings[] = "Type of Decision: {$decision_types}";
+        $strings[] = 'This provision is the result of a court challenge.';
+        $strings[] = "Type of Decision: Financial Property";
         $strings[] = "Decision Citation: {$provision->decision_citation}";
 
         $urls[] = "href=\"{$provision->reference}\"";
@@ -104,6 +108,9 @@ test('show route render - all fields', function () {
     $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
     $view->assertSeeTextInOrder($strings);
     $view->assertSeeInOrder($urls, false);
+    foreach ($removed_strings as $removed_string) {
+        $view->assertDontSeeText($removed_string);
+    }
 })->group('LawPolicySources');
 
 test('show route render - minimum fields', function () {
@@ -121,7 +128,7 @@ test('show route render - minimum fields', function () {
         'Reference',
         'Type',
         'Effect on Legal Capacity',
-        'Provisions',
+        'Add Provision',
     ];
 
     $strings = [
@@ -130,6 +137,7 @@ test('show route render - minimum fields', function () {
         'Ontario, Canada',
         'Year in Effect',
         $lawPolicySource->year_in_effect,
+        'No provisions have been added.'
     ];
 
     $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
@@ -157,8 +165,7 @@ test('show route render - minimum provision fields', function () {
             'legal_capacity_approach' => null,
             'decision_making_capability' => null,
             'reference' => null,
-            'is_subject_to_challenge' => null,
-            'is_result_of_challenge' => null,
+            'court_challenge' => null,
             'decision_citation' => null,
         ]);
 
@@ -168,6 +175,8 @@ test('show route render - minimum provision fields', function () {
         'Effect on Legal Capacity',
         'Other Information',
         'Legal Information',
+        'No provisions have been added.',
+        'Add Provision',
     ];
 
     $strings = [
@@ -179,7 +188,7 @@ test('show route render - minimum provision fields', function () {
         'Provisions',
     ];
 
-    foreach ($lawPolicySource->provisions as $provision) {
+    foreach ($lawPolicySource->provisions->sortBy('section') as $provision) {
         $strings[] = "Section / Subsection: {$provision->section}";
         $strings[] = $provision['body'];
         $removed_strings[] = "Section / Subsection: {$provision->section} Reference";
@@ -191,3 +200,132 @@ test('show route render - minimum provision fields', function () {
         $view->assertDontSeeText($removed_string);
     }
 })->group('LawPolicySources');
+
+test('show route render - provision order', function () {
+    // create a Law and Policy Source to use for the test
+    $lawPolicySource = LawPolicySource::factory()->create();
+
+    Provision::factory()
+        ->for($lawPolicySource)
+        ->create(['section' => 2]);
+
+    Provision::factory()
+        ->for($lawPolicySource)
+        ->create(['section' => 'ab 3']);
+
+    Provision::factory()
+        ->for($lawPolicySource)
+        ->create(['section' => '10']);
+
+    $strings = [
+        'Provisions',
+        'Section / Subsection: 2',
+        'Section / Subsection: 10',
+        'Section / Subsection: ab 3',
+    ];
+
+    $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
+    $view->assertSeeTextInOrder($strings);
+
+})->group('LawPolicySources');
+
+test('show route render - decision making capabilities', function ($data, $expected) {
+    // create a Law and Policy Source to use for the test
+    $lawPolicySource = LawPolicySource::factory()->create();
+
+    Provision::factory()
+        ->for($lawPolicySource)
+        ->create($data);
+
+    $strings = [
+        'Provisions',
+        'Other Information',
+        "Recognizes {$expected} decision making capability"
+    ];
+
+    $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
+    $view->assertSeeTextInOrder($strings);
+
+})->with([
+    'independent' => [
+        ['decision_making_capability' => [DecisionMakingCapabilities::Independent->value]],
+        'Independent Only'
+    ],
+    'interdependent' => [
+        ['decision_making_capability' => [DecisionMakingCapabilities::Interdependent->value]],
+        'Interdependent Only'
+    ],
+    'independent and interdependent' => [
+        ['decision_making_capability' => [DecisionMakingCapabilities::Independent->value, DecisionMakingCapabilities::Interdependent->value]],
+        'Independent and Interdependent'
+    ],
+  ])
+  ->group('LawPolicySources');
+
+test('show route render - court challenges', function ($data, $expected) {
+    // create a Law and Policy Source to use for the test
+    $lawPolicySource = LawPolicySource::factory()->create();
+
+    Provision::factory()
+        ->for($lawPolicySource)
+        ->create($data);
+
+    $strings = [
+        'Provisions',
+        'Legal Information',
+        $expected
+    ];
+
+    $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
+
+    if (isset($expected)) {
+        $view->assertSeeTextInOrder($strings);
+    } else {
+        $view->assertDontSeeText('Legal Information');
+    }
+})->with([
+    'not related' => [
+        ['court_challenge' => ProvisionCourtChallenges::NotRelated->value],
+        null
+    ],
+    'result of' => [
+        ['court_challenge' => ProvisionCourtChallenges::ResultOf->value],
+        'This provision is the result of a court challenge.'
+    ],
+    'subject to' => [
+        ['court_challenge' => ProvisionCourtChallenges::SubjectTo->value],
+        'This provision is, or has been, subject to a constitutional or other court challenge.'
+    ],
+  ])
+  ->group('LawPolicySources');
+
+test('show route render - decision types', function ($data, $expected) {
+    // create a Law and Policy Source to use for the test
+    $lawPolicySource = LawPolicySource::factory()->create();
+
+    Provision::factory()
+        ->for($lawPolicySource)
+        ->create(array_merge(
+            ['court_challenge' => ProvisionCourtChallenges::ResultOf->value],
+            $data
+        ));
+
+    $strings = [
+        'Provisions',
+        'Legal Information',
+        "Type of Decision: {$expected}",
+    ];
+
+    $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
+    $view->assertSeeTextInOrder($strings);
+})->with([
+    'single decision type' => [
+        ['decision_type' => [ProvisionDecisionTypes::Financial->value]],
+        'Financial Property'
+    ],
+    'multiple decision types' => [
+        ['decision_type' => ProvisionDecisionTypes::values()],
+        'Financial Property, Health Care, Personal Life and Care'
+    ],
+  ])
+  ->group('LawPolicySources');

@@ -6,11 +6,12 @@ enum LegalCapacityApproaches: string
 {
     use Values;
 
-    case DecisionMakingCapability = 'decision-making capability';
-    case NotApplicable = 'not applicable';
-    case Outcome = 'outcome';
-    case OutcomeCognitive = 'outcome/cognitive';
     case Status = 'status';
-    case StatusCognitive = 'status/cognitive';
+    case Outcome = 'outcome';
+    case Cognitive = 'cognitive';
+    case DecisionMakingCapability = 'decision-making capability';
     case StatusOutcome = 'status/outcome';
+    case StatusCognitive = 'status/cognitive';
+    case OutcomeCognitive = 'outcome/cognitive';
+    case NotApplicable = 'not applicable';
 }

@@ -11,66 +11,45 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 // Refresh the DB with migrations
 uses(DatabaseMigrations::class);
 
-test('index route with keywords parameter', function () {
+test('index route - keywords parameter', function ($data, $query, $expectedCount) {
     // create Law and Policy Sources to use for the test
+    foreach($data as $attributes)
     LawPolicySource::factory()
-        ->create([
-            'name' => 'Test Law and Policy Source',
-            'jurisdiction' => 'CA',
-        ]);
-    LawPolicySource::factory()
-        ->create([
-            'name' => 'Test LP',
-        ]);
-    LawPolicySource::factory()
-        ->create([
-            'name' => 'Act Source',
-        ]);
-    LawPolicySource::factory()
-        ->create([
-            'name' => 'An Act',
-        ]);
+        ->create($attributes);
 
-    $response = $this->get(localized_route('lawPolicySources.index', ['country' =>'', 'keywords' => 'Test Source']));
+    $response = $this->get(localized_route('lawPolicySources.index', $query));
 
     $response->assertStatus(200);
     $response->assertViewIs('lawPolicySources.index');
     $response->assertViewHas('lawPolicySources');
-    // Should find 3 Law and Policy Sources
-    $this->assertEquals(3, $response['lawPolicySources']->count(), 'Expected 3 law and policy sources returned');
-})->group('LawPolicySources');
-
-test('index route with keywords parameter - no keyword matches', function () {
-    // create Law and Policy Sources to use for the test
-    LawPolicySource::factory()
-        ->create([
-            'name' => 'Test Law and Policy Source',
-            'jurisdiction' => 'CA',
-        ]);
-
-    $response = $this->get(localized_route('lawPolicySources.index', ['country' =>'', 'keywords' => 'None']));
-
-    $response->assertStatus(200);
-    $response->assertViewIs('lawPolicySources.index');
-    $response->assertViewHas('lawPolicySources');
-    $this->assertEquals(0, $response['lawPolicySources']->count(), 'Expected 0 law and policy sources returned');
-})->group('LawPolicySources');
-
-test('index route with keywords parameter - no country matches', function () {
-    // create Law and Policy Sources to use for the test
-    LawPolicySource::factory()
-        ->create([
-            'name' => 'Test Law and Policy Source',
-            'jurisdiction' => 'CA',
-        ]);
-
-    $response = $this->get(localized_route('lawPolicySources.index', ['country' =>'US', 'keywords' => 'Test']));
-
-    $response->assertStatus(200);
-    $response->assertViewIs('lawPolicySources.index');
-    $response->assertViewHas('lawPolicySources');
-    $this->assertEquals(0, $response['lawPolicySources']->count(), 'Expected 0 law and policy sources returned');
-})->group('LawPolicySources');
+    $this->assertEquals($expectedCount, $response['lawPolicySources']->count(), "Expected {$expectedCount} law and policy sources returned");
+})->with([
+    'keyword matches' => [
+        [
+            ['name' => 'Test Law and Policy Source', 'jurisdiction' => 'CA'],
+            ['name' => 'Test LP'],
+            ['name' => 'Act Source'],
+            ['name' => 'An Act']
+        ],
+        ['country' => '', 'keywords' => 'Test Source'],
+        3,
+    ],
+    'no keyword matches' => [
+        [
+            ['name' => 'Test Law and Policy Source', 'jurisdiction' => 'CA']
+        ],
+        ['country' => '', 'keywords' => 'None'],
+        0,
+    ],
+    'no country matches' => [
+        [
+            ['name' => 'Test Law and Policy Source', 'jurisdiction' => 'CA']
+        ],
+        ['country' => 'US', 'keywords' => 'Test'],
+        0,
+    ],
+  ])
+  ->group('LawPolicySources');
 
 test('index route with keywords parameter, without country parameter', function () {
     // create a Law and Policy Source to use for the test

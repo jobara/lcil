@@ -42,43 +42,61 @@
         </a>
     @endauth
 
-    @if(count($lawPolicySource->provisions) > 0)
-        <section>
-            <h2>{{ __('Provisions') }}</h2>
-            @foreach ($lawPolicySource->provisions as $provision)
-                <h3>{{ __('Section / Subsection: :section', ['section' => $provision->section]) }}</h3>
-                <p>{{ $provision->body }}</p>
-                @isset($provision->reference)
-                    <a href="{{ $provision->reference }}">{{ __('Section / Subsection: :section Reference', ['section' => $provision->section]) }}</a>
-                @endisset
-                @if (isset($provision->legal_capacity_approach) or isset($provision->decision_making_capability))
-                    <h4>{{ __('Other Information') }}</h4>
-                    <ul role="list">
-                        @isset($provision->legal_capacity_approach)
-                            <li>{{ __(':approach approach to legal capacity', ['approach' => $provision->legal_capacity_approach->value]) }}</li>
-                        @endisset
-                        @isset($provision->decision_making_capability)
-                            <li>{{ __('Recognizes :capability decision making capability', ['capability' => $provision->decision_making_capability->value]) }}</li>
-                        @endisset
-                    </ul>
-                @endif
-                @if ($provision->is_subject_to_challenge or $provision->is_result_of_challenge)
-                    <h4>{{ __('Legal Information') }}</h4>
-                    <ul role="list">
-                        @if($provision->is_subject_to_challenge)
-                            <li>{{ __('This provision is, or has been, subject to a constitutional or other court challenge.') }}</li>
+    <section>
+        <h2>{{ __('Provisions') }}</h2>
+        @auth
+            <a href="{{ \localized_route('provisions.create', $lawPolicySource) }}">{{ __('Add Provision') }}</a>
+        @endauth
+        @forelse ($lawPolicySource->provisions->sortBy('section') as $provision)
+            <h3>{{ __('Section / Subsection: :section', ['section' => $provision->section]) }}</h3>
+            <p>{{ $provision->body }}</p>
+            @isset($provision->reference)
+                <a href="{{ $provision->reference }}">{{ __('Section / Subsection: :section Reference', ['section' => $provision->section]) }}</a>
+            @endisset
+            @if (isset($provision->legal_capacity_approach) or isset($provision->decision_making_capability))
+                <h4>{{ __('Other Information') }}</h4>
+                <ul role="list">
+                    @isset($provision->legal_capacity_approach)
+                        <li>{{ __(':approach approach to legal capacity', ['approach' => $provision->legal_capacity_approach->value]) }}</li>
+                    @endisset
+                    @isset($provision->decision_making_capability)
+                        @if (count($provision->decision_making_capability) === 1)
+                            @if ($provision->decision_making_capability[0] === App\Enums\DecisionMakingCapabilities::Independent->value)
+                                 <li>{{ __('Recognizes Independent Only decision making capability') }}</li>
+                            @else
+                                 <li>{{ __('Recognizes Interdependent Only decision making capability') }}</li>
+                            @endif
                         @else
-                            <li>{{ __('This provision is the result of a court challenge.') }}</li>
+                            <li>{{ __('Recognizes Independent and Interdependent decision making capability') }}</li>
                         @endif
-                        @isset($provision->decision_type)
-                            <li>{{ __('Type of Decision: :decision_types', ['decision_types' => implode(', ', $provision->decision_type)]) }}</li>
-                        @endisset
-                        @isset($provision->decision_citation)
-                            <li>{{ __('Decision Citation: :citation', ['citation' => $provision->decision_citation]) }}</li>
-                        @endisset
-                    </ul>
-                @endif
-            @endforeach
-        </section>
-    @endif
+                    @endisset
+                </ul>
+            @endif
+            @if (isset($provision->court_challenge) && $provision->court_challenge !== \App\Enums\ProvisionCourtChallenges::NotRelated)
+                <h4>{{ __('Legal Information') }}</h4>
+                <ul role="list">
+                    @if($provision->court_challenge === \App\Enums\ProvisionCourtChallenges::ResultOf)
+                        <li>{{ __('This provision is the result of a court challenge.') }}</li>
+                    @else
+                        <li>{{ __('This provision is, or has been, subject to a constitutional or other court challenge.') }}</li>
+                    @endif
+                    @isset($provision->decision_type)
+                        <li>{{ __('Type of Decision: :decision_types', ['decision_types' => implode(', ', array_map(function (string $value) {
+                            $toNames = [
+                                App\Enums\ProvisionDecisionTypes::Financial->value => __('Financial Property'),
+                                App\Enums\ProvisionDecisionTypes::Health->value => __('Health Care'),
+                                App\Enums\ProvisionDecisionTypes::Personal->value => __('Personal Life and Care'),
+                            ];
+                            return $toNames[$value];
+                        }, $provision->decision_type))]) }}</li>
+                    @endisset
+                    @isset($provision->decision_citation)
+                        <li>{{ __('Decision Citation: :citation', ['citation' => $provision->decision_citation]) }}</li>
+                    @endisset
+                </ul>
+            @endif
+        @empty
+            <p>{{ __('No provisions have been added.') }}</p>
+        @endforelse
+    </section>
 </x-app-layout>

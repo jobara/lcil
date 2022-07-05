@@ -120,9 +120,10 @@ test('render - with existing law policy source', function () {
     $view->assertSeeInOrder($toSee, false);
 });
 
-test('render - errors', function ($data, $errors) {
+test('render - errors', function ($data, $errors, $anchors = []) {
     foreach ($errors as $key => $message) {
-        $toSee[] = "id=\"{$key}";
+        $id = $anchors[$key] ?? $key;
+        $toSee[] = "id=\"{$id}";
         $toSee[] = 'aria-describedby';
         $toSee[] = "{$key}-error";
         $toSee[] = 'aria-invalid="true"';

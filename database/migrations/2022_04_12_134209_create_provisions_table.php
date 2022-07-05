@@ -20,9 +20,8 @@ return new class extends Migration {
             $table->string('reference')->nullable(); // URL
             $table->json('decision_type')->nullable(); // Array of ProvisionDecisionTypes values
             $table->string('legal_capacity_approach')->nullable(); // LegalCapacityApproaches
-            $table->string('decision_making_capability')->nullable(); // DecisionMakingCapabilities
-            $table->boolean('is_subject_to_challenge')->nullable();
-            $table->boolean('is_result_of_challenge')->nullable();
+            $table->json('decision_making_capability')->nullable(); // Array of DecisionMakingCapabilities values
+            $table->string('court_challenge')->nullable(); // ProvisionCourtChallenges
             $table->text('decision_citation')->nullable();
             $table->timestamps();
         });

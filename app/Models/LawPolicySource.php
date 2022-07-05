@@ -41,6 +41,13 @@ class LawPolicySource extends Model implements Auditable
         'type' => LawPolicyTypes::class,
     ];
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['provisions'];
+
     public function provisions(): HasMany
     {
         return $this->hasMany(Provision::class);

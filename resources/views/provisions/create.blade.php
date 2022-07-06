@@ -18,7 +18,7 @@
 
         <form
             method="POST"
-            action="{{ route('provisions.store', $lawPolicySource) . '#error-summary__message' }}"
+            action="{{ route('provisions.store', $lawPolicySource) }}"
         >
             @csrf
             <ul role="list">

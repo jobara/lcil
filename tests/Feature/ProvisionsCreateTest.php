@@ -30,7 +30,7 @@ test('create route render', function () {
         '<h1 itemprop="name">Add Provision</h1>',
         '<form',
         'method="POST"',
-        'action="' . route('provisions.store', $lawPolicySource) . '#error-summary__message',
+        'action="' . route('provisions.store', $lawPolicySource),
 
         '<label id="section-label" for="section">Section or Subsection (required)</label>',
         '<input',

@@ -6,11 +6,17 @@ use App\Enums\DecisionMakingCapabilities;
 use App\Enums\LegalCapacityApproaches;
 use App\Enums\ProvisionCourtChallenges;
 use App\Enums\ProvisionDecisionTypes;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 
-class StoreProvisionRequest extends FormRequest
+class StoreProvisionRequest extends RedirectFormRequest
 {
+    /**
+     * The anchor on the redirect URL that users should be sent to if validation fails.
+     *
+     * @var string
+     */
+    protected $redirectAnchor = '#error-summary__message';
+
     public function authorize(): bool
     {
         return auth()->check();

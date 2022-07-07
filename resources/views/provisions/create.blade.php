@@ -65,7 +65,10 @@
                 </li>
                 <li>
                     <h2>{{ __('Legal Information') }}</h2>
-                    <ul>
+                    <ul x-data="{
+                        courtChallenge: '{{ old('court_challenge') }}',
+                        get hasChallenge() { return this.courtChallenge && this.courtChallenge !== '{{ App\Enums\ProvisionCourtChallenges::NotRelated->value }}' },
+                    }">
                         <li>
                             <fieldset>
                                 <legend id="court_challenge-label">{{ __('Court Challenge Details. Choose the option that best describes this provision.') }}</legend>
@@ -77,12 +80,13 @@
                                             __('Is the result of a court challenge.'),
                                         ])"
                                         :checked="old('court_challenge')"
+                                        x-model="courtChallenge"
                                     />
                                     <x-hearth-error for="court_challenge" />
                             </fieldset>
                         </li>
                         <li>
-                            <fieldset>
+                            <fieldset x-bind:disabled="!hasChallenge">
                                 <legend id="decision_type-label">{{ __('Type of Decision') }}</legend>
                                     <x-hearth-checkboxes
                                         name="decision_type"
@@ -98,7 +102,7 @@
                         </li>
                         <li>
                             <x-forms.label for="decision_citation" :value="__('Decision Citation')" />
-                            <x-hearth-textarea name="decision_citation">{{ old('decision_citation') }}</x-hearth-textarea>
+                            <x-hearth-textarea name="decision_citation" x-bind:disabled="!hasChallenge">{{ old('decision_citation') }}</x-hearth-textarea>
                             <x-hearth-error for="decision_citation" />
                         </li>
                     </ul>

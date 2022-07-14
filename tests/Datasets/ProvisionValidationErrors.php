@@ -24,6 +24,8 @@ dataset('provisionValidationErrors', function () {
                 'section' => '123',
             ],
             ['body' => 'The Provision Text (body) is required.'],
+            ['body' => 'body-editable'],
+            true,
         ],
         'empty body name' => [
             [
@@ -31,6 +33,8 @@ dataset('provisionValidationErrors', function () {
                 'body' => '',
             ],
             ['body' => 'The Provision Text (body) is required.'],
+            ['body' => 'body-editable'],
+            true,
         ],
         'reference not a valid URL' => [
             [

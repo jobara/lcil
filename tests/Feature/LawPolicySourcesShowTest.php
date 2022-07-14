@@ -33,13 +33,13 @@ test('show route render - authenticated', function () {
     $lawPolicySource = LawPolicySource::factory()->create();
     $user = User::factory()->create();
 
-    $strings = [
+    $toSee = [
         'Provisions',
         '<a href="' . \localized_route('provisions.create', $lawPolicySource) . '">Add Provision</a>',
     ];
 
     $view = $this->actingAs($user)->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
-    $view->assertSeeInOrder($strings, false);
+    $view->assertSeeInOrder($toSee, false);
 })->group('LawPolicySources');
 
 test('show route render - all fields', function () {
@@ -66,7 +66,7 @@ test('show route render - all fields', function () {
         ->for($lawPolicySource)
         ->create($provisionConfig);
 
-    $strings = [
+    $toSee = [
         $lawPolicySource->name,
         'Jurisdiction',
         "{$lawPolicySource->municipality}, Ontario, Canada",
@@ -81,36 +81,34 @@ test('show route render - all fields', function () {
         'Provisions',
     ];
 
-    $removed_strings = [
+    $dontSee = [
         'No provisions have been added.',
         'Add Provision',
     ];
 
-    $urls = [
+    $markupToSee = [
         "href=\"{$lawPolicySource->reference}\"",
     ];
 
     foreach ($lawPolicySource->provisions as $provision) {
-        $strings[] = "Section / Subsection: {$provision->section}";
-        $strings[] = $provision['body'];
-        $strings[] = "Section / Subsection: {$provision->section} Reference";
-        $strings[] = 'Other Information';
-        $strings[] = "{$provision->legal_capacity_approach->value} approach to legal capacity";
-        $strings[] = 'Recognizes Independent Only decision making capability';
-        $strings[] = 'Legal Information';
-        $strings[] = 'This provision is the result of a court challenge.';
-        $strings[] = 'Type of Decision: Financial Property';
-        $strings[] = "Decision Citation: {$provision->decision_citation}";
+        $toSee[] = "Section / Subsection: {$provision->section}";
+        $toSee[] = "Section / Subsection: {$provision->section} Reference";
+        $toSee[] = 'Other Information';
+        $toSee[] = "{$provision->legal_capacity_approach->value} approach to legal capacity";
+        $toSee[] = 'Recognizes Independent Only decision making capability';
+        $toSee[] = 'Legal Information';
+        $toSee[] = 'This provision is the result of a court challenge.';
+        $toSee[] = 'Type of Decision: Financial Property';
+        $toSee[] = "Decision Citation: {$provision->decision_citation}";
 
-        $urls[] = "href=\"{$provision->reference}\"";
+        $markupToSee[] = $provision->body;
+        $markupToSee[] = "href=\"{$provision->reference}\"";
     }
 
     $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
-    $view->assertSeeTextInOrder($strings);
-    $view->assertSeeInOrder($urls, false);
-    foreach ($removed_strings as $removed_string) {
-        $view->assertDontSeeText($removed_string);
-    }
+    $view->assertSeeTextInOrder($toSee);
+    $view->assertSeeInOrder($markupToSee, false);
+    assertDontSeeAnyText($view, $dontSee, false);
 })->group('LawPolicySources');
 
 test('show route render - minimum fields', function () {
@@ -124,14 +122,14 @@ test('show route render - minimum fields', function () {
             'municipality' => null,
         ]);
 
-    $removed_strings = [
+    $dontSee = [
         'Reference',
         'Type',
         'Effect on Legal Capacity',
         'Add Provision',
     ];
 
-    $strings = [
+    $toSee = [
         $lawPolicySource->name,
         'Jurisdiction',
         'Ontario, Canada',
@@ -141,16 +139,15 @@ test('show route render - minimum fields', function () {
     ];
 
     $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
-    $view->assertSeeTextInOrder($strings);
-    foreach ($removed_strings as $removed_string) {
-        $view->assertDontSeeText($removed_string);
-    }
+    $view->assertSeeTextInOrder($toSee);
+    assertDontSeeAny($view, $dontSee, false);
 })->group('LawPolicySources');
 
 test('show route render - minimum provision fields', function () {
     // create a Law and Policy Source to use for the test
     $lawPolicySource = LawPolicySource::factory()
         ->create([
+            'name' => 'test policy',
             'type' => null,
             'is_core' => null,
             'reference' => null,
@@ -169,7 +166,7 @@ test('show route render - minimum provision fields', function () {
             'decision_citation' => null,
         ]);
 
-    $removed_strings = [
+    $dontSee = [
         'Reference',
         'Type',
         'Effect on Legal Capacity',
@@ -179,7 +176,7 @@ test('show route render - minimum provision fields', function () {
         'Add Provision',
     ];
 
-    $strings = [
+    $toSee = [
         $lawPolicySource->name,
         'Jurisdiction',
         'Ontario, Canada',
@@ -189,16 +186,14 @@ test('show route render - minimum provision fields', function () {
     ];
 
     foreach ($lawPolicySource->provisions->sortBy('section') as $provision) {
-        $strings[] = "Section / Subsection: {$provision->section}";
-        $strings[] = $provision['body'];
-        $removed_strings[] = "Section / Subsection: {$provision->section} Reference";
+        $toSee[] = "Section / Subsection: {$provision->section}";
+        $toSee[] = $provision['body'];
+        $dontSee[] = "Section / Subsection: {$provision->section} Reference";
     }
 
     $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
-    $view->assertSeeTextInOrder($strings);
-    foreach ($removed_strings as $removed_string) {
-        $view->assertDontSeeText($removed_string);
-    }
+    $view->assertSeeInOrder($toSee, false);
+    assertDontSeeAnyText($view, $dontSee, false);
 })->group('LawPolicySources');
 
 test('show route render - provision order', function () {
@@ -217,7 +212,7 @@ test('show route render - provision order', function () {
         ->for($lawPolicySource)
         ->create(['section' => '10']);
 
-    $strings = [
+    $toSee = [
         'Provisions',
         'Section / Subsection: 2',
         'Section / Subsection: 10',
@@ -225,7 +220,7 @@ test('show route render - provision order', function () {
     ];
 
     $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
-    $view->assertSeeTextInOrder($strings);
+    $view->assertSeeTextInOrder($toSee);
 })->group('LawPolicySources');
 
 test('show route render - decision making capabilities', function ($data, $expected) {
@@ -236,14 +231,14 @@ test('show route render - decision making capabilities', function ($data, $expec
         ->for($lawPolicySource)
         ->create($data);
 
-    $strings = [
+    $toSee = [
         'Provisions',
         'Other Information',
         "Recognizes {$expected} decision making capability",
     ];
 
     $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
-    $view->assertSeeTextInOrder($strings);
+    $view->assertSeeTextInOrder($toSee);
 })->with([
     'independent' => [
         ['decision_making_capability' => [DecisionMakingCapabilities::Independent->value]],
@@ -268,7 +263,7 @@ test('show route render - court challenges', function ($data, $expected) {
         ->for($lawPolicySource)
         ->create($data);
 
-    $strings = [
+    $toSee = [
         'Provisions',
         'Legal Information',
         $expected,
@@ -277,7 +272,7 @@ test('show route render - court challenges', function ($data, $expected) {
     $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
 
     if (isset($expected)) {
-        $view->assertSeeTextInOrder($strings);
+        $view->assertSeeTextInOrder($toSee);
     } else {
         $view->assertDontSeeText('Legal Information');
     }
@@ -308,14 +303,14 @@ test('show route render - decision types', function ($data, $expected) {
             $data
         ));
 
-    $strings = [
+    $toSee = [
         'Provisions',
         'Legal Information',
         "Type of Decision: {$expected}",
     ];
 
     $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
-    $view->assertSeeTextInOrder($strings);
+    $view->assertSeeTextInOrder($toSee);
 })->with([
     'single decision type' => [
         ['decision_type' => [ProvisionDecisionTypes::Financial->value]],

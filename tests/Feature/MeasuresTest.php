@@ -35,29 +35,29 @@ test('index route render', function () {
     $lcilMeasures = MeasureDimension::factory(2)
         ->has(MeasureIndicator::factory(2)->has(Measure::factory(2), 'measures'), 'indicators')
         ->create();
-    $strings = [];
+    $toSee = [];
 
     foreach ($lcilMeasures as $dimension) {
-        $strings[] = $dimension['code'];
-        $strings[] = $dimension['description'];
+        $toSee[] = $dimension['code'];
+        $toSee[] = $dimension['description'];
 
         foreach ($dimension->indicators as $indicator) {
-            $strings[] = $indicator['code'];
-            $strings[] = $indicator['description'];
+            $toSee[] = $indicator['code'];
+            $toSee[] = $indicator['description'];
 
             foreach ($indicator->measures as $measure) {
-                $strings[] = $measure['code'];
-                $strings[] = $measure['title'];
-                $strings[] = $measure['type'];
-                $strings[] = $measure['description'];
+                $toSee[] = $measure['code'];
+                $toSee[] = $measure['title'];
+                $toSee[] = $measure['type'];
+                $toSee[] = $measure['description'];
             }
         }
     }
 
-    expect($strings)->toHaveCount(44); // ensures that correct number of strings were found from $lcilMeasures
+    expect($toSee)->toHaveCount(44); // ensures that correct number of strings were found from $lcilMeasures
 
     $response = $this->get(localized_route('measures'));
-    $response->assertSeeTextInOrder($strings);
+    $response->assertSeeTextInOrder($toSee);
 });
 
 test('measure model relationships', function () {

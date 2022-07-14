@@ -19,7 +19,7 @@ test('store route - required values', function () {
     ]);
     $data = [
         'section' => '21.b',
-        'body' => 'test provision body text',
+        'body' => '<p>test provision body text</p>',
     ];
 
     $response = $this->actingAs($user)->post(route('provisions.store', $lawPolicySource), $data);
@@ -38,7 +38,7 @@ test('store route - all values', function () {
     ]);
     $data = [
         'section' => '21.b',
-        'body' => 'test provision body text',
+        'body' => '<p>test provision body text</p>',
         'decision_type' => [ProvisionDecisionTypes::Financial->value],
         'legal_capacity_approach' => $this->faker->randomElement(LegalCapacityApproaches::values()),
         'decision_making_capability' => [DecisionMakingCapabilities::Independent->value],
@@ -59,6 +59,40 @@ test('store route - all values', function () {
     expect($lawPolicySource->provisions[0]->reference)->toBe($data['reference']);
     expect($lawPolicySource->provisions[0]->court_challenge)->toBe(ProvisionCourtChallenges::from($data['court_challenge']));
     expect($lawPolicySource->provisions[0]->decision_citation)->toBe($data['decision_citation']);
+})->group('Provisions', 'LawPolicySources');
+
+test('store route - sanitize body content', function () {
+    $user = User::factory()->create();
+    $lawPolicySource = LawPolicySource::factory()->create([
+        'name' => 'test policy',
+    ]);
+    $data = [
+        'section' => '21.b',
+        'body' => '<p>Some <script>alert("scrub");</script> content</p>',
+    ];
+
+    $response = $this->actingAs($user)->post(route('provisions.store', $lawPolicySource), $data);
+    $response->assertRedirect(\localized_route('lawPolicySources.show', $lawPolicySource));
+    $response->assertSessionHasNoErrors();
+
+    expect($lawPolicySource->provisions[0]->body)->toBe('<p>Some  content</p>');
+})->group('Provisions', 'LawPolicySources');
+
+test('store route - convert body content to markup', function () {
+    $user = User::factory()->create();
+    $lawPolicySource = LawPolicySource::factory()->create([
+        'name' => 'test policy',
+    ]);
+    $data = [
+        'section' => '21.b',
+        'body' => 'Some content',
+    ];
+
+    $response = $this->actingAs($user)->post(route('provisions.store', $lawPolicySource), $data);
+    $response->assertRedirect(\localized_route('lawPolicySources.show', $lawPolicySource));
+    $response->assertSessionHasNoErrors();
+
+    expect($lawPolicySource->provisions[0]->body)->toBe('<p>Some content</p>');
 })->group('Provisions', 'LawPolicySources');
 
 test('store route - validation errors', function ($data, $errors) {

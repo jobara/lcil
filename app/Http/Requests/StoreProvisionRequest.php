@@ -7,6 +7,9 @@ use App\Enums\LegalCapacityApproaches;
 use App\Enums\ProvisionCourtChallenges;
 use App\Enums\ProvisionDecisionTypes;
 use Illuminate\Validation\Rules\Enum;
+use Tiptap\Editor;
+use Tiptap\Extensions\StarterKit;
+use Tiptap\Marks\Underline;
 
 class StoreProvisionRequest extends RedirectFormRequest
 {
@@ -52,6 +55,24 @@ class StoreProvisionRequest extends RedirectFormRequest
             'court_challenge.Illuminate\Validation\Rules\Enum' => 'The :attribute must be one of the following: ' . implode(', ', ProvisionCourtChallenges::values()) . '.',
             'decision_citation.prohibited_if' => 'The :attribute requires the :other indicate that a challenge has been initiated; the current value is: :value',
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation(): void
+    {
+        if (isset($this->body)) {
+            $this->merge([
+                'body' => (new Editor(['extensions' => [
+                    new StarterKit,
+                    new Underline,
+                ],
+                ]))->sanitize($this->body),
+            ]);
+        }
     }
 
     /**

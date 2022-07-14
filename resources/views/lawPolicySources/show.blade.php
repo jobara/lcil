@@ -49,7 +49,7 @@
         @endauth
         @forelse ($lawPolicySource->provisions->sortBy('section') as $provision)
             <h3>{{ __('Section / Subsection: :section', ['section' => $provision->section]) }}</h3>
-            <p>{{ $provision->body }}</p>
+            <div>{!! $provision->body !!}</div>
             @isset($provision->reference)
                 <a href="{{ $provision->reference }}">{{ __('Section / Subsection: :section Reference', ['section' => $provision->section]) }}</a>
             @endisset

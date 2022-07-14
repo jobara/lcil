@@ -5,6 +5,7 @@ import focus from "@alpinejs/focus";
 
 import confirmPassword from "./confirmPassword.js";
 import dateInput from "./dateInput.js";
+import "./tiptap";
 
 Alpine.data("confirmPassword", confirmPassword);
 Alpine.data("dateInput", dateInput);

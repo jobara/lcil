@@ -37,8 +37,14 @@ test('create route render', function () {
         'name="section" id="section" type="text"',
         'required',
         '<label id="body-label" for="body">Provision Text (required)</label>',
-        '<textarea',
-        'name="body" id="body"',
+        'id="body-editor"',
+        '\'aria-required\': true',
+        '\'aria-labelledby\': \'body-label\'',
+        '\'id\': \'body-editable\'',
+        'id="body-toolbar"',
+        'aria-labelledby="body-label"',
+        '<input',
+        'name="body" id="body" type="hidden" x-model="content"',
         'required',
         '<label id="reference-label" for="reference">Reference / Link</label>',
         '<input',
@@ -109,7 +115,7 @@ test('create route render', function () {
     $view->assertSeeInOrder($toSee, false);
 })->group('Provisions', 'LawPolicySources');
 
-test('create route render errors', function ($data, $errors, $anchors = []) {
+test('create route render errors', function ($data, $errors, $anchors = [], $isAlpineComponent = false) {
     $user = User::factory()->create();
     $lawPolicySource = LawPolicySource::factory()->create([
         'name' => 'test policy',
@@ -124,10 +130,20 @@ test('create route render errors', function ($data, $errors, $anchors = []) {
 
     foreach ($errors as $key => $message) {
         $id = $anchors[$key] ?? $key;
-        $toSee[] = "id=\"{$id}";
-        $toSee[] = 'aria-describedby';
-        $toSee[] = "{$key}-error";
-        $toSee[] = 'aria-invalid="true"';
+
+        if ($isAlpineComponent) {
+            $toSee[] = "'aria-describedby': '{$key}-error'";
+            $toSee[] = '\'aria-invalid\': true';
+            $toSee[] = '\'id\': \'body-editable\'';
+        }
+
+        if (! $isAlpineComponent) {
+            $toSee[] = "id=\"{$id}";
+            $toSee[] = 'aria-describedby';
+            $toSee[] = "{$key}-error";
+            $toSee[] = 'aria-invalid="true"';
+        }
+
         $toSee[] = "<p class=\"field__error\" id=\"{$key}-error\">";
         $toSee[] = $message;
     }

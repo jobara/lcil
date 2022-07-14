@@ -50,9 +50,7 @@ test('render - all values - count provisions', function () {
     ];
 
     $view->assertSeeInOrder($toSee, false);
-    foreach ($dontSee as $value) {
-        $view->assertDontSee($value, false);
-    }
+    assertDontSeeAny($view, $dontSee, false);
 });
 
 test('render - all values - list provisions', function () {
@@ -248,9 +246,7 @@ test('render - list provisions as guest', function () {
     ];
 
     $view->assertSeeInOrder($toSee, false);
-    foreach ($dontSee as $value) {
-        $view->assertDontSee($value, false);
-    }
+    assertDontSeeAny($view, $dontSee, false);
 });
 
 test('render - list provisions as authenticated', function () {

@@ -165,7 +165,7 @@ test('index route paged', function () {
 })->group('LawPolicySources');
 
 test('index route rendered - without parameters', function () {
-    $strings = [
+    $toSee = [
         'Law and Policy Sources',
         'Search for sources of law and policy to view',
         'Country:',
@@ -177,7 +177,7 @@ test('index route rendered - without parameters', function () {
         'Search results will appear here',
     ];
 
-    $strings_not_rendered = [
+    $dontSee = [
         'Search for sources of law and policy to view or edit',
         'Create new law or policy source if it does not already exist',
         'Found',
@@ -187,22 +187,20 @@ test('index route rendered - without parameters', function () {
 
     $response = $this->get(localized_route('lawPolicySources.index'));
 
-    $response->assertSeeTextInOrder($strings);
-    foreach ($strings_not_rendered as $notRendered) {
-        $response->assertDontSeeText($notRendered);
-    }
+    $response->assertSeeTextInOrder($toSee);
+    assertDontSeeAnyText($response, $dontSee, false);
 })->group('LawPolicySources');
 
 test('index route rendered - with parameters', function () {
     LawPolicySource::factory()->create([
         'name' => 'test law and policy source',
     ]);
-    $strings = [
+    $toSee = [
         'Found',
         'test law and policy source',
     ];
 
-    $strings_not_rendered = [
+    $dontSee = [
         'Search results will appear here',
         'Previous',
         'Next',
@@ -210,34 +208,30 @@ test('index route rendered - with parameters', function () {
 
     $response = $this->get(localized_route('lawPolicySources.index', ['country' => '']));
 
-    $response->assertSeeTextInOrder($strings);
-    foreach ($strings_not_rendered as $notRendered) {
-        $response->assertDontSeeText($notRendered);
-    }
+    $response->assertSeeTextInOrder($toSee);
+    assertDontSeeAnyText($response, $dontSee, false);
 })->group('LawPolicySources');
 
 test('index route rendered - paged', function () {
     LawPolicySource::factory(25)->create();
-    $strings = [
+    $toSee = [
         'Found',
         'Previous',
         'Next',
     ];
 
-    $strings_not_rendered = [
+    $dontSee = [
         'Search results will appear here',
     ];
 
     $response = $this->get(localized_route('lawPolicySources.index', ['country' => '', 'page' => 2]));
 
-    $response->assertSeeTextInOrder($strings);
-    foreach ($strings_not_rendered as $notRendered) {
-        $response->assertDontSeeText($notRendered);
-    }
+    $response->assertSeeTextInOrder($toSee);
+    assertDontSeeAny($response, $dontSee, false);
 })->group('LawPolicySources');
 
 test('index route rendered - with authenticated user', function () {
-    $strings = [
+    $toSee = [
         'Search for sources of law and policy to view or edit',
         'Create new law or policy source if it does not already exist',
     ];
@@ -246,7 +240,7 @@ test('index route rendered - with authenticated user', function () {
 
     $response = $this->actingAs($user)->get(localized_route('lawPolicySources.index'));
 
-    $response->assertSeeTextInOrder($strings);
+    $response->assertSeeTextInOrder($toSee);
 })->group('LawPolicySources');
 
 test('index route rendered - sources', function () {

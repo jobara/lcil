@@ -14,6 +14,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _alpinejs_focus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @alpinejs/focus */ "./node_modules/@alpinejs/focus/dist/module.esm.js");
 /* harmony import */ var _confirmPassword_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./confirmPassword.js */ "./resources/js/confirmPassword.js");
 /* harmony import */ var _dateInput_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./dateInput.js */ "./resources/js/dateInput.js");
+/* harmony import */ var _tiptap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tiptap */ "./resources/js/tiptap.js");
+
 
 
 
@@ -232,6 +234,112 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       }
     }
   };
+});
+
+/***/ }),
+
+/***/ "./resources/js/tiptap.js":
+/*!********************************!*\
+  !*** ./resources/js/tiptap.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var alpinejs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/module.esm.js");
+/* harmony import */ var _tiptap_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @tiptap/core */ "./node_modules/@tiptap/core/dist/tiptap-core.esm.js");
+/* harmony import */ var _tiptap_starter_kit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @tiptap/starter-kit */ "./node_modules/@tiptap/starter-kit/dist/tiptap-starter-kit.esm.js");
+/* harmony import */ var _tiptap_extension_underline__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @tiptap/extension-underline */ "./node_modules/@tiptap/extension-underline/dist/tiptap-extension-underline.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+ // Alpine v3 uses proxies for reactive data. In order for the tiptap editor to operate properly with Alpine,
+// We need to move the editor outside of Alpines data model.
+// See: https://github.com/ueberdosis/tiptap/issues/1515
+// The implementation here was inspired by EasterPeanut's workaround
+// See: https://github.com/ueberdosis/tiptap/issues/1515#issuecomment-903095273
+//      https://codesandbox.io/s/tiptap-with-alpine-js-v3-q4qbp
+//      https://github.com/EasterPeanut
+// tiptap editor on alpine init
+
+document.addEventListener("alpine:init", function () {
+  alpinejs__WEBPACK_IMPORTED_MODULE_0__["default"].data("editor", function (content, options) {
+    var editor;
+    return {
+      getEditor: function getEditor() {
+        return editor;
+      },
+      updateTabindexes: function updateTabindexes(element) {
+        var _element$parentElemen, _element$parentElemen2;
+
+        var children = Array.from((_element$parentElemen = (_element$parentElemen2 = element.parentElement) === null || _element$parentElemen2 === void 0 ? void 0 : _element$parentElemen2.children) !== null && _element$parentElemen !== void 0 ? _element$parentElemen : []);
+        children.forEach(function (child) {
+          if (child === element) {
+            child.removeAttribute("tabindex");
+          } else {
+            child.setAttribute("tabindex", -1);
+          }
+        });
+      },
+      focusNext: function focusNext(element) {
+        var next = element.nextElementSibling;
+
+        if (next) {
+          next.focus();
+        }
+      },
+      focusPrev: function focusPrev(element) {
+        var prev = element.previousElementSibling;
+
+        if (prev) {
+          prev.focus();
+        }
+      },
+      focusFirst: function focusFirst(element) {
+        var _element$parentElemen3;
+
+        (_element$parentElemen3 = element.parentElement) === null || _element$parentElemen3 === void 0 ? void 0 : _element$parentElemen3.firstElementChild.focus();
+      },
+      focusLast: function focusLast(element) {
+        var _element$parentElemen4;
+
+        (_element$parentElemen4 = element.parentElement) === null || _element$parentElemen4 === void 0 ? void 0 : _element$parentElemen4.lastElementChild.focus();
+      },
+      updatedAt: Date.now(),
+      content: null,
+      init: function init() {
+        var model = this;
+        var defaults = {
+          element: this.$refs.editorReference,
+          extensions: [_tiptap_extension_underline__WEBPACK_IMPORTED_MODULE_2__["default"], _tiptap_starter_kit__WEBPACK_IMPORTED_MODULE_1__["default"].configure({
+            // Disable included extension
+            code: false,
+            codeBlock: false,
+            heading: false
+          })],
+          content: content,
+          onCreate: function onCreate() {
+            model.updatedAt = Date.now();
+            model.content = this.isEmpty ? "" : this.getHTML();
+          },
+          onUpdate: function onUpdate() {
+            model.updatedAt = Date.now();
+            model.content = this.isEmpty ? "" : this.getHTML();
+          },
+          onSelectionUpdate: function onSelectionUpdate() {
+            model.updatedAt = Date.now();
+          }
+        };
+        editor = new _tiptap_core__WEBPACK_IMPORTED_MODULE_3__.Editor(_objectSpread(_objectSpread({}, defaults), options));
+      }
+    };
+  });
 });
 
 /***/ }),

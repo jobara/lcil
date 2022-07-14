@@ -32,6 +32,10 @@ class ProvisionFactory extends Factory
 
         $isChallenged = $courtChallenge === ProvisionCourtChallenges::SubjectTo || ProvisionCourtChallenges::ResultOf;
 
+        $body = '<p><strong><em>Example <u>Provision</u> Text</em></strong></p><ol><li><p>Some details</p></li>
+                <li><p><p>Some more</p><ul><li><p>sub point</p></li><li><p><strike>sub point removed</strike></p>
+                </li></ul></p></li></ol>';
+
         return [
             'law_policy_source_id' => LawPolicySource::factory(),
             'section' => $this->faker->unique()->regexify('[a-zA-Z0-9]{1,2} [a-zA-Z0-9]{0,2}'),
@@ -44,7 +48,7 @@ class ProvisionFactory extends Factory
             'decision_making_capability' => $this->faker->boolean(50) ?
                 $this->faker->randomElements($capabilities, $capabilitiesToSelect) :
                 null,
-            'body' => $this->faker->paragraph(3),
+            'body' => $body,
             'reference' => $this->faker->boolean(80) ?
                 $this->faker->unique()->url() :
                 null,

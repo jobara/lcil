@@ -8,6 +8,7 @@
     @auth
         <x-forms.error-summary
             :anchors="[
+                'body' => 'body-editable',
                 'court_challenge' => 'court_challenge-not_related',
                 'decision_making_capability' => 'decision_making_capability-independent',
                 'decision_making_capability.0' => 'decision_making_capability-independent',
@@ -29,8 +30,9 @@
                 </li>
                 <li>
                     <x-forms.label for="body" :value="__('Provision Text (required)')" />
-                    <x-hearth-textarea name="body" required>{{ old('body') }}</x-hearth-textarea>
+                    <x-forms.rich-text-editor name="body" aria-labelledby="body-label" required>{{ old('body') }}</x-rich-text-editor>
                     <x-hearth-error for="body" />
+
                 </li>
                 <li>
                     <x-forms.label for="reference" :value="__('Reference / Link')" />

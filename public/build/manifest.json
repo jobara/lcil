@@ -1,0 +1,14 @@
+{
+  "resources/js/app.js": {
+    "file": "assets/app.e8daa639.js",
+    "src": "resources/js/app.js",
+    "isEntry": true,
+    "integrity": "sha384-nrYSBDKqzZgqz075MIqG86PC7uc9bsPiV5g3b/5kmzj1xco4LBIaDJmaLGHd+OYI"
+  },
+  "resources/css/app.scss": {
+    "file": "assets/app.03fd1acc.css",
+    "src": "resources/css/app.scss",
+    "isEntry": true,
+    "integrity": "sha384-pRx9T6ZEDV3oHaHJ15yB26F8wchBw9vPjQmuC+0Pd3hfm5ezIPwZj9tzLENSNVi0"
+  }
+}

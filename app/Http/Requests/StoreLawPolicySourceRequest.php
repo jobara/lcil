@@ -3,11 +3,17 @@
 namespace App\Http\Requests;
 
 use App\Enums\LawPolicyTypes;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Enum;
 
-class StoreLawPolicySourceRequest extends FormRequest
+class StoreLawPolicySourceRequest extends RedirectFormRequest
 {
+    /**
+     * The anchor on the redirect URL that users should be sent to if validation fails.
+     *
+     * @var string
+     */
+    protected $redirectAnchor = '#error-summary__message';
+
     public function authorize(): bool
     {
         return auth()->check();

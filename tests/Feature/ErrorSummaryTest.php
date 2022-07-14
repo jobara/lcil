@@ -23,6 +23,25 @@ test('render - errors', function () {
     $view->assertSeeInOrder($toSee, false);
 });
 
+test('render - custom anchor', function () {
+    $view = $this->withViewErrors([
+        'name' => 'The name field is required.',
+        'country' => 'The country must be at least 2 characters.',
+    ])->blade(
+        '<x-forms.error-summary :anchors="$anchors"/>',
+        ['anchors' => ['name' => 'test-name']]
+    );
+
+    $toSee = [
+        '<div id="error-summary" role="alert">',
+        '<p id="error-summary__message">Please check the following fields in order to proceed:</p>',
+        '<li><a href="#test-name">The name field is required.</a></li>',
+        '<li><a href="#country">The country must be at least 2 characters.</a></li>',
+    ];
+
+    $view->assertSeeInOrder($toSee, false);
+});
+
 test('render - custom id', function () {
     $view = $this->withViewErrors([
         'name' => 'The name field is required.',

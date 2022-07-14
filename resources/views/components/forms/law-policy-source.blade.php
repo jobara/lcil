@@ -1,9 +1,9 @@
-@props(['lawPolicySource' => null, 'errorSummaryId' => 'error-summary__message'])
+@props(['lawPolicySource' => null])
 <form
     {{
         $attributes->merge([
             'method' => 'POST',
-            'action' => route($lawPolicySource ? 'lawPolicySources.update' : 'lawPolicySources.store', $lawPolicySource) . ($errorSummaryId ? "#{$errorSummaryId}" : ''),
+            'action' => route($lawPolicySource ? 'lawPolicySources.update' : 'lawPolicySources.store', $lawPolicySource),
         ])
     }}
 >

@@ -5,9 +5,8 @@ use App\Models\LawPolicySource;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 
-uses(RefreshDatabase::class, WithFaker::class);
+uses(RefreshDatabase::class);
 
 test('store route - required values', function () {
     $user = User::factory()->create();

@@ -6,7 +6,7 @@ enum ProvisionDecisionTypes: string
 {
     use Values;
 
-    case Financial = 'financial and property';
-    case Health = 'health care';
-    case Personal = 'personal life and care';
+    case Financial = 'financial_property';
+    case Health = 'healthcare';
+    case Personal = 'personal_life_care';
 }

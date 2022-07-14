@@ -3,6 +3,7 @@
 use App\Http\Controllers\JurisdictionController;
 use App\Http\Controllers\LawPolicySourceController;
 use App\Http\Controllers\MeasureController;
+use App\Http\Controllers\ProvisionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,6 +53,16 @@ Route::post('law-policy-sources', [LawPolicySourceController::class, 'store'])
 
 Route::patch('law-policy-sources/{lawPolicySource}', [LawPolicySourceController::class, 'update'])
     ->name('lawPolicySources.update')
+    ->middleware('auth');
+
+// Law and Policy Sources - Provisions
+
+Route::multilingual('law-policy-sources/{lawPolicySource}/create', [ProvisionController::class, 'create'])
+    ->name('provisions.create')
+    ->middleware('auth');
+
+Route::post('law-policy-sources/{lawPolicySource}', [ProvisionController::class, 'store'])
+    ->name('provisions.store')
     ->middleware('auth');
 
 // Measures Page

@@ -8,7 +8,7 @@ uses(RefreshDatabase::class);
 test('render - without existing law policy source', function () {
     $toSee = [
         '<form',
-        'method="POST" action="' . route('lawPolicySources.store') . '#error-summary__message',
+        'method="POST" action="' . route('lawPolicySources.store'),
         '<label id="name-label" for="name">Law or Policy Name (required)</label>',
         '<input',
         'name="name" id="name" type="text"',
@@ -89,7 +89,7 @@ test('render - with existing law policy source', function () {
     ]);
     $toSee = [
         '<form',
-        'method="POST" action="' . route('lawPolicySources.update', $lawPolicySource) . '#error-summary__message',
+        'method="POST" action="' . route('lawPolicySources.update', $lawPolicySource),
         '<input type="hidden" name="_method" value="patch">',
         'name="name"',
         $lawPolicySource->name,
@@ -120,9 +120,10 @@ test('render - with existing law policy source', function () {
     $view->assertSeeInOrder($toSee, false);
 });
 
-test('render - errors', function ($data, $errors) {
+test('render - errors', function ($data, $errors, $anchors = []) {
     foreach ($errors as $key => $message) {
-        $toSee[] = "id=\"{$key}";
+        $id = $anchors[$key] ?? $key;
+        $toSee[] = "id=\"{$id}";
         $toSee[] = 'aria-describedby';
         $toSee[] = "{$key}-error";
         $toSee[] = 'aria-invalid="true"';
@@ -136,43 +137,3 @@ test('render - errors', function ($data, $errors) {
     $view->assertSeeInOrder($toSee, false);
 })->with('lawPolicySourceValidationErrors')
   ->group('LawPolicySources');
-
-test('render - custom errorSummaryId', function () {
-    $lawPolicySource = LawPolicySource::factory()->create();
-    $toSee = [
-        '<form',
-        'method="POST" action="' . route('lawPolicySources.update', $lawPolicySource) . '#custom',
-    ];
-
-    $view = $this->withViewErrors([])
-        ->blade(
-        '<x-forms.law-policy-source :lawPolicySource="$lawPolicySource" :errorSummaryId="$errorMessageId" />',
-            [
-                'lawPolicySource' => $lawPolicySource,
-                'errorMessageId' => 'custom',
-            ]
-        );
-
-    $view->assertSeeInOrder($toSee, false);
-    $view->assertDontSee('#error-summary__message', false);
-})->group('LawPolicySources');
-
-test('render - empty errorSummaryId', function () {
-    $lawPolicySource = LawPolicySource::factory()->create();
-    $toSee = [
-        '<form',
-        'method="POST" action="' . route('lawPolicySources.update', $lawPolicySource),
-    ];
-
-    $view = $this->withViewErrors([])
-        ->blade(
-        '<x-forms.law-policy-source :lawPolicySource="$lawPolicySource" :errorSummaryId="$errorMessageId" />',
-            [
-                'lawPolicySource' => $lawPolicySource,
-                'errorMessageId' => '',
-            ]
-        );
-
-    $view->assertSeeInOrder($toSee, false);
-    $view->assertDontSee('#error-summary__message', false);
-})->group('LawPolicySources');

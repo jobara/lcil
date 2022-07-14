@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Enums\DecisionMakingCapabilities;
 use App\Enums\LegalCapacityApproaches;
+use App\Enums\ProvisionCourtChallenges;
 use App\Enums\ProvisionDecisionTypes;
 use App\Models\LawPolicySource;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -22,16 +23,18 @@ class ProvisionFactory extends Factory
     {
         $challengeTypes = ProvisionDecisionTypes::values();
         $numChallengeTypesToSelect = $this->faker->numberBetween(1, count($challengeTypes));
+        $capabilities = DecisionMakingCapabilities::values();
+        $capabilitiesToSelect = $this->faker->numberBetween(1, count($capabilities));
 
-        $isSubToChallenge = $this->faker->boolean(50) ?
-            $this->faker->boolean() :
+        $courtChallenge = $this->faker->boolean(50) ?
+            $this->faker->randomElement(ProvisionCourtChallenges::values()) :
             null;
 
-        $isResOfChallenge = $this->faker->boolean(50) ?
-            $this->faker->boolean() :
-            null;
+        $isChallenged = $courtChallenge === ProvisionCourtChallenges::SubjectTo || ProvisionCourtChallenges::ResultOf;
 
-        $isChallenged = $isSubToChallenge || $isResOfChallenge;
+        $body = '<p><strong><em>Example <u>Provision</u> Text</em></strong></p><ol><li><p>Some details</p></li>
+                <li><p><p>Some more</p><ul><li><p>sub point</p></li><li><p><strike>sub point removed</strike></p>
+                </li></ul></p></li></ol>';
 
         return [
             'law_policy_source_id' => LawPolicySource::factory(),
@@ -43,14 +46,15 @@ class ProvisionFactory extends Factory
                 $this->faker->randomElement(LegalCapacityApproaches::values()) :
                 null,
             'decision_making_capability' => $this->faker->boolean(50) ?
-                $this->faker->randomElement(DecisionMakingCapabilities::values()) :
+                $this->faker->randomElements($capabilities, $capabilitiesToSelect) :
                 null,
-            'body' => $this->faker->paragraph(3),
+            'body' => $body,
             'reference' => $this->faker->boolean(80) ?
                 $this->faker->unique()->url() :
                 null,
-            'is_subject_to_challenge' => $isSubToChallenge,
-            'is_result_of_challenge' => $isResOfChallenge,
+            'court_challenge' => $this->faker->boolean(50) ?
+                $this->faker->randomElement(ProvisionCourtChallenges::values()) :
+                null,
             'decision_citation' => $this->faker->boolean(50) && $isChallenged ?
                 $this->faker->paragraph() :
                 null,

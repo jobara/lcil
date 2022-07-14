@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Testing\TestResponse;
+use Illuminate\Testing\TestView;
+
 uses(Tests\TestCase::class)->in('Feature');
 
 /*
@@ -39,7 +42,16 @@ expect()->extend('toBeOne', function () {
 |
 */
 
-function something()
+function assertDontSeeAny(TestView|TestResponse $view, array $dontSee, bool $escaped = true): void
 {
-    // ..
+    foreach ($dontSee as $value) {
+        $view->assertDontSee($value, $escaped);
+    }
+}
+
+function assertDontSeeAnyText(TestView|TestResponse $view, array $dontSee, bool $escaped = true): void
+{
+    foreach ($dontSee as $value) {
+        $view->assertDontSeeText($value, $escaped);
+    }
 }

@@ -11,6 +11,7 @@
         "eslint-plugin-jsdoc": "^39.3.3",
         "fluid-lint-all": "^1.2.2",
         "laravel-vite-plugin": "^0.4.0",
+        "sass": "^1.53.0",
         "vite": "^2.9.14",
         "vite-plugin-full-reload": "^1.0.1",
         "vite-plugin-manifest-sri": "^0.1.0"

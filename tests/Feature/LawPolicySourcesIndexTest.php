@@ -294,11 +294,13 @@ test('index route item sort order', function () {
         ->create([
             'name' => 'Subdivision First',
             'jurisdiction' => 'CA-ON',
+            'municipality' => null,
         ]);
     LawPolicySource::factory()
         ->create([
             'name' => 'Subdivision Second',
             'jurisdiction' => 'CA-ON',
+            'municipality' => null,
         ]);
     LawPolicySource::factory()
         ->create([
@@ -328,4 +330,5 @@ test('index route item sort order', function () {
     $itemNames = array_column($response->viewData('lawPolicySources')->items(), 'name');
 
     expect($itemNames)->toBe($order);
+    $response->assertSeeTextInOrder($order);
 })->group('LawPolicySources');

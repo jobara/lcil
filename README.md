@@ -85,6 +85,12 @@ examples below. For Windows users, Sail is supported via [WSL2](https://docs.mic
    sail down
    ```
 
+7. To update JS and CSS dependencies run the vite build
+
+   ```bash
+   sail npm run build
+   ```
+
 ### Setup for developing locally
 
 If you prefer to develop locally, you'll need to setup and configure the database manually and update the `.env`
@@ -124,9 +130,21 @@ file with the appropriate information for accessing it.
    necessary.
 
    ```bash
-   php artisan serve
+   npm run dev
 
    # use ctrl-c to terminate the server
+   ```
+
+7. To update JS and CSS dependencies run the vite build
+
+   ```bash
+   npm run build
+   ```
+
+8. To debug JS or CSS run the `dev` npm script which will enable source maps
+
+   ```bash
+   npm run dev
    ```
 
 ### Localization
@@ -180,9 +198,13 @@ and [Localizator README](https://github.com/amiranagram/localizator/blob/0.x/REA
 
 ### Rebuilding Assets
 
-[Laravel Mix](https://laravel.com/docs/9.x/mix) is used for compiling assets such as JavaScript and CSS. The
-configuration can be found in [webpack.mix.js](./webpack.mix.js). If you change any of the assets you'll need to
-trigger mix to rebuild. (See: [Running Mix](https://laravel.com/docs/9.x/mix#running-mix))
+[Vite](https://vitejs.dev), with [laravel-vite-plugin](https://www.npmjs.com/package/laravel-vite-plugin), is used for
+compiling assets such as JavaScript and CSS. The configuration can be found in [vite.config.js](./vite.config.js). If
+you change any of the assets you'll need to trigger a rebuild.
+
+```bash
+npm run build
+```
 
 ### Testing
 

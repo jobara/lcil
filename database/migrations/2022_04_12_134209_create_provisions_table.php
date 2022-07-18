@@ -23,6 +23,7 @@ return new class extends Migration {
             $table->json('decision_making_capability')->nullable(); // Array of DecisionMakingCapabilities values
             $table->string('court_challenge')->nullable(); // ProvisionCourtChallenges
             $table->text('decision_citation')->nullable();
+            $table->string('slug');
             $table->timestamps();
         });
     }

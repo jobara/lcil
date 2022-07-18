@@ -21,8 +21,8 @@ class ProvisionFactory extends Factory
      */
     public function definition(): array
     {
-        $challengeTypes = ProvisionDecisionTypes::values();
-        $numChallengeTypesToSelect = $this->faker->numberBetween(1, count($challengeTypes));
+        $provisionDecisionTypes = ProvisionDecisionTypes::values();
+        $numProvisionDecisionTypesToSelect = $this->faker->numberBetween(1, count($provisionDecisionTypes));
         $capabilities = DecisionMakingCapabilities::values();
         $capabilitiesToSelect = $this->faker->numberBetween(1, count($capabilities));
 
@@ -30,7 +30,7 @@ class ProvisionFactory extends Factory
             $this->faker->randomElement(ProvisionCourtChallenges::values()) :
             null;
 
-        $isChallenged = $courtChallenge === ProvisionCourtChallenges::SubjectTo || ProvisionCourtChallenges::ResultOf;
+        $isChallenged = isset($courtChallenge) && ProvisionCourtChallenges::tryFrom($courtChallenge) !== ProvisionCourtChallenges::NotRelated;
 
         $body = '<p><strong><em>Example <u>Provision</u> Text</em></strong></p><ol><li><p>Some details</p></li>
                 <li><p><p>Some more</p><ul><li><p>sub point</p></li><li><p><strike>sub point removed</strike></p>
@@ -39,8 +39,8 @@ class ProvisionFactory extends Factory
         return [
             'law_policy_source_id' => LawPolicySource::factory(),
             'section' => $this->faker->unique()->regexify('[a-zA-Z0-9]{1,2} [a-zA-Z0-9]{0,2}'),
-            'decision_type' => $this->faker->boolean(50) ?
-                $this->faker->randomElements($challengeTypes, $numChallengeTypesToSelect) :
+            'decision_type' => $this->faker->boolean(50) && $isChallenged ?
+                $this->faker->randomElements($provisionDecisionTypes, $numProvisionDecisionTypesToSelect) :
                 null,
             'legal_capacity_approach' => $this->faker->boolean(50) ?
                 $this->faker->randomElement(LegalCapacityApproaches::values()) :
@@ -52,9 +52,7 @@ class ProvisionFactory extends Factory
             'reference' => $this->faker->boolean(80) ?
                 $this->faker->unique()->url() :
                 null,
-            'court_challenge' => $this->faker->boolean(50) ?
-                $this->faker->randomElement(ProvisionCourtChallenges::values()) :
-                null,
+            'court_challenge' => $courtChallenge,
             'decision_citation' => $this->faker->boolean(50) && $isChallenged ?
                 $this->faker->paragraph() :
                 null,

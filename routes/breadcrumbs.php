@@ -32,3 +32,9 @@ Breadcrumbs::for('provisions.create', function (BreadcrumbTrail $trail, LawPolic
     $trail->parent('lawPolicySources.show', $lawPolicySource);
     $trail->push(__('Add Provision'));
 });
+
+// Law and Policy Sources > [Law and Policy Source] > Edit Provision
+Breadcrumbs::for('provisions.edit', function (BreadcrumbTrail $trail, LawPolicySource $lawPolicySource) {
+    $trail->parent('lawPolicySources.show', $lawPolicySource);
+    $trail->push(__('Edit Provision'));
+});

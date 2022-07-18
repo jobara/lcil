@@ -61,8 +61,16 @@ Route::multilingual('law-policy-sources/{lawPolicySource}/create', [ProvisionCon
     ->name('provisions.create')
     ->middleware('auth');
 
+Route::multilingual('law-policy-sources/{lawPolicySource}/provisions/{slug}', [ProvisionController::class, 'edit'])
+    ->name('provisions.edit')
+    ->middleware('auth');
+
 Route::post('law-policy-sources/{lawPolicySource}', [ProvisionController::class, 'store'])
     ->name('provisions.store')
+    ->middleware('auth');
+
+Route::patch('law-policy-sources/{lawPolicySource}/provisions/{slug}', [ProvisionController::class, 'update'])
+    ->name('provisions.update')
     ->middleware('auth');
 
 // Measures Page

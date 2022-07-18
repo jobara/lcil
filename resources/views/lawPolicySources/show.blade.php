@@ -49,6 +49,9 @@
         @endauth
         @forelse ($lawPolicySource->provisions->sortBy('section') as $provision)
             <h3>{{ __('Section / Subsection: :section', ['section' => $provision->section]) }}</h3>
+            @auth
+                <a href="{{ localized_route('provisions.edit', [$lawPolicySource, $provision->slug]) }}">{{ __('Edit') }}</a>
+            @endauth
             <div>{!! $provision->body !!}</div>
             @isset($provision->reference)
                 <a href="{{ $provision->reference }}">{{ __('Section / Subsection: :section Reference', ['section' => $provision->section]) }}</a>

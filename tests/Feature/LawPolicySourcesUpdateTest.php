@@ -64,7 +64,7 @@ test('update route - all values', function () {
     expect($updated->slug)->toBe('ca-on-test-all-values');
 })->group('LawPolicySources');
 
-test('store route - no updates', function () {
+test('update route - no updates', function () {
     $user = User::factory()->create();
     $data = [
         'name' => 'test update with same values',
@@ -91,7 +91,7 @@ test('store route - no updates', function () {
     expect($updated->updated_at->toDateTimeString())->toBe($lawPolicySource->created_at->toDateTimeString());
 })->group('LawPolicySources');
 
-test('store route - validation errors', function ($data, $errors) {
+test('update route - validation errors', function ($data, $errors) {
     $user = User::factory()->create();
     $lawPolicySource = LawPolicySource::factory()
     ->has(Provision::factory())
@@ -102,7 +102,7 @@ test('store route - validation errors', function ($data, $errors) {
 })->with('lawPolicySourceValidationErrors')
     ->group('LawPolicySources');
 
-test('store route - unauthenticated throws AuthenticationException', function () {
+test('update route - unauthenticated throws AuthenticationException', function () {
     $lawPolicySource = LawPolicySource::factory()->create();
     $this->withoutExceptionHandling()->patch(route('lawPolicySources.update', $lawPolicySource), [
         'name' => 'test',
@@ -111,7 +111,7 @@ test('store route - unauthenticated throws AuthenticationException', function ()
 })->throws(AuthenticationException::class)
     ->group('LawPolicySources');
 
-test('store route - unauthenticated redirected to login', function () {
+test('update route - unauthenticated redirected to login', function () {
     $lawPolicySource = LawPolicySource::factory()->create([
         'name' => 'test original',
     ]);

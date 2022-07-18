@@ -1,8 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        {{ Breadcrumbs::render('provisions.create', $lawPolicySource) }}
-        <h1 itemprop="name">{{ __('Add Provision') }}</h1>
-        <p>{{ __('Use this form to add a provision to the law or policy source.') }}
+        {{ Breadcrumbs::render('provisions.edit', $lawPolicySource) }}
+        <h1 itemprop="name">{{ __('Edit Provision') }}</h1>
     </x-slot>
 
     @auth
@@ -17,11 +16,10 @@
             ]"
         />
 
-    <x-forms.provision :lawPolicySource="$lawPolicySource" />
+        <x-forms.provision :lawPolicySource="$lawPolicySource" :provision="$provision" />
     @endauth
     <aside>
         <x-law-policy-source-card :lawPolicySource="$lawPolicySource" level="2" expanded />
-
     </aside>
 
 </x-app-layout>

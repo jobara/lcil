@@ -30,8 +30,7 @@
         @foreach ($lawPolicySource->provisions->sortBy('section') as $provision)
             <li>
                 @auth
-                    {{-- set the href when editting added --}}
-                    <a href="">{{ $provision->section }}</a>
+                    <a href="{{ localized_route('provisions.edit', [$lawPolicySource, $provision->slug]) }}">{{ $provision->section }}</a>
                 @endauth
                 @guest
                     {{ $provision->section }}

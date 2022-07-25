@@ -3,7 +3,9 @@
 use App\Http\Controllers\JurisdictionController;
 use App\Http\Controllers\LawPolicySourceController;
 use App\Http\Controllers\MeasureController;
+use App\Http\Controllers\MeasureEvaluationController;
 use App\Http\Controllers\ProvisionController;
+use App\Http\Controllers\RegimeAssessmentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,8 +27,8 @@ Route::multilingual('/', function () {
 
 // About Page
 Route::multilingual('about', function () {
-})
-    ->name('about'); // rough-in web route
+    return view('about');
+})->name('about'); // rough-in web route
 
 // Jurisdictions
 Route::get('jurisdictions', [JurisdictionController::class, 'index'])->name('jurisdictions.index');
@@ -80,6 +82,13 @@ Route::multilingual('measures', [MeasureController::class, 'index'])->name('meas
 Route::multilingual('regime-assessments', function () {
 })
     ->name('regimeAssessments.index'); // rough-in web route
+
+Route::multilingual('regime-assessments/{regimeAssessment}', [RegimeAssessmentController::class, 'show'])
+    ->name('regimeAssessments.show');
+
+// Regime Assessments - Measure Evaluations
+// Route::multilingual('regime-assessments/{regimeAssessment}/evaluations/{code}', [MeasureEvaluationController::class, 'show'])
+//     ->name('regimeAssessments.show');
 
 // Hearth generated routes
 Route::multilingual('dashboard', function () {

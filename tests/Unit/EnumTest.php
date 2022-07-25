@@ -1,10 +1,12 @@
 <?php
 
 use App\Enums\DecisionMakingCapabilities;
+use App\Enums\EvaluationAssessments;
 use App\Enums\LawPolicyTypes;
 use App\Enums\LegalCapacityApproaches;
 use App\Enums\ProvisionCourtChallenges;
 use App\Enums\ProvisionDecisionTypes;
+use App\Enums\RegimeAssessmentStatuses;
 
 test('Values trait', function ($enum) {
     $values = $enum::values();
@@ -15,4 +17,6 @@ test('Values trait', function ($enum) {
     LegalCapacityApproaches::class,
     ProvisionCourtChallenges::class,
     ProvisionDecisionTypes::class,
+    RegimeAssessmentStatuses::class,
+    EvaluationAssessments::class,
 ]);

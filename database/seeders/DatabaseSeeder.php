@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             ConstantsSeeder::class,
             UserSeeder::class,
-            ProvisionSeeder::class,
+            RegimeAssessmentSeeder::class,
         ]);
     }
 }

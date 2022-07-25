@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Measure extends Model
 {
@@ -25,5 +26,10 @@ class Measure extends Model
     public function indicator(): BelongsTo
     {
         return $this->belongsTo(MeasureIndicator::class, 'measure_indicator_id');
+    }
+
+    public function evaluations(): HasMany
+    {
+        return $this->hasMany(Evaluation::class);
     }
 }

@@ -25,6 +25,13 @@ class MeasureIndicator extends Model
         'description',
     ];
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['measures'];
+
     public function dimension(): BelongsTo
     {
         return $this->belongsTo(MeasureDimension::class, 'measure_dimension_id');

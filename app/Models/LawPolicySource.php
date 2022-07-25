@@ -6,6 +6,7 @@ use App\Enums\LawPolicyTypes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use OwenIt\Auditing\Contracts\Auditable;
 use Spatie\Sluggable\HasSlug;
@@ -51,6 +52,11 @@ class LawPolicySource extends Model implements Auditable
     public function provisions(): HasMany
     {
         return $this->hasMany(Provision::class);
+    }
+
+    public function regimeAssessments(): BelongsToMany
+    {
+        return $this->belongsToMany(RegimeAssessment::class);
     }
 
     public function getSlugOptions(): SlugOptions

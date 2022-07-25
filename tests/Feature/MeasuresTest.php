@@ -67,13 +67,13 @@ test('measure model relationships', function () {
 
     // Dimension relationships
     expect($dimension->indicators)->toHaveCount(1);
-    expect($dimension->indicators[0]->code)->toBe($indicator->code);
+    expect($dimension->indicators->contains($indicator))->toBeTrue();
 
     // Indicator relationships
     expect($indicator->measures)->toHaveCount(1);
-    expect($indicator->dimension->code)->toBe($dimension->code);
-    expect($indicator->measures[0]->code)->toBe($measure->code);
+    expect($indicator->dimension->is($dimension))->toBeTrue();
+    expect($indicator->measures->contains($measure))->toBeTrue();
 
     // Measure relationships
-    expect($measure->indicator->code)->toBe($indicator->code);
+    expect($measure->indicator->is($indicator))->toBeTrue();
 });

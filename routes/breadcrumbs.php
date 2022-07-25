@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\LawPolicySource;
+use App\Models\RegimeAssessment;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
@@ -37,4 +38,15 @@ Breadcrumbs::for('provisions.create', function (BreadcrumbTrail $trail, LawPolic
 Breadcrumbs::for('provisions.edit', function (BreadcrumbTrail $trail, LawPolicySource $lawPolicySource) {
     $trail->parent('lawPolicySources.show', $lawPolicySource);
     $trail->push(__('Edit Provision'));
+});
+
+// Regime Assessments
+Breadcrumbs::for('regimeAssessments.index', function (BreadcrumbTrail $trail) {
+    $trail->push(__('Regime Assessments'), \localized_route('regimeAssessments.index'));
+});
+
+// Regime Assessments > [Regime Assessment]
+Breadcrumbs::for('regimeAssessments.show', function (BreadcrumbTrail $trail, RegimeAssessment $regimeAssessment) {
+    $trail->parent('regimeAssessments.index');
+    $trail->push(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
 });

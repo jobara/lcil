@@ -20,6 +20,13 @@ class MeasureDimension extends Model
         'description',
     ];
 
+    /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['indicators'];
+
     public function indicators(): HasMany
     {
         return $this->hasMany(MeasureIndicator::class, 'measure_dimension_id');

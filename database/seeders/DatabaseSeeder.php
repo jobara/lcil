@@ -12,7 +12,6 @@ class DatabaseSeeder extends Seeder
             ConstantsSeeder::class,
             UserSeeder::class,
             RegimeAssessmentSeeder::class,
-            // ProvisionSeeder::class,
         ]);
     }
 }

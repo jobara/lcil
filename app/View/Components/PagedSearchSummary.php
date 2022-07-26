@@ -40,7 +40,7 @@ class PagedSearchSummary extends Component
             $searchData[] = "keywords: {$keywords}";
         }
 
-        $this->search = implode(', ', $searchData); /* @phpstan-ignore-line */
+        $this->search = implode(', ', $searchData);
         $this->paginator = $paginator;
         $this->start = ($paginator->currentPage() - 1) * $paginator->perPage() + 1;
         $this->end = $this->start + $paginator->count() - 1;

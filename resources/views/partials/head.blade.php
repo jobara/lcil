@@ -22,3 +22,4 @@
 <!-- Scripts -->
 <script>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
 @vite('resources/js/app.js')
+

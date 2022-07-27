@@ -69,7 +69,7 @@ dataset('provisionValidationErrors', function () {
                 'body' => 'body text',
                 'legal_capacity_approach' => 'invalid',
             ],
-            ['legal_capacity_approach' => 'The Approach to Legal Capacity (legal_capacity_approach) must be one of the following: ' . implode(', ', LegalCapacityApproaches::values()) . '.'],
+            ['legal_capacity_approach' => 'The Approach to Legal Capacity (legal_capacity_approach) must be one of the following: '.implode(', ', LegalCapacityApproaches::values()).'.'],
         ],
         'court challenge invalid value' => [
             [
@@ -77,7 +77,7 @@ dataset('provisionValidationErrors', function () {
                 'body' => 'body text',
                 'court_challenge' => 'invalid',
             ],
-            ['court_challenge' => 'The Court Challenge (court_challenge) must be one of the following: ' . implode(', ', ProvisionCourtChallenges::values()) . '.'],
+            ['court_challenge' => 'The Court Challenge (court_challenge) must be one of the following: '.implode(', ', ProvisionCourtChallenges::values()).'.'],
             ['court_challenge' => 'court_challenge-not-related'],
         ],
         'decision citation without court_challenge' => [

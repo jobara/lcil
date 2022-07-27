@@ -21,8 +21,8 @@ test('create route render', function () {
     $toSee = [
         '<h1 itemprop="name">Create a Law or Policy Source</h1>',
         '<form',
-        'method="POST" action="' . route('lawPolicySources.store'),
-        '<a href="' . \localized_route('lawPolicySources.index') . '">Cancel</a>',
+        'method="POST" action="'.route('lawPolicySources.store'),
+        '<a href="'.\localized_route('lawPolicySources.index').'">Cancel</a>',
     ];
 
     $view = $this->actingAs($user)

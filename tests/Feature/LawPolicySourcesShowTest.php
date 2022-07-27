@@ -35,7 +35,7 @@ test('show route render - authenticated', function () {
 
     $toSee = [
         'Provisions',
-        '<a href="' . \localized_route('provisions.create', $lawPolicySource) . '">Add Provision</a>',
+        '<a href="'.\localized_route('provisions.create', $lawPolicySource).'">Add Provision</a>',
     ];
 
     $view = $this->actingAs($user)->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);

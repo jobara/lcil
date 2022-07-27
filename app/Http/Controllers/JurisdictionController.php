@@ -15,7 +15,6 @@ class JurisdictionController extends Controller
      * Display the set of available subdivisions for the specified country in JSON
      *
      * @param  string  $country An ISO 3166-1 alpha-2 code
-     *
      * @return JsonResponse
      */
     public function show(string $country): JsonResponse

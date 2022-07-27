@@ -27,8 +27,8 @@ test('edit route render', function () {
     $toSee = [
         '<h1 itemprop="name">Edit Law or Policy Source</h1>',
         '<form',
-        'method="POST" action="' . route('lawPolicySources.update', $lawPolicySource),
-        '<a href="' . \localized_route('lawPolicySources.show', $lawPolicySource) . '">Cancel</a>',
+        'method="POST" action="'.route('lawPolicySources.update', $lawPolicySource),
+        '<a href="'.\localized_route('lawPolicySources.show', $lawPolicySource).'">Cancel</a>',
     ];
 
     $view = $this->actingAs($user)

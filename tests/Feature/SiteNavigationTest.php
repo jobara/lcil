@@ -22,9 +22,9 @@ test('render - current page: Law Policy Source', function () {
 
     $response->assertStatus(200);
     $response->assertViewIs('lawPolicySources.index');
-    $response->assertSee('<a aria-current="page" href="' . localized_route('lawPolicySources.index'), false);
-    $response->assertDontSee('<a aria-current="page" href="' . localized_route('regimeAssessments.index'), false);
-    $response->assertDontSee('<a aria-current="page" href="' . localized_route('about'), false);
+    $response->assertSee('<a aria-current="page" href="'.localized_route('lawPolicySources.index'), false);
+    $response->assertDontSee('<a aria-current="page" href="'.localized_route('regimeAssessments.index'), false);
+    $response->assertDontSee('<a aria-current="page" href="'.localized_route('about'), false);
 });
 
 // TODO: uncomment when Regime Assessments page has been created
@@ -54,9 +54,9 @@ test('render - current page: Landing Page', function () {
 
     $response->assertStatus(200);
     $response->assertViewIs('welcome');
-    $response->assertDontSee('<a aria-current="page" href="' . localized_route('lawPolicySources.index'), false);
-    $response->assertDontSee('<a aria-current="page" href="' . localized_route('regimeAssessments.index'), false);
-    $response->assertDontSee('<a aria-current="page" href="' . localized_route('about'), false);
+    $response->assertDontSee('<a aria-current="page" href="'.localized_route('lawPolicySources.index'), false);
+    $response->assertDontSee('<a aria-current="page" href="'.localized_route('regimeAssessments.index'), false);
+    $response->assertDontSee('<a aria-current="page" href="'.localized_route('about'), false);
 });
 
 /*

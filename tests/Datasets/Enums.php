@@ -63,7 +63,7 @@ dataset('enums', function () {
                 'not_related' => 'Not related to a court challenge',
                 'subject_to' => 'Is or has been subject to a constitutional or other court challenge',
                 'result_of' => 'Is the result of a court challenge',
-            ]
+            ],
         ],
         'ProvisionDecisionTypes' => [
             ProvisionDecisionTypes::class,
@@ -71,7 +71,7 @@ dataset('enums', function () {
                 'personal_life_care' => 'Personal Life and Care',
                 'healthcare' => 'Health Care',
                 'financial_property' => 'Financial and Property',
-            ]
+            ],
         ],
         'RegimeAssessmentStatuses' => [
             RegimeAssessmentStatuses::class,
@@ -79,7 +79,7 @@ dataset('enums', function () {
                 'draft' => 'Draft',
                 'needs_review' => 'Needs Review',
                 'published' => 'Published',
-            ]
+            ],
         ],
     ];
 });

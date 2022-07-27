@@ -14,5 +14,4 @@ test('Values trait', function ($enum, $expectedLabels) {
     $options = $enum::options();
     expect($options)->toBeInstanceOf(Options::class);
     expect($options->toArray())->toEqual(Options::forArray($expectedLabels)->toArray());
-
 })->with('enums');

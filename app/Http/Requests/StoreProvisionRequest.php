@@ -49,10 +49,10 @@ class StoreProvisionRequest extends RedirectFormRequest
             'body.required' => 'The :attribute is required.',
             'reference.url' => 'The :attribute format must be in a form like https://example.com or http://example.com.',
             'decision_type.prohibited_if' => 'The :attribute requires the :other indicate that a challenge has been initiated; the current value is: :value',
-            'decision_type.*.Illuminate\Validation\Rules\Enum' => 'The :attribute must only include the following: ' . implode(', ', ProvisionDecisionTypes::values()) . '.',
-            'legal_capacity_approach.Illuminate\Validation\Rules\Enum' => 'The :attribute must be one of the following: ' . implode(', ', LegalCapacityApproaches::values()) . '.',
-            'decision_making_capability.*.Illuminate\Validation\Rules\Enum' => 'The :attribute must only include the following: ' . implode(', ', DecisionMakingCapabilities::values()) . '.',
-            'court_challenge.Illuminate\Validation\Rules\Enum' => 'The :attribute must be one of the following: ' . implode(', ', ProvisionCourtChallenges::values()) . '.',
+            'decision_type.*.Illuminate\Validation\Rules\Enum' => 'The :attribute must only include the following: '.implode(', ', ProvisionDecisionTypes::values()).'.',
+            'legal_capacity_approach.Illuminate\Validation\Rules\Enum' => 'The :attribute must be one of the following: '.implode(', ', LegalCapacityApproaches::values()).'.',
+            'decision_making_capability.*.Illuminate\Validation\Rules\Enum' => 'The :attribute must only include the following: '.implode(', ', DecisionMakingCapabilities::values()).'.',
+            'court_challenge.Illuminate\Validation\Rules\Enum' => 'The :attribute must be one of the following: '.implode(', ', ProvisionCourtChallenges::values()).'.',
             'decision_citation.prohibited_if' => 'The :attribute requires the :other indicate that a challenge has been initiated; the current value is: :value',
         ];
     }
@@ -88,7 +88,7 @@ class StoreProvisionRequest extends RedirectFormRequest
             'reference' => ['nullable', 'url'],
             'decision_type' => [
                 'nullable',
-                'prohibited_if:court_challenge,null,' . ProvisionCourtChallenges::NotRelated->value,
+                'prohibited_if:court_challenge,null,'.ProvisionCourtChallenges::NotRelated->value,
             ],
             'decision_type.*' => [new Enum(ProvisionDecisionTypes::class)],
             'legal_capacity_approach' => ['nullable', new Enum(LegalCapacityApproaches::class)],
@@ -98,7 +98,7 @@ class StoreProvisionRequest extends RedirectFormRequest
             'decision_citation' => [
                 'nullable',
                 'string',
-                'prohibited_if:court_challenge,null,' . ProvisionCourtChallenges::NotRelated->value,
+                'prohibited_if:court_challenge,null,'.ProvisionCourtChallenges::NotRelated->value,
             ],
         ];
     }

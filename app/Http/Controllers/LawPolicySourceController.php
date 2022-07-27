@@ -39,7 +39,7 @@ class LawPolicySourceController extends Controller
 
         if (request('country') !== null) {
             $filters['jurisdiction'] = request('subdivision') ?
-            request('country') . '-' . request('subdivision') :
+            request('country').'-'.request('subdivision') :
             request('country');
         }
 

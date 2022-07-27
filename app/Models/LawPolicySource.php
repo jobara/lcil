@@ -74,17 +74,16 @@ class LawPolicySource extends Model implements Auditable
     /**
      * Filter Law and Policy sources based on jurisdiction and keywords.
      *
-     * @param Builder $query
-     * @param array{jurisdiction: ?string, keywords: ?string} $filters The jurisdiction and keywords to filter the search
+     * @param  Builder  $query
+     * @param  array{jurisdiction: ?string, keywords: ?string}  $filters The jurisdiction and keywords to filter the search
      * results with.
-     *
      * @return void
      */
     public function scopeFilter(Builder $query, array $filters): void
     {
         $query->when($filters['jurisdiction'] ?? false, fn ($query, $jurisdiction) => $query->where(fn ($query) => $query->where('jurisdiction', $jurisdiction)
                       ->orWhere('jurisdiction', 'like', "{$jurisdiction}-%")
-            )
+        )
         );
 
         $query->when(

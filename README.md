@@ -147,6 +147,11 @@ file with the appropriate information for accessing it.
    npm run dev
    ```
 
+9. For account creation the app requires a mail server. You can use [MailHog](https://github.com/mailhog/MailHog) to
+   simulate email communication. This is already configured in Sail, but will need to be installed manually for local
+   development. Once MailHog is installed update the `MAIL_HOST` variable in the `.env` file with the IP that MailHog
+   bound SMTP to.
+
 ### Localization
 
 When entering text into the templates and etc, use translatable strings. The text can be retrieved using [default

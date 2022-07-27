@@ -55,7 +55,7 @@ test('show route render - all fields', function () {
 
     $provisionConfig = [
         'decision_type' => [ProvisionDecisionTypes::Financial->value],
-        'legal_capacity_approach' => $this->faker->randomElement(LegalCapacityApproaches::values()),
+        'legal_capacity_approach' => LegalCapacityApproaches::Outcome->value,
         'decision_making_capability' => [DecisionMakingCapabilities::Independent->value],
         'reference' => $this->faker->unique()->url(),
         'court_challenge' => ProvisionCourtChallenges::ResultOf->value,
@@ -75,7 +75,7 @@ test('show route render - all fields', function () {
         'Reference',
         $lawPolicySource->reference,
         'Type',
-        $lawPolicySource->type->value,
+        $lawPolicySource->type->labels()[$lawPolicySource->type->value],
         'Effect on Legal Capacity',
         $lawPolicySource->is_core ? 'Core - directly affects legal capacity' : 'Supplemental - indirectly affects legal capacity',
         'Provisions',
@@ -94,7 +94,7 @@ test('show route render - all fields', function () {
         $toSee[] = "Section / Subsection: {$provision->section}";
         $toSee[] = "Section / Subsection: {$provision->section} Reference";
         $toSee[] = 'Other Information';
-        $toSee[] = "{$provision->legal_capacity_approach->value} approach to legal capacity";
+        $toSee[] = "{$provision->legal_capacity_approach->labels()[$provision->legal_capacity_approach->value]} approach to legal capacity";
         $toSee[] = 'Recognizes Independent Only decision making capability';
         $toSee[] = 'Legal Information';
         $toSee[] = 'This provision is the result of a court challenge.';
@@ -318,7 +318,59 @@ test('show route render - decision types', function ($data, $expected) {
     ],
     'multiple decision types' => [
         ['decision_type' => ProvisionDecisionTypes::values()],
-        'Financial Property, Health Care, Personal Life and Care',
+        'Personal Life and Care, Health Care, Financial Property',
+    ],
+])
+  ->group('LawPolicySources');
+
+test('show route render - Legal capacity approach', function ($data, $expected) {
+    // create a Law and Policy Source to use for the test
+    $lawPolicySource = LawPolicySource::factory()->create();
+
+    Provision::factory()
+        ->for($lawPolicySource)
+        ->create(array_merge([
+            'decision_making_capability' => null,
+        ], $data));
+
+    $toSee = [];
+
+    if (isset($expected)) {
+        $toSee[] = 'Other Information';
+    }
+
+    $toSee = [
+        'Provisions',
+        'Legal Information',
+        "Type of Decision: {$expected}",
+    ];
+
+    $view = $this->view('lawPolicySources.show', ['lawPolicySource' => $lawPolicySource]);
+
+    if (isset($expected)) {
+        $toSee = [
+            'Other Information',
+            $expected,
+        ];
+
+        $view->assertSeeTextInOrder($toSee);
+    }
+
+    if (empty($expected)) {
+        $view->assertDontSee('Other Information');
+    }
+})->with([
+    'has an approach' => [
+        ['legal_capacity_approach' => LegalCapacityApproaches::Outcome->value],
+        'Outcome approach to legal capacity',
+    ],
+    'not applicable approach' => [
+        ['legal_capacity_approach' => LegalCapacityApproaches::NotApplicable->value],
+        null,
+    ],
+    'null approach' => [
+        ['legal_capacity_approach' => null],
+        null,
     ],
 ])
   ->group('LawPolicySources');

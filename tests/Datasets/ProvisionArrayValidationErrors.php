@@ -17,7 +17,7 @@ dataset('provisionArrayValidationErrors', function () {
                 'decision_type' => ['invalid'],
             ],
             ['decision_type.0' => 'The Type of Decision (decision_type) must only include the following: ' . implode(', ', ProvisionDecisionTypes::values()) . '.'],
-            ['decision_type' => 'decision_type-financial_property'],
+            ['decision_type' => 'decision_type-financial-property'],
         ],
         'decision making capability invalid value' => [
             [

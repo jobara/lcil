@@ -8,11 +8,11 @@
         <x-forms.error-summary
             :anchors="[
                 'body' => 'body-editable',
-                'court_challenge' => 'court_challenge-not_related',
+                'court_challenge' => 'court_challenge-not-related',
                 'decision_making_capability' => 'decision_making_capability-independent',
                 'decision_making_capability.0' => 'decision_making_capability-independent',
-                'decision_type' => 'decision_type-financial_property',
-                'decision_type.0' => 'decision_type-financial_property',
+                'decision_type' => 'decision_type-financial-property',
+                'decision_type.0' => 'decision_type-financial-property',
             ]"
         />
 

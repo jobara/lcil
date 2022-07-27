@@ -8,4 +8,12 @@ enum DecisionMakingCapabilities: string
 
     case Independent = 'independent';
     case Interdependent = 'interdependent';
+
+    public static function labels(): array
+    {
+        return [
+            'independent' => __('Independent'),
+            'interdependent' => __('Interdependent'),
+        ];
+    }
 }

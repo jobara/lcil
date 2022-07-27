@@ -229,30 +229,3 @@ test('clamp', function ($num, $min, $max, $expected) {
     'float below range' => [0.1, 0.5, 3.5, 0.5],
     'float above range' => [4.5, 0.5, 3.5, 3.5],
 ]);
-
-test('to_associative_array', function ($array, $expected) {
-    $converted = to_associative_array($array);
-    expect($converted)->toBe($expected);
-})->with([
-    'string array' => [['foo', 'bar'], ['foo' => 'foo', 'bar' => 'bar']],
-    'int array' => [[0, 1, 2], [0 => 0, 1 => 1, 2 => 2]],
-])->group('to_associative_array');
-
-test('to_associative_array - string conversion', function ($array, $mode, $expected) {
-    $converted = to_associative_array($array, $mode);
-    expect($converted)->toBe($expected);
-})->with([
-    'Upper-case' => [['Hello world'], MB_CASE_UPPER, ['Hello world' => 'HELLO WORLD']],
-    'Lower-case' => [['Hello world'], MB_CASE_LOWER, ['Hello world' => 'hello world']],
-    'Title-case' => [['Hello world'], MB_CASE_TITLE, ['Hello world' => 'Hello World']],
-    'Fold' => [['Hello world'], MB_CASE_FOLD, ['Hello world' => 'hello world']],
-    'Simple Upper-case' => [['Hello world'], MB_CASE_UPPER_SIMPLE, ['Hello world' => 'HELLO WORLD']],
-    'Simple Lower-case' => [['Hello world'], MB_CASE_LOWER_SIMPLE, ['Hello world' => 'hello world']],
-    'Simple Title-case' => [['Hello world'], MB_CASE_TITLE_SIMPLE, ['Hello world' => 'Hello World']],
-    'Simple Fold' => [['Hello world'], MB_CASE_FOLD_SIMPLE, ['Hello world' => 'hello world']],
-])->group('to_associative_array');
-
-test('to_associative_array - string encoding', function () {
-    $converted = to_associative_array(['Hello World'], MB_CASE_LOWER, 'UTF-8');
-    expect($converted)->toBe(['Hello World' => 'hello world']);
-})->group('to_associative_array');

@@ -8,7 +8,7 @@ uses(RefreshDatabase::class);
 test('render - without existing law policy source', function () {
     $toSee = [
         '<form',
-        'method="POST" action="' . route('lawPolicySources.store'),
+        'method="POST" action="'.route('lawPolicySources.store'),
         '<label id="name-label" for="name">Law or Policy Name (required)</label>',
         '<input',
         'name="name" id="name" type="text"',
@@ -44,12 +44,12 @@ test('render - without existing law policy source', function () {
         '<select',
         'name="type" id="type"',
         '<option value="" selected></option>',
-        '<option value="case law" >Case Law</option>',
-        '<option value="constitutional" >Constitutional</option>',
-        '<option value="policy" >Policy</option>',
-        '<option value="quasi-constitutional" >Quasi-Constitutional</option>',
-        '<option value="regulation" >Regulation</option>',
         '<option value="statute" >Statute</option>',
+        '<option value="policy" >Policy</option>',
+        '<option value="constitutional" >Constitutional</option>',
+        '<option value="case_law" >Case Law</option>',
+        '<option value="regulation" >Regulation</option>',
+        '<option value="quasi-constitutional" >Quasi-Constitutional</option>',
         '<legend id="is_core-label">Effect on Legal Capacity</legend>',
         '<input  type="radio" name="is_core" id="is_core-1" value="1"',
         '<label for="is_core-1">',
@@ -57,7 +57,7 @@ test('render - without existing law policy source', function () {
         '<input  type="radio" name="is_core" id="is_core-0" value="0"',
         '<label for="is_core-0">',
         'Supplemental - indirectly affects legal capacity',
-        '<a href="' . \localized_route('lawPolicySources.index') . '">Cancel</a>',
+        '<a href="'.\localized_route('lawPolicySources.index').'">Cancel</a>',
         '<button type="submit">Submit</button>',
     ];
 
@@ -89,15 +89,15 @@ test('render - with existing law policy source', function () {
     ]);
     $toSee = [
         '<form',
-        'method="POST" action="' . route('lawPolicySources.update', $lawPolicySource),
+        'method="POST" action="'.route('lawPolicySources.update', $lawPolicySource),
         '<input type="hidden" name="_method" value="patch">',
         'name="name"',
         $lawPolicySource->name,
         'name="country"',
-        '<option value="' . parse_country_code($lawPolicySource->jurisdiction) . '" selected',
+        '<option value="'.parse_country_code($lawPolicySource->jurisdiction).'" selected',
         'name="subdivision"',
-        'country = \'' . parse_country_code($lawPolicySource->jurisdiction) . '\';',
-        'subdivision = \'' . parse_subdivision_code($lawPolicySource->jurisdiction) . '\';',
+        'country = \''.parse_country_code($lawPolicySource->jurisdiction).'\';',
+        'subdivision = \''.parse_subdivision_code($lawPolicySource->jurisdiction).'\';',
         'name="municipality"',
         $lawPolicySource->municipality,
         'name="year_in_effect"',
@@ -107,15 +107,15 @@ test('render - with existing law policy source', function () {
         'name="type"',
         "<option value=\"{$lawPolicySource->type->value}\" selected",
         'name="is_core"',
-        'value="' . $lawPolicySource->is_core . '"  checked',
-        '<a href="' . \localized_route('lawPolicySources.show', $lawPolicySource) . '">Cancel</a>',
+        'value="'.$lawPolicySource->is_core.'"  checked',
+        '<a href="'.\localized_route('lawPolicySources.show', $lawPolicySource).'">Cancel</a>',
     ];
 
     $view = $this->withViewErrors([])
                  ->blade(
-                    '<x-forms.law-policy-source :lawPolicySource="$lawPolicySource" />',
-                    ['lawPolicySource' => $lawPolicySource]
-                );
+                     '<x-forms.law-policy-source :lawPolicySource="$lawPolicySource" />',
+                     ['lawPolicySource' => $lawPolicySource]
+                 );
 
     $view->assertSeeInOrder($toSee, false);
 });

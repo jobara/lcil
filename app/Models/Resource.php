@@ -4,13 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Sluggable\HasSlug;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Sluggable\HasTranslatableSlug;
 use Spatie\Sluggable\SlugOptions;
+use Spatie\Translatable\HasTranslations;
 
 class Resource extends Model
 {
     use HasFactory;
-    use HasSlug;
+    use HasTranslatableSlug;
+    use HasTranslations;
 
     /**
      * The attributes that are mass assignable.
@@ -19,8 +22,18 @@ class Resource extends Model
      */
     protected $fillable = [
         'title',
-        'language',
         'user_id',
+        'summary',
+    ];
+
+    /**
+     * The attributes that are translatable.
+     *
+     * @var array<string>
+     */
+    public mixed $translatable = [
+        'title',
+        'slug',
         'summary',
     ];
 
@@ -39,8 +52,18 @@ class Resource extends Model
      *
      * @return string
      */
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    /**
+     * Get all of the resource collections that include this resource.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function resourceCollections(): BelongsToMany
+    {
+        return $this->belongsToMany(ResourceCollection::class);
     }
 }

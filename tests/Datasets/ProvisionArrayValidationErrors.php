@@ -16,8 +16,8 @@ dataset('provisionArrayValidationErrors', function () {
                 'court_challenge' => ProvisionCourtChallenges::ResultOf->value,
                 'decision_type' => ['invalid'],
             ],
-            ['decision_type.0' => 'The Type of Decision (decision_type) must only include the following: ' . implode(', ', ProvisionDecisionTypes::values()) . '.'],
-            ['decision_type' => 'decision_type-financial_property'],
+            ['decision_type.0' => 'The Type of Decision (decision_type) must only include the following: '.implode(', ', ProvisionDecisionTypes::values()).'.'],
+            ['decision_type' => 'decision_type-financial-property'],
         ],
         'decision making capability invalid value' => [
             [
@@ -25,7 +25,7 @@ dataset('provisionArrayValidationErrors', function () {
                 'body' => 'body text',
                 'decision_making_capability' => ['other'],
             ],
-            ['decision_making_capability.0' => 'The Decision Making Capability (decision_making_capability) must only include the following: ' . implode(', ', DecisionMakingCapabilities::values()) . '.'],
+            ['decision_making_capability.0' => 'The Decision Making Capability (decision_making_capability) must only include the following: '.implode(', ', DecisionMakingCapabilities::values()).'.'],
             ['decision_making_capability' => 'decision_making_capability-independent'],
         ],
     ];

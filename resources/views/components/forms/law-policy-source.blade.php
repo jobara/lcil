@@ -19,7 +19,7 @@
         </li>
         <li>
             <x-forms.label for="country" :value="__('Country (required)')" />
-            <x-forms.country-select :country="old('country', parse_country_code($lawPolicySource?->jurisdiction))" x-model="country" />
+            <x-forms.country-select :country="old('country', parse_country_code($lawPolicySource?->jurisdiction))" x-model="country" required />
             <x-hearth-error for="country" />
         </li>
         <li>
@@ -52,25 +52,26 @@
         <li>
             <x-forms.label for="reference" :value="__('Reference / Link')" />
             <x-hearth-input type="url" name="reference" hinted :value="old('reference', $lawPolicySource?->reference)" />
-            <x-hearth-hint for="reference">{{ __('Web link or URL to source. Example: https://www.example.com/') }}</x-hearth-hint>
+            {{-- <x-hearth-hint> compoents render markdown and autolink urls. Using `\` to escape values prevents the autolinking --}}
+            <x-hearth-hint for="reference">{{ __('Web link or URL to source. Example: https\://www\.example\.com/') }}</x-hearth-hint>
             <x-hearth-error for="reference" />
         </li>
         <li>
             <x-forms.label for="type" :value="__('Type')" />
             <x-hearth-select
                 name="type"
-                :options="array_merge(['' => ''], to_associative_array(\App\Enums\LawPolicyTypes::values(), MB_CASE_TITLE))"
-                :selected="old('type', $lawPolicySource?->type || '')"
+                :options="\App\Enums\LawPolicyTypes::options()->nullable('')->toArray()"
+                :selected="old('type', $lawPolicySource?->type->value ?? '')"
             />
             <x-hearth-error for="type" />
         </li>
         <li>
             <fieldset>
                 <legend id="is_core-label">{{ __('Effect on Legal Capacity') }}</legend>
-                    <x-hearth-radio-buttons name="is_core" :options="[
-                        '1' => __('Core - directly affects legal capacity'),
-                        '0' => __('Supplemental - indirectly affects legal capacity'),
-                    ]" :checked="old('is_core', $lawPolicySource?->is_core)" />
+                    <x-hearth-radio-buttons name="is_core"
+                        :options="\App\Enums\LegalCapacityEffects::options()->toArray()"
+                        :checked="old('is_core', $lawPolicySource?->is_core)"
+                    />
                     <x-hearth-error for="is_core" />
             </fieldset>
         </li>

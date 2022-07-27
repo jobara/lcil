@@ -58,7 +58,7 @@ test('show route render - authenticated', function () {
 
     $toSee = [
         '<nav aria-label="Breadcrumbs">',
-        '<a href="' . localized_route('regimeAssessments.index') . '">Regime Assessments</a>',
+        '<a href="'.localized_route('regimeAssessments.index').'">Regime Assessments</a>',
         '<li  aria-current="page" >Toronto, Ontario, Canada</li>',
         '<h1',
         '<span>Regime Assessment Summary</span>',
@@ -70,7 +70,7 @@ test('show route render - authenticated', function () {
         'There are 1 legal capacity measures divided into 1 dimensions. Provisions from',
         'sources of law or policy are evaluated against these measures to show how well a regime supports legal',
         'capacity.',
-        '<a href="' . localized_route('about') . '">More about Legal Capacity Measurements</a>',
+        '<a href="'.localized_route('about').'">More about Legal Capacity Measurements</a>',
         '<span>Possible actions:',
         '<ul>',
         '<li>Choose a measure to evaluate.',
@@ -78,10 +78,10 @@ test('show route render - authenticated', function () {
         '<details>',
         "<summary>{$measureDimension->code} {$measureDimension->description}</summary>",
         '<ol>',
-        '<a href="">' . $measure->code . ': ' . $measure->title,
+        '<a href="">'.$measure->code.': '.$measure->title,
         '<ul>',
         '<li>1 fully</li>',
-        '<li>0 partially </li>',
+        '<li>0 partially</li>',
         '<li>0 not_at_all</li>',
         '<li>0 do not apply</li>',
         '</details>',
@@ -178,7 +178,7 @@ test('show route render - no measure title', function () {
     $toSee = [
         "<summary>{$measureDimension->code} {$measureDimension->description}</summary>",
         '<ol>',
-        '<a href="">' . $measure->code . '</a>',
+        '<a href="">'.$measure->code.'</a>',
     ];
 
     $view = $this->actingAs($user)->view('regimeAssessments.show', [
@@ -231,10 +231,10 @@ test('show route render - no law and policy sources', function () {
         '<details>',
         "<summary>{$measureDimension->code} {$measureDimension->description}</summary>",
         '<ol>',
-        '<a href="">' . $measure->code . ': ' . $measure->title,
+        '<a href="">'.$measure->code.': '.$measure->title,
         '<ul>',
         '<li>0 fully</li>',
-        '<li>0 partially </li>',
+        '<li>0 partially</li>',
         '<li>0 not_at_all</li>',
         '<li>0 do not apply</li>',
         '</details>',

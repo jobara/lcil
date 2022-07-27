@@ -4,6 +4,7 @@ namespace App\View\Components\Forms;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use Spatie\LaravelOptions\Options;
 
 class CountrySelect extends Component
 {
@@ -13,7 +14,7 @@ class CountrySelect extends Component
     /**
      * The list of available countries
      *
-     * @var array<string, string>
+     * @var array[]
      */
     public array $countries;
 
@@ -24,8 +25,8 @@ class CountrySelect extends Component
      */
     public function __construct(?string $country = '', ?string $placeholder = '')
     {
-        $this->countries = array_merge(['' => $placeholder ?? ''], get_countries());
-        $this->country = isset($this->countries[$country]) ? $country ?? '' : '';
+        $this->countries = Options::forArray(get_countries())->nullable($placeholder ?? '')->toArray();
+        $this->country = isset($country) && in_array($country, array_column($this->countries, 'value')) ? $country : '';
     }
 
     public function render(): View|\Closure|string

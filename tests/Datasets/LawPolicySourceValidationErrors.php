@@ -52,7 +52,7 @@ dataset('lawPolicySourceValidationErrors', function () {
                 'country' => 'CA',
                 'year_in_effect' => 20.22,
             ],
-            fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within ' . config('settings.year.min') . ' and ' . config('settings.year.max') . '.'],
+            fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
         ],
         'year_in_effect below min' => [
             // Uses Bound Datasets to resolve the dataset after the setup/before functions so that the `config` global
@@ -62,7 +62,7 @@ dataset('lawPolicySourceValidationErrors', function () {
                 'country' => 'CA',
                 'year_in_effect' => config('settings.year.min') - 1,
             ],
-            fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within ' . config('settings.year.min') . ' and ' . config('settings.year.max') . '.'],
+            fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
         ],
         'year_in_effect above max' => [
             // Uses Bound Datasets to resolve the dataset after the setup/before functions so that the `config` global
@@ -72,7 +72,7 @@ dataset('lawPolicySourceValidationErrors', function () {
                 'country' => 'CA',
                 'year_in_effect' => config('settings.year.max') + 1,
             ],
-            fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within ' . config('settings.year.min') . ' and ' . config('settings.year.max') . '.'],
+            fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
         ],
         'year_in_effect not a number' => [
             // Uses Bound Datasets to resolve the dataset after the setup/before functions so that the `config` global
@@ -82,7 +82,7 @@ dataset('lawPolicySourceValidationErrors', function () {
                 'country' => 'CA',
                 'year_in_effect' => false,
             ],
-            fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within ' . config('settings.year.min') . ' and ' . config('settings.year.max') . '.'],
+            fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
         ],
         'reference not a valid URL' => [
             [
@@ -98,7 +98,7 @@ dataset('lawPolicySourceValidationErrors', function () {
                 'country' => 'CA',
                 'type' => 'not a policy',
             ],
-            ['type' => 'The Type (type) must be one of the following: ' . implode(', ', LawPolicyTypes::values()) . '.'],
+            ['type' => 'The Type (type) must be one of the following: '.implode(', ', LawPolicyTypes::values()).'.'],
         ],
         'is_core not a boolean' => [
             [

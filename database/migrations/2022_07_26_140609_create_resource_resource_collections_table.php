@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateResourcesTable extends Migration
+class CreateResourceResourceCollectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateResourcesTable extends Migration
      */
     public function up()
     {
-        Schema::create('resources', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')
+        Schema::create('resource_resource_collection', function (Blueprint $table) {
+            $table->foreignId('resource_id')
                 ->constrained()
                 ->onDelete('cascade');
-            $table->string('title');
-            $table->string('slug');
-            $table->string('language')->default('en');
-            $table->longText('summary');
-            $table->timestamps();
+            $table->foreignId('resource_collection_id')
+                ->constrained()
+                ->onDelete('cascade');
         });
     }
 
@@ -33,6 +30,6 @@ class CreateResourcesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resources');
+        Schema::dropIfExists('resource_resource_collection');
     }
 }

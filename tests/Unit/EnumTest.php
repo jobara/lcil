@@ -1,22 +1,17 @@
 <?php
 
-use App\Enums\DecisionMakingCapabilities;
-use App\Enums\EvaluationAssessments;
-use App\Enums\LawPolicyTypes;
-use App\Enums\LegalCapacityApproaches;
-use App\Enums\ProvisionCourtChallenges;
-use App\Enums\ProvisionDecisionTypes;
-use App\Enums\RegimeAssessmentStatuses;
+use Spatie\LaravelOptions\Options;
 
-test('Values trait', function ($enum) {
+uses(Tests\TestCase::class);
+
+test('Values trait', function ($enum, $expectedLabels) {
     $values = $enum::values();
-    expect($values)->toBe(array_column($enum::cases(), 'value'));
-})->with([
-    DecisionMakingCapabilities::class,
-    LawPolicyTypes::class,
-    LegalCapacityApproaches::class,
-    ProvisionCourtChallenges::class,
-    ProvisionDecisionTypes::class,
-    RegimeAssessmentStatuses::class,
-    EvaluationAssessments::class,
-]);
+    expect($values)->toEqual(array_keys($expectedLabels));
+
+    $labels = $enum::labels();
+    expect($labels)->toBe($expectedLabels);
+
+    $options = $enum::options();
+    expect($options)->toBeInstanceOf(Options::class);
+    expect($options->toArray())->toEqual(Options::forArray($expectedLabels)->toArray());
+})->with('enums');

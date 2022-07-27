@@ -147,6 +147,11 @@ file with the appropriate information for accessing it.
    npm run dev
    ```
 
+9. For account creation the app requires a mail server. You can use [MailHog](https://github.com/mailhog/MailHog) to
+   simulate email communication. This is already configured in Sail, but will need to be installed manually for local
+   development. Once MailHog is installed update the `MAIL_HOST` variable in the `.env` file with the IP that MailHog
+   bound SMTP to.
+
 ### Localization
 
 When entering text into the templates and etc, use translatable strings. The text can be retrieved using [default
@@ -284,8 +289,8 @@ is provided in the [`phpstan.neon.dist`](./phpstan.neon.dist) file. If you'd lik
 or perhaps modified configuration in CI, a `phpstan.neon` file can be used to supersede the default config file.
 `phpstan.neon` has been added to the [`.gitignore`](./.gitignore) file and is excluded from version control.
 
-Additionally styling fixes can be addressed using [PHP-CS-Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer) by
-running the provided `format` composer script.
+Additionally styling fixes can be addressed using [Laravel Pint](https://github.com/laravel/pint) by running the
+provided `format` composer script.
 
 To perform the analysis run:
 
@@ -297,6 +302,19 @@ sail composer format
 # when running locally
 php composer lint
 php composer format
+```
+
+You can pass in flags to the format script after `--`.
+
+```bash
+
+# verbose output
+sail composer format -- -v
+php composer format -- -v
+
+# test output, doesn't change the files
+sail composer format -- --test
+php composer format -- --test
 ```
 
 Linting of JavaScript, SCSS, MD and other files is handled by [fluid-lint-all](https://www.npmjs.com/package/fluid-lint-all).

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JoinController;
 use App\Http\Controllers\JurisdictionController;
 use App\Http\Controllers\LawPolicySourceController;
 use App\Http\Controllers\MeasureController;
@@ -93,7 +94,7 @@ Route::multilingual('regime-assessments/{regimeAssessment}', [RegimeAssessmentCo
 // Hearth generated routes
 Route::multilingual('dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified:' . \locale() . '.verification.notice'])->name('dashboard');
+})->middleware(['auth', 'verified:'.\locale().'.verification.notice'])->name('dashboard');
 
 Route::multilingual('account/edit', [UserController::class, 'edit'])
     ->middleware(['auth'])
@@ -108,12 +109,28 @@ Route::multilingual('account/delete', [UserController::class, 'destroy'])
     ->middleware(['auth'])
     ->name('users.destroy');
 
+Route::multilingual('requests/cancel', [JoinController::class, 'cancel'])
+    ->method('post')
+    ->middleware(['auth'])
+    ->name('requests.cancel');
+
+Route::multilingual('requests/{user:id}/deny', [JoinController::class, 'deny'])
+    ->method('post')
+    ->middleware(['auth'])
+    ->name('requests.deny');
+
+Route::multilingual('requests/{user:id}/approve', [JoinController::class, 'approve'])
+    ->method('post')
+    ->middleware(['auth'])
+    ->name('requests.approve');
+
 if (config('hearth.organizations.enabled')) {
-    require __DIR__ . '/organizations.php';
+    require __DIR__.'/organizations.php';
 }
 
 if (config('hearth.resources.enabled')) {
-    require __DIR__ . '/resources.php';
+    require __DIR__.'/resources.php';
+    require __DIR__.'/resource-collections.php';
 }
 
-require __DIR__ . '/fortify.php';
+require __DIR__.'/fortify.php';

@@ -21,17 +21,13 @@
 
         @isset($lawPolicySource->type)
             <dt>{{ __('Type') }}</dt>
-            <dd>{{ $lawPolicySource->type->value }}</dd>
+            <dd>{{ $lawPolicySource->type->labels()[$lawPolicySource->type->value] }}</dd>
         @endisset
 
         @isset($lawPolicySource->is_core)
             <dt>{{ __('Effect on Legal Capacity') }}</dt>
             <dd>
-                @if ($lawPolicySource->is_core)
-                    {{ __('Core - directly affects legal capacity') }}
-                @else
-                    {{ __('Supplemental - indirectly affects legal capacity') }}
-                @endif
+                {{ \App\Enums\LegalCapacityEffects::labels()[$lawPolicySource->is_core] }}
             </dd>
         @endisset
     </dl>
@@ -56,21 +52,29 @@
             @isset($provision->reference)
                 <a href="{{ $provision->reference }}">{{ __('Section / Subsection: :section Reference', ['section' => $provision->section]) }}</a>
             @endisset
-            @if (isset($provision->legal_capacity_approach) or isset($provision->decision_making_capability))
+            @php
+                $hasLegalCapacityApproach = isset($provision->legal_capacity_approach) && $provision->legal_capacity_approach !== \App\Enums\LegalCapacityApproaches::NotApplicable;
+            @endphp
+            @if ($hasLegalCapacityApproach or isset($provision->decision_making_capability))
                 <h4>{{ __('Other Information') }}</h4>
                 <ul role="list">
-                    @isset($provision->legal_capacity_approach)
-                        <li>{{ __(':approach approach to legal capacity', ['approach' => $provision->legal_capacity_approach->value]) }}</li>
-                    @endisset
+                    @if ($hasLegalCapacityApproach)
+                        <li>{{ __(':approach approach to legal capacity', ['approach' => $provision->legal_capacity_approach->labels()[$provision->legal_capacity_approach->value]]) }}</li>
+                    @endif
                     @isset($provision->decision_making_capability)
                         @if (count($provision->decision_making_capability) === 1)
-                            @if ($provision->decision_making_capability[0] === App\Enums\DecisionMakingCapabilities::Independent->value)
-                                 <li>{{ __('Recognizes Independent Only decision making capability') }}</li>
-                            @else
-                                 <li>{{ __('Recognizes Interdependent Only decision making capability') }}</li>
-                            @endif
+                            <li>
+                                {{ __('Recognizes :capability Only decision making capability', [
+                                    'capability' => App\Enums\DecisionMakingCapabilities::labels()[$provision->decision_making_capability[0]]
+                                ]) }}
+                            </li>
                         @else
-                            <li>{{ __('Recognizes Independent and Interdependent decision making capability') }}</li>
+                            <li>
+                                {{ __('Recognizes :capability and :capability_other decision making capability', [
+                                    'capability' => App\Enums\DecisionMakingCapabilities::labels()[$provision->decision_making_capability[0]],
+                                    'capability_other' => App\Enums\DecisionMakingCapabilities::labels()[$provision->decision_making_capability[1]],
+                                ]) }}
+                            </li>
                         @endif
                     @endisset
                 </ul>

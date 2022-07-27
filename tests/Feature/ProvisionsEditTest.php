@@ -42,10 +42,10 @@ test('edit route render', function () {
         '<h1 itemprop="name">Edit Provision</h1>',
         '<form',
         'method="POST"',
-        'action="' . route('provisions.update', ['lawPolicySource' => $lawPolicySource, 'slug' => $provision->slug]),
+        'action="'.route('provisions.update', ['lawPolicySource' => $lawPolicySource, 'slug' => $provision->slug]),
         '<aside>',
         '<h2>',
-        '<a href="' . \localized_route('lawPolicySources.show', $lawPolicySource) . "\">{$lawPolicySource->name}</a>",
+        '<a href="'.\localized_route('lawPolicySources.show', $lawPolicySource)."\">{$lawPolicySource->name}</a>",
     ];
 
     $view = $this->actingAs($user)

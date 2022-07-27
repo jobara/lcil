@@ -43,11 +43,11 @@ class StoreLawPolicySourceRequest extends RedirectFormRequest
             'reference.url' => 'The :attribute format must be in a form like https://example.com or http://example.com.',
             'subdivision.min' => 'The :attribute must be specified using the subdivision portion of an ISO 3166-2 code.',
             'subdivision.required_with' => 'The :attribute cannot be empty if the :values is specified.',
-            'type.Illuminate\Validation\Rules\Enum' => 'The :attribute must be one of the following: ' . implode(', ', LawPolicyTypes::values()) . '.',
-            'year_in_effect.integer' => 'The :attribute must be within ' . config('settings.year.min') . ' and ' . config('settings.year.max') . '.',
-            'year_in_effect.max' => 'The :attribute must be within ' . config('settings.year.min') . ' and ' . config('settings.year.max') . '.',
-            'year_in_effect.min' => 'The :attribute must be within ' . config('settings.year.min') . ' and ' . config('settings.year.max') . '.',
-            'year_in_effect.numeric' => 'The :attribute must be within ' . config('settings.year.min') . ' and ' . config('settings.year.max') . '.',
+            'type.Illuminate\Validation\Rules\Enum' => 'The :attribute must be one of the following: '.implode(', ', LawPolicyTypes::values()).'.',
+            'year_in_effect.integer' => 'The :attribute must be within '.config('settings.year.min').' and '.config('settings.year.max').'.',
+            'year_in_effect.max' => 'The :attribute must be within '.config('settings.year.min').' and '.config('settings.year.max').'.',
+            'year_in_effect.min' => 'The :attribute must be within '.config('settings.year.min').' and '.config('settings.year.max').'.',
+            'year_in_effect.numeric' => 'The :attribute must be within '.config('settings.year.min').' and '.config('settings.year.max').'.',
         ];
     }
 
@@ -70,8 +70,8 @@ class StoreLawPolicySourceRequest extends RedirectFormRequest
                 'nullable',
                 'numeric',
                 'integer',
-                'min:' . config('settings.year.min'),
-                'max:' . config('settings.year.max'),
+                'min:'.config('settings.year.min'),
+                'max:'.config('settings.year.max'),
             ],
         ];
     }

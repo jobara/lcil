@@ -162,21 +162,3 @@ if (! function_exists('clamp')) {
         return max($min, min($num, $max));
     }
 }
-
-if (! function_exists('to_associative_array')) {
-    /**
-     * Expand an array into an associative and optionally run mb_convert_case on the values. The array must only contain
-     * strings or int values.
-     *
-     * @param  array<string|int>  $array The array to make associative
-     * @param  ?int  $mode An optional mb_convert_case conversion mode
-     * @param  ?string  $encoding An optional string encoding
-     * @return array<string|int, string|int> the restricted value
-     */
-    function to_associative_array(array $array, ?int $mode = null, ?string $encoding = null): array
-    {
-        $values = isset($mode) ? array_map(fn ($value) => mb_convert_case((string) $value, $mode, $encoding), $array) : $array;
-
-        return array_combine($array, $values);
-    }
-}

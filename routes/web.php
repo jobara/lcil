@@ -80,8 +80,10 @@ Route::patch('law-policy-sources/{lawPolicySource}/provisions/{slug}', [Provisio
 Route::multilingual('measures', [MeasureController::class, 'index'])->name('measures');
 
 // Regime Assessments
-Route::multilingual('regime-assessments', function () {
-})
+Route::multilingual('regime-assessments/create', function () {
+})->name('regimeAssessments.create'); // rough-in web route
+
+Route::multilingual('regime-assessments', [RegimeAssessmentController::class, 'index'])
     ->name('regimeAssessments.index'); // rough-in web route
 
 Route::multilingual('regime-assessments/{regimeAssessment}', [RegimeAssessmentController::class, 'show'])

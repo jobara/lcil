@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Enums\RegimeAssessmentStatuses;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -28,7 +29,7 @@ class RegimeAssessment extends Model implements Auditable
         'municipality',
         'description',
         'year_in_effect',
-        'status,',
+        'status',
     ];
 
     /**
@@ -71,5 +72,39 @@ class RegimeAssessment extends Model implements Auditable
     public function getRouteKeyName(): string
     {
         return 'ra_id';
+    }
+
+    /**
+     * Filter Regime Assessments based on jurisdiction and keywords.
+     *
+     * @param  Builder  $query
+     * @param  array{jurisdiction: ?string, keywords: ?string, status: ?string}  $filters The jurisdiction and keywords
+     * to filter the search results with.
+     * @return void
+     */
+    public function scopeFilter(Builder $query, array $filters): void
+    {
+        $query->when(
+            $filters['jurisdiction'] ?? false,
+            fn ($query, $jurisdiction) => $query->where(
+                fn ($query) => $query->where('jurisdiction', $jurisdiction)
+                    ->orWhere('jurisdiction', 'like', "{$jurisdiction}-%")
+            )
+        );
+
+        $query->when(
+            $filters['keywords'] ?? false,
+            // uses a boolean full text search
+            // see: https://dev.mysql.com/doc/refman/8.0/en/fulltext-boolean.html
+            // If we use the natural language full text search, words that appear in more than 50% of the records are
+            // treated as stopwords and will not return results.
+            // see: https://dev.mysql.com/doc/refman/8.0/en/fulltext-natural-language.html
+            fn ($query, $keywords) => $query->whereFullText(['description'], $keywords, ['mode' => 'boolean'])
+        );
+
+        $query->when(
+            $filters['status'] ?? false,
+            fn ($query, $status) => $query->where('status', $status)
+        );
     }
 }

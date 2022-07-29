@@ -259,6 +259,7 @@ test('index route paged', function () {
 
 test('index route rendered - without parameters', function () {
     $toSee = [
+        '<title>Regime Assessments &mdash; Legal Capacity Inclusion Lens</title>',
         'Regime Assessments',
         'Search for regime assessments',
         'Country:',
@@ -280,8 +281,8 @@ test('index route rendered - without parameters', function () {
 
     $response = $this->get(localized_route('regimeAssessments.index'));
 
-    $response->assertSeeTextInOrder($toSee);
-    assertDontSeeAnyText($response, $dontSee, false);
+    $response->assertSeeInOrder($toSee, false);
+    assertDontSeeAnyText($response, $dontSee);
 })->group('RegimeAssessments');
 
 test('index route rendered - with parameters', function () {

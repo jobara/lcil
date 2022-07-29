@@ -1,4 +1,5 @@
 <x-app-layout>
+    <x-slot name="title">{{ __('Edit Provision: :section — :lawPolicySourceName', ['section' => $provision->section, 'lawPolicySourceName' => $lawPolicySource->name]) }}</x-slot>
     <x-slot name="header">
         {{ Breadcrumbs::render('provisions.edit', $lawPolicySource) }}
         <h1 itemprop="name">{{ __('Edit Provision') }}</h1>

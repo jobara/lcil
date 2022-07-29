@@ -1,4 +1,5 @@
 <x-app-layout>
+    <x-slot name="title">{{ __('Regime Assessments') }}</x-slot>
     <x-slot name="header">
         <h1 itemprop="name">{{ __('Regime Assessments') }}</h1>
     </x-slot>

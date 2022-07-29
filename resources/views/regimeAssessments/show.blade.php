@@ -1,9 +1,13 @@
 <x-app-layout>
+    @php
+        $jurisdiction = get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality);
+    @endphp
+    <x-slot name="title">{{ __('Regime Assessment Summary: :jurisdiction', ['jurisdiction' => $jurisdiction]) }}</x-slot>
     <x-slot name="header">
         {{ Breadcrumbs::render('regimeAssessments.show', $regimeAssessment) }}
         <h1 itemprop="name">
             <span>{{ __('Regime Assessment Summary') }}</span>
-            <span>{{ get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality) }}</span>
+            <span>{{ $jurisdiction }}</span>
             @auth
                 <span>({{ $regimeAssessment->status->value }})</span>
             @endauth

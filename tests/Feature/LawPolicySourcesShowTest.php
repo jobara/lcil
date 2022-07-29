@@ -86,7 +86,10 @@ test('show route render - all fields', function () {
         'Add Provision',
     ];
 
+    $escapedName = htmlentities($lawPolicySource->name);
+
     $markupToSee = [
+        "<title>{$escapedName} &mdash; Legal Capacity Inclusion Lens</title>",
         "href=\"{$lawPolicySource->reference}\"",
     ];
 

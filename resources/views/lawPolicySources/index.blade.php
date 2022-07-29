@@ -1,4 +1,5 @@
 <x-app-layout>
+    <x-slot name="title">{{ __('Law and Policy Sources') }}</x-slot>
     <x-slot name="header">
         <h1 itemprop="name">{{ __('Law and Policy Sources') }}</h1>
     </x-slot>

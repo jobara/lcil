@@ -1,4 +1,5 @@
 <x-app-layout>
+    <x-slot name="title">{{ $lawPolicySource->name }}</x-slot>
     <x-slot name="header">
         {{ Breadcrumbs::render('lawPolicySources.show', $lawPolicySource) }}
         <h1 itemprop="name">{{ $lawPolicySource->name }}</h1>

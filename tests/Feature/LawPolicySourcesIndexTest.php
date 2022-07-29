@@ -166,6 +166,7 @@ test('index route paged', function () {
 
 test('index route rendered - without parameters', function () {
     $toSee = [
+        '<title>Law and Policy Sources &mdash; Legal Capacity Inclusion Lens</title>',
         'Law and Policy Sources',
         'Search for sources of law and policy to view',
         'Country:',
@@ -187,8 +188,8 @@ test('index route rendered - without parameters', function () {
 
     $response = $this->get(localized_route('lawPolicySources.index'));
 
-    $response->assertSeeTextInOrder($toSee);
-    assertDontSeeAnyText($response, $dontSee, false);
+    $response->assertSeeInOrder($toSee, false);
+    assertDontSeeAnyText($response, $dontSee);
 })->group('LawPolicySources');
 
 test('index route rendered - with parameters', function () {

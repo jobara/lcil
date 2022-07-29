@@ -1,4 +1,5 @@
 <x-app-layout>
+    <x-slot name="title">{{ __('Measures') }}</x-slot>
     <x-slot name="header">
         <h1 itemprop="name">{{ __(':name: Measures', ['name' => config('app.name', 'LCIL')]) }}</h1>
     </x-slot>

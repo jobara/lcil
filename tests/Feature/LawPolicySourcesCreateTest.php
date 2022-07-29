@@ -19,6 +19,7 @@ test('create route render', function () {
     $user = User::factory()->create();
 
     $toSee = [
+        '<title>Create a Law or Policy Source &mdash; Legal Capacity Inclusion Lens</title>',
         '<h1 itemprop="name">Create a Law or Policy Source</h1>',
         '<form',
         'method="POST" action="'.route('lawPolicySources.store'),

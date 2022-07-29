@@ -19,7 +19,7 @@ class RegimeAssessmentSeeder extends Seeder
     public function run()
     {
         $measures = Measure::all();
-        $regimeAssessments = RegimeAssessment::factory(5)->create();
+        $regimeAssessments = RegimeAssessment::factory(25)->create();
 
         foreach ($regimeAssessments as $regimeAssessment) {
             $jurisdiction = $regimeAssessment->jurisdiction;

@@ -1,4 +1,5 @@
 <x-app-layout>
+    <x-slot name="title">{{ __('Add Provision: :lawPolicySourceName', ['lawPolicySourceName' => $lawPolicySource->name]) }}</x-slot>
     <x-slot name="header">
         {{ Breadcrumbs::render('provisions.create', $lawPolicySource) }}
         <h1 itemprop="name">{{ __('Add Provision') }}</h1>
@@ -9,11 +10,11 @@
         <x-forms.error-summary
             :anchors="[
                 'body' => 'body-editable',
-                'court_challenge' => 'court_challenge-not-related',
-                'decision_making_capability' => 'decision_making_capability-independent',
-                'decision_making_capability.0' => 'decision_making_capability-independent',
-                'decision_type' => 'decision_type-financial-property',
-                'decision_type.0' => 'decision_type-financial-property',
+                'court_challenge' => 'court-challenge-not-related',
+                'decision_making_capability' => 'decision-making-capability-independent',
+                'decision_making_capability.0' => 'decision-making-capability-independent',
+                'decision_type' => 'decision-type-financial-property',
+                'decision_type.0' => 'decision-type-financial-property',
             ]"
         />
 

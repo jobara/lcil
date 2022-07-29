@@ -36,6 +36,7 @@ test('edit route render', function () {
     $provision = Provision::factory()->for($lawPolicySource)->create();
 
     $toSee = [
+        "<title>Edit Provision: {$provision->section} — {$lawPolicySource->name} &mdash; Legal Capacity Inclusion Lens</title>",
         'Law and Policy Sources',
         $lawPolicySource->name,
         'Edit Provision',

@@ -1,18 +1,20 @@
 <x-app-layout>
-    <x-slot name="title">{{ __('Law and Policy Sources') }}</x-slot>
+    <x-slot name="title">{{ __('Regime Assessments') }}</x-slot>
     <x-slot name="header">
-        <h1 itemprop="name">{{ __('Law and Policy Sources') }}</h1>
+        <h1 itemprop="name">{{ __('Regime Assessments') }}</h1>
     </x-slot>
 
     <div x-data="{country: '{{ old('country', request('country')) }}'}">
         @auth
             {{-- push focus to the first focusable element in the search form --}}
             <a href="#" @click.prevent="$focus.within($refs.search).first()">
-                {{ __('Search for sources of law and policy to view or edit') }}
+                {{ __('Search for regime assessments') }}
             </a>
-            <a href="{{ localized_route('lawPolicySources.create') }}">{{ __('Create new law or policy source if it does not already exist') }}</a>
+            <a href="{{ localized_route('regimeAssessments.create') }}">
+                {{ __('Create new regime assessment if it does not already exist') }}
+            </a>
         @else
-            <p>{{ __('Search for sources of law and policy to view') }}</p>
+            <p>{{ __('Search for regime assessments') }}</p>
         @endauth
 
         <form method="GET">
@@ -26,9 +28,19 @@
                     <x-forms.subdivision-select :country="old('country', request('country'))" :subdivision="old('subdivision', request('subdivision'))"/>
                 </li>
                 <li>
-                    <x-forms.label for="keywords" :value="__('Law or policy name contains keywords:')" />
+                    <x-forms.label for="keywords" :value="__('Description contains keywords:')" />
                     <x-hearth-input type="text" name="keywords" :value="old('keywords', request('keywords'))" />
                 </li>
+                @auth
+                    <li>
+                        <x-forms.label for="status" :value="__('Status:')" />
+                        <x-hearth-select
+                            name="status"
+                            :options="\App\Enums\RegimeAssessmentStatuses::options()->nullable('')->toArray()"
+                            :selected="old('status', request('status'))"
+                        />
+                    </li>
+                @endauth
                 <li>
                     <button type="submit">{{ __('Search') }}</button>
                 </li>
@@ -37,30 +49,30 @@
     </div>
 
     <div>
-        @isset($lawPolicySources)
+        @isset($regimeAssessments)
             <x-paged-search-summary
-                :paginator="$lawPolicySources"
+                :paginator="$regimeAssessments"
                 :country="old('country', request('country'))"
                 :subdivision="old('subdivision', request('subdivision'))"
                 :keywords="old('keywords', request('keywords'))"
             />
-            @if (count($lawPolicySources))
+            @if (count($regimeAssessments))
                 <ul role="list">
-                    @foreach (group_by_jurisdiction($lawPolicySources->items()) as $countryName => $subdivisionGroups)
+                    @foreach (group_by_jurisdiction($regimeAssessments->items()) as $countryName => $subdivisionGroups)
                         <li>
                             <h2>{{ $countryName }}</h2>
                             <ul role="list">
-                                @foreach ($subdivisionGroups as $subdivisionName => $groupedLawPolicySources)
+                                @foreach ($subdivisionGroups as $subdivisionName => $groupedRegimeAssessments)
                                     <li>
                                         <h3>{{ $subdivisionName ? $subdivisionName : __('Federal') }}</h3>
-                                        <x-law-policy-source-cards :lawPolicySources="$groupedLawPolicySources" />
+                                        <x-regime-assessment-cards :regimeAssessments="$groupedRegimeAssessments" />
                                     </li>
                                 @endforeach
                             </ul>
                         </li>
                     @endforeach
                 </ul>
-                {{ $lawPolicySources->links() }}
+                {{ $regimeAssessments->links() }}
             @endif
         @else
             <p role="status">{{ __('Search results will appear here') }}</p>

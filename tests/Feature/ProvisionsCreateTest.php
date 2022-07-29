@@ -23,7 +23,10 @@ test('create route render', function () {
         'name' => 'test policy',
     ]);
 
+    $escapedName = htmlentities($lawPolicySource->name);
+
     $toSee = [
+        "<title>Add Provision: {$escapedName} &mdash; Legal Capacity Inclusion Lens</title>",
         'Law and Policy Sources',
         $lawPolicySource->name,
         'Add Provision',

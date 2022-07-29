@@ -51,7 +51,7 @@ dataset('provisionValidationErrors', function () {
                 'decision_type' => [ProvisionDecisionTypes::Financial->value],
             ],
             ['decision_type' => 'The Type of Decision (decision_type) requires the Court Challenge (court_challenge) indicate that a challenge has been initiated; the current value is: empty'],
-            ['decision_type' => 'decision_type-financial-property'],
+            ['decision_type' => 'decision-type-financial-property'],
         ],
         'decision type not related court_challenge' => [
             [
@@ -61,7 +61,7 @@ dataset('provisionValidationErrors', function () {
                 'decision_type' => [ProvisionDecisionTypes::Financial->value],
             ],
             ['decision_type' => 'The Type of Decision (decision_type) requires the Court Challenge (court_challenge) indicate that a challenge has been initiated; the current value is: not_related'],
-            ['decision_type' => 'decision_type-financial-property'],
+            ['decision_type' => 'decision-type-financial-property'],
         ],
         'legal capacity approach invalid value' => [
             [
@@ -78,7 +78,7 @@ dataset('provisionValidationErrors', function () {
                 'court_challenge' => 'invalid',
             ],
             ['court_challenge' => 'The Court Challenge (court_challenge) must be one of the following: '.implode(', ', ProvisionCourtChallenges::values()).'.'],
-            ['court_challenge' => 'court_challenge-not-related'],
+            ['court_challenge' => 'court-challenge-not-related'],
         ],
         'decision citation without court_challenge' => [
             [

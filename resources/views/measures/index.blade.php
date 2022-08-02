@@ -1,7 +1,7 @@
 <x-app-layout>
-    <x-slot name="title">{{ __('Measures') }}</x-slot>
+    <x-slot name="title">{{ __('Legal Capacity Measures') }}</x-slot>
     <x-slot name="header">
-        <h1 itemprop="name">{{ __(':name: Measures', ['name' => config('app.name', 'LCIL')]) }}</h1>
+        <h1 itemprop="name">{{ __('Legal Capacity Measures') }}</h1>
     </x-slot>
 
     @foreach ($lcilMeasures as $dimension)

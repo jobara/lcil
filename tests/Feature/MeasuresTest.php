@@ -36,8 +36,8 @@ test('index route render', function () {
         ->has(MeasureIndicator::factory(2)->has(Measure::factory(2), 'measures'), 'indicators')
         ->create();
     $toSee = [
-        '<title>Measures &mdash; Legal Capacity Inclusion Lens</title>',
-        '<h1 itemprop="name">Legal Capacity Inclusion Lens: Measures</h1>',
+        '<title>Legal Capacity Measures &mdash; Legal Capacity Inclusion Lens</title>',
+        '<h1 itemprop="name">Legal Capacity Measures</h1>',
     ];
 
     foreach ($lcilMeasures as $dimension) {

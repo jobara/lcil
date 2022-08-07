@@ -27,16 +27,15 @@ test('render - current page: Law Policy Source', function () {
     $response->assertDontSee('<a aria-current="page" href="'.localized_route('about'), false);
 });
 
-// TODO: uncomment when Regime Assessments page has been created
-// test('render - current page: Regime Assessments', function () {
-//     $response = $this->get(localized_route('regimeAssessments.index'));
+test('render - current page: Regime Assessments', function () {
+    $response = $this->get(localized_route('regimeAssessments.index'));
 
-//     $response->assertStatus(200);
-//     $response->assertViewIs('regimeAssessments.index');
-//     $response->assertDontSee('<a aria-current="page" href="' . localized_route('lawPolicySources.index'), false);
-//     $response->assertSee('<a aria-current="page" href="' . localized_route('regimeAssessments.index'), false);
-//     $response->assertDontSee('<a aria-current="page" href="' . localized_route('about'), false);
-// });
+    $response->assertStatus(200);
+    $response->assertViewIs('regimeAssessments.index');
+    $response->assertDontSee('<a aria-current="page" href="'.localized_route('lawPolicySources.index'), false);
+    $response->assertSee('<a aria-current="page" href="'.localized_route('regimeAssessments.index'), false);
+    $response->assertDontSee('<a aria-current="page" href="'.localized_route('about'), false);
+});
 
 test('render - current page: About', function () {
     $response = $this->get(localized_route('about'));

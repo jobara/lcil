@@ -1,7 +1,7 @@
 @props(['lawPolicySource', 'level' => 4, 'expanded' => null])
-<h{{ clamp($level, 1, 6) }}>
+<x-heading :level="$level">
     <a href="{{ localized_route('lawPolicySources.show', $lawPolicySource->slug) }}">{{ $lawPolicySource->name }}</a>
-</h{{ clamp($level, 1, 6) }}>
+</x-heading>
 <dl>
     @php
         $jurisdictionName = get_jurisdiction_name($lawPolicySource->jurisdiction, $lawPolicySource->municipality)

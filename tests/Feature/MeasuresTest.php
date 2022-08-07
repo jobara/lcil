@@ -4,6 +4,7 @@ use App\Models\Measure;
 use App\Models\MeasureDimension;
 use App\Models\MeasureIndicator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 
 uses(RefreshDatabase::class);
 
@@ -36,8 +37,8 @@ test('index route render', function () {
         ->has(MeasureIndicator::factory(2)->has(Measure::factory(2), 'measures'), 'indicators')
         ->create();
     $toSee = [
-        '<title>Measures &mdash; Legal Capacity Inclusion Lens</title>',
-        '<h1 itemprop="name">Legal Capacity Inclusion Lens: Measures</h1>',
+        '<title>Legal Capacity Measures &mdash; Legal Capacity Inclusion Lens</title>',
+        '<h1 itemprop="name">Legal Capacity Measures</h1>',
     ];
 
     foreach ($lcilMeasures as $dimension) {
@@ -61,6 +62,12 @@ test('index route render', function () {
 
     $response = $this->get(localized_route('measures'));
     $response->assertSeeInOrder($toSee, false);
+});
+
+test('measure model slug', function () {
+    $measure = Measure::factory()->create();
+
+    expect($measure->slug)->toBe(Str::slug($measure->code));
 });
 
 test('measure model relationships', function () {

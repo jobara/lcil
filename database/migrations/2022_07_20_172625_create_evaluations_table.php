@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('provision_id')->constrained()->cascadeOnDelete();
             $table->string('assessment'); // EvaluationAssessments
             $table->text('comment')->fulltext()->nullable();
+            $table->unique(['regime_assessment_id', 'measure_id', 'provision_id']);
             $table->timestamps();
         });
     }

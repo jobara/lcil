@@ -1,9 +1,9 @@
 {
   "resources/js/app.js": {
-    "file": "assets/app.e8daa639.js",
+    "file": "assets/app.f46eb78f.js",
     "src": "resources/js/app.js",
     "isEntry": true,
-    "integrity": "sha384-nrYSBDKqzZgqz075MIqG86PC7uc9bsPiV5g3b/5kmzj1xco4LBIaDJmaLGHd+OYI"
+    "integrity": "sha384-OzBkZI7+pr08TkQjgAlHYZG1CG8FIorF45DGINfM9ld/8HW4X902lYWJ5QdtSk1I"
   },
   "resources/css/app.scss": {
     "file": "assets/app.03fd1acc.css",

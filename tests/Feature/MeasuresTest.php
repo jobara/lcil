@@ -4,6 +4,7 @@ use App\Models\Measure;
 use App\Models\MeasureDimension;
 use App\Models\MeasureIndicator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 
 uses(RefreshDatabase::class);
 
@@ -61,6 +62,12 @@ test('index route render', function () {
 
     $response = $this->get(localized_route('measures'));
     $response->assertSeeInOrder($toSee, false);
+});
+
+test('measure model slug', function () {
+    $measure = Measure::factory()->create();
+
+    expect($measure->slug)->toBe(Str::slug($measure->code));
 });
 
 test('measure model relationships', function () {

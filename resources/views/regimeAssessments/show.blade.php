@@ -57,8 +57,7 @@
                 @foreach ($measureDimension->indicators as $indicators)
                     @foreach ($indicators->measures as $measure)
                         <li>
-                            {{-- TODO: go to related measure evaluation --}}
-                            <a href="">{{ $measure->code }}@if ($measure->title): {{ $measure->title }}@endif</a>
+                            <a href="{{ localized_route('evaluations.show', ['regimeAssessment' => $regimeAssessment, 'measure' => $measure]) }}">{{ $measure->code }}@if ($measure->title): {{ $measure->title }}@endif</a>
                             <ul>
                                 @php
                                     $evaluations = $regimeAssessment->evaluations->where('measure_id', $measure->id);

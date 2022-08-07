@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\LawPolicySource;
+use App\Models\Measure;
 use App\Models\RegimeAssessment;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
@@ -48,5 +49,14 @@ Breadcrumbs::for('regimeAssessments.index', function (BreadcrumbTrail $trail) {
 // Regime Assessments > [Regime Assessment]
 Breadcrumbs::for('regimeAssessments.show', function (BreadcrumbTrail $trail, RegimeAssessment $regimeAssessment) {
     $trail->parent('regimeAssessments.index');
-    $trail->push(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
+    $trail->push(
+        get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality),
+        \localized_route('regimeAssessments.show', $regimeAssessment)
+    );
+});
+
+// Regime Assessments > [Regime Assessment] > Measure Evaluation
+Breadcrumbs::for('regimeAssessments.evaluation', function (BreadcrumbTrail $trail, RegimeAssessment $regimeAssessment, Measure $measure) {
+    $trail->parent('regimeAssessments.show', $regimeAssessment);
+    $trail->push(__('Legal Capacity Measure :measure', ['measure' => $measure->code]));
 });

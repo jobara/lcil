@@ -79,7 +79,8 @@ test('show route render - authenticated', function () {
         '<details>',
         "<summary>{$measureDimension->code} {$measureDimension->description}</summary>",
         '<ol>',
-        '<a href="">'.$measure->code.': '.$measure->title,
+        '<a href="'.localized_route('evaluations.show', ['regimeAssessment' => $regimeAssessment, 'measure' => $measure]),
+        $measure->code.': '.$measure->title,
         '<ul>',
         '<li>1 fully</li>',
         '<li>0 partially</li>',
@@ -179,7 +180,8 @@ test('show route render - no measure title', function () {
     $toSee = [
         "<summary>{$measureDimension->code} {$measureDimension->description}</summary>",
         '<ol>',
-        '<a href="">'.$measure->code.'</a>',
+        '<a href="'.localized_route('evaluations.show', ['regimeAssessment' => $regimeAssessment, 'measure' => $measure]),
+        $measure->code.'</a>',
     ];
 
     $view = $this->actingAs($user)->view('regimeAssessments.show', [
@@ -232,7 +234,8 @@ test('show route render - no law and policy sources', function () {
         '<details>',
         "<summary>{$measureDimension->code} {$measureDimension->description}</summary>",
         '<ol>',
-        '<a href="">'.$measure->code.': '.$measure->title,
+        '<a href="'.localized_route('evaluations.show', ['regimeAssessment' => $regimeAssessment, 'measure' => $measure]),
+        $measure->code.': '.$measure->title,
         '<ul>',
         '<li>0 fully</li>',
         '<li>0 partially</li>',

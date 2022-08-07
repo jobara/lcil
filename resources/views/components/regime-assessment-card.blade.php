@@ -1,12 +1,10 @@
 @props(['regimeAssessment', 'level' => 4])
-<h{{ clamp($level, 1, 6) }}>
-    <span>
-        {{ get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality) }}
-        @auth
-            - ({{ $regimeAssessment->status->labels()[$regimeAssessment->status->value] }})
-        @endauth
-    </span>
-</h{{ clamp($level, 1, 6) }}>
+<x-heading :level="$level">
+    {{ get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality) }}
+    @auth
+        - ({{ $regimeAssessment->status->labels()[$regimeAssessment->status->value] }})
+    @endauth
+</x-heading>
 @isset($regimeAssessment->description)
     <p>{{ $regimeAssessment->description }}</p>
 @endisset

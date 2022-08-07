@@ -9,7 +9,18 @@
         <ul>
             @foreach($errors->keys() as $key)
                 @foreach ($errors->get($key) as $message)
-                    <li><a href="#{{ $anchors[$key] ?? $key }}">{{ $message }}</a></li>
+                    @php
+                        $found = Illuminate\Support\Arr::first(array_keys($anchors), function ($anchorKey) use ($key) {
+                            return fnmatch($anchorKey, $key);
+                        });
+
+                        $anchor = $anchors[$found] ?? $key;
+
+                        if ($anchor === true) {
+                            $anchor = \Illuminate\Support\Str::slug($key);
+                        }
+                    @endphp
+                    <li><a href="#{{ $anchor }}">{{ $message }}</a></li>
                 @endforeach
             @endforeach
         </ul>

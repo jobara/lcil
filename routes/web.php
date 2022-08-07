@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\JoinController;
 use App\Http\Controllers\JurisdictionController;
 use App\Http\Controllers\LawPolicySourceController;
 use App\Http\Controllers\MeasureController;
-use App\Http\Controllers\MeasureEvaluationController;
 use App\Http\Controllers\ProvisionController;
 use App\Http\Controllers\RegimeAssessmentController;
 use App\Http\Controllers\UserController;
@@ -90,8 +90,12 @@ Route::multilingual('regime-assessments/{regimeAssessment}', [RegimeAssessmentCo
     ->name('regimeAssessments.show');
 
 // Regime Assessments - Measure Evaluations
-// Route::multilingual('regime-assessments/{regimeAssessment}/evaluations/{code}', [MeasureEvaluationController::class, 'show'])
-//     ->name('regimeAssessments.show');
+Route::multilingual('regime-assessments/{regimeAssessment}/evaluations/{measure}', [EvaluationController::class, 'show'])
+    ->name('evaluations.show');
+
+Route::post('regime-assessments/{regimeAssessment}/evaluations/{measure}', [EvaluationController::class, 'update'])
+    ->name('evaluations.update')
+    ->middleware('auth');
 
 // Hearth generated routes
 Route::multilingual('dashboard', function () {

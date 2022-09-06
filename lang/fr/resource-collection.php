@@ -14,4 +14,6 @@ return [
     'create_succeeded' => 'Votre collection de ressources a été créée.',
     'update_succeeded' => 'Votre collection de ressources a été mise à jour.',
     'destroy_succeeded' => 'Votre collection de ressources a été supprimée.',
+    'index_title' => 'Resource collections',
+    'none_found' => 'No resource collections found.',
 ];

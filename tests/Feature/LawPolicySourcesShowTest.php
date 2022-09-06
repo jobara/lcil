@@ -99,7 +99,7 @@ test('show route render - minimum fields', function () {
         ]);
 
     $dontSee = [
-        'Reference',
+        '<dt>Reference</dt>',
         'Type',
         'Effect on Legal Capacity',
         'Add Provision',

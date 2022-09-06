@@ -7,7 +7,6 @@
 
     <!-- Form Validation Errors -->
     @include('partials.validation-errors')
-
     <form action="{{ localized_route('resource-collections.update', $resourceCollection) }}" method="POST" novalidate>
         @csrf
         @method('PUT')
@@ -23,7 +22,11 @@
             <x-hearth-error for="description" />
         </div>
 
-        <x-hearth-button>{{ __('forms.save_changes') }}</x-hearth-button>
+        <div>
+            <livewire:resource-select :resourceCollectionId='$resourceCollectionId' />
+        </div>
+
+        <button>{{ __('forms.save_changes') }}</button>
     </form>
 
     <h2>
@@ -42,8 +45,8 @@
             <x-hearth-error for="current_password" bag="destroyResourceCollection" />
         </div>
 
-        <x-hearth-button>
+        <button>
             {{ __('resource-collection.action_delete') }}
-        </x-hearth-button>
+        </button>
     </form>
 </x-app-layout>

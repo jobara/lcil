@@ -64,7 +64,6 @@ Route::patch('law-policy-sources/{lawPolicySource}', [LawPolicySourceController:
     ->middleware('auth');
 
 // Law and Policy Sources - Provisions
-
 Route::multilingual('law-policy-sources/{lawPolicySource}/create', [ProvisionController::class, 'create'])
     ->name('provisions.create')
     ->middleware('auth');
@@ -85,14 +84,27 @@ Route::patch('law-policy-sources/{lawPolicySource}/provisions/{slug}', [Provisio
 Route::multilingual('measures', [MeasureController::class, 'index'])->name('measures');
 
 // Regime Assessments
-Route::multilingual('regime-assessments/create', function () {
-})->name('regimeAssessments.create'); // rough-in web route
+Route::multilingual('regime-assessments/create', [RegimeAssessmentController::class, 'create'])
+    ->name('regimeAssessments.create')
+    ->middleware('auth');
+
+Route::multilingual('regime-assessments/{regimeAssessment}/edit', [RegimeAssessmentController::class, 'edit'])
+    ->name('regimeAssessments.edit')
+    ->middleware('auth');
 
 Route::multilingual('regime-assessments', [RegimeAssessmentController::class, 'index'])
-    ->name('regimeAssessments.index'); // rough-in web route
+    ->name('regimeAssessments.index');
 
 Route::multilingual('regime-assessments/{regimeAssessment}', [RegimeAssessmentController::class, 'show'])
     ->name('regimeAssessments.show');
+
+Route::post('regime-assessments', [RegimeAssessmentController::class, 'store'])
+    ->name('regimeAssessments.store')
+    ->middleware('auth');
+
+Route::patch('regime-assessments/{regimeAssessment}', [RegimeAssessmentController::class, 'update'])
+    ->name('regimeAssessments.update')
+    ->middleware('auth');
 
 // Regime Assessments - Measure Evaluations
 Route::multilingual('regime-assessments/{regimeAssessment}/evaluations/{measure}', [EvaluationController::class, 'show'])

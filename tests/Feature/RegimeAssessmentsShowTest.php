@@ -101,7 +101,8 @@ test('show route render - authenticated', function () {
         "<dd>{$regimeAssessment->year_in_effect}</dd>",
         '<dt>ID:</dt>',
         "<dd>{$regimeAssessment->ra_id}</dd>",
-        '<a href="">View / Edit Details</a>',
+        '<a href="'.\localized_route('regimeAssessments.edit', $regimeAssessment),
+        'View / Edit Details',
     ];
 
     $view = $this->actingAs($user)->view('regimeAssessments.show', [

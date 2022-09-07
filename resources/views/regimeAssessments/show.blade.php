@@ -112,8 +112,9 @@
         @endif
 
         @auth
-            {{-- TODO: need to implement editing of regime assessments and make this a link to the edit page --}}
-            <a href="">{{ __('View / Edit Details') }}</a>
+            <a href="{{ \localized_route('regimeAssessments.edit', $regimeAssessment) }}">
+                {{ __('View / Edit Details') }}
+            </a>
         @endauth
 
 

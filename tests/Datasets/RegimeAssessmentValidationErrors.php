@@ -5,12 +5,15 @@ use App\Enums\RegimeAssessmentStatuses;
 dataset('regimeAssessmentValidationErrors', function () {
     return [
         'missing country' => [
-            [],
+            [
+                'status' => RegimeAssessmentStatuses::Draft->value,
+            ],
             ['country' => 'A Country (country), specified using an ISO 3166-1 alpha-2 country code, is required.'],
         ],
         'country code too short' => [
             [
                 'country' => 'C',
+                'status' => RegimeAssessmentStatuses::Draft->value,
             ],
             ['country' => 'A Country (country), specified using an ISO 3166-1 alpha-2 country code, is required.'],
         ],
@@ -18,6 +21,7 @@ dataset('regimeAssessmentValidationErrors', function () {
             [
                 'country' => 'CA',
                 'subdivision' => 'O',
+                'status' => RegimeAssessmentStatuses::Draft->value,
             ],
             ['subdivision' => 'The Province / Territory (subdivision) must be specified using the subdivision portion of an ISO 3166-2 code.'],
         ],
@@ -25,6 +29,7 @@ dataset('regimeAssessmentValidationErrors', function () {
             [
                 'country' => 'CA',
                 'municipality' => 'Toronto',
+                'status' => RegimeAssessmentStatuses::Draft->value,
             ],
             ['subdivision' => 'The Province / Territory (subdivision) cannot be empty if the Municipality (municipality) is specified.'],
         ],
@@ -34,6 +39,7 @@ dataset('regimeAssessmentValidationErrors', function () {
             fn () => [
                 'country' => 'CA',
                 'year_in_effect' => 20.22,
+                'status' => RegimeAssessmentStatuses::Draft->value,
             ],
             fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
         ],
@@ -43,6 +49,7 @@ dataset('regimeAssessmentValidationErrors', function () {
             fn () => [
                 'country' => 'CA',
                 'year_in_effect' => config('settings.year.min') - 1,
+                'status' => RegimeAssessmentStatuses::Draft->value,
             ],
             fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
         ],
@@ -52,6 +59,7 @@ dataset('regimeAssessmentValidationErrors', function () {
             fn () => [
                 'country' => 'CA',
                 'year_in_effect' => config('settings.year.max') + 1,
+                'status' => RegimeAssessmentStatuses::Draft->value,
             ],
             fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
         ],
@@ -61,6 +69,7 @@ dataset('regimeAssessmentValidationErrors', function () {
             fn () => [
                 'country' => 'CA',
                 'year_in_effect' => false,
+                'status' => RegimeAssessmentStatuses::Draft->value,
             ],
             fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
         ],
@@ -68,6 +77,12 @@ dataset('regimeAssessmentValidationErrors', function () {
             [
                 'country' => 'CA',
                 'status' => 'not a status',
+            ],
+            ['status' => 'The Regime Assessment Status (status) must be one of the following: '.implode(', ', RegimeAssessmentStatuses::values()).'.'],
+        ],
+        'missing status' => [
+            [
+                'country' => 'CA',
             ],
             ['status' => 'The Regime Assessment Status (status) must be one of the following: '.implode(', ', RegimeAssessmentStatuses::values()).'.'],
         ],

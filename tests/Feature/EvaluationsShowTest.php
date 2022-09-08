@@ -80,7 +80,9 @@ test('show route render - no law and policy sources', function () {
 test('show route render - with law and policy source', function () {
     $user = User::factory()->create();
     $measure = Measure::factory()->create();
-    $regimeAssessment = RegimeAssessment::factory()->create();
+    $regimeAssessment = RegimeAssessment::factory()->create([
+        'jurisdiction' => 'CA-ON',
+    ]);
     $lawPolicySource = LawPolicySource::factory()
         ->create([
             'name' => 'Test Law and Policy Source',

@@ -39,7 +39,7 @@ test('render - without existing regime assessment', function () {
         '<h2>Choose Available Law and Policy Sources</h2>',
         'Possible actions:',
         '<li>Search for sources of law and policy to add to this regime assessment.</li>',
-        '<a href="http://lcil.test/law-policy-sources/create">Create Law and Policy Source</a> if it doesn’t already exist.',
+        '<a href="'.\localized_route('lawPolicySources.create').'">Create Law and Policy Source</a> if it doesn’t already exist.',
         '<h2>Refine Selection</h2>',
         'Possible actions:',
         '<li>Refine chosen sources of law and policy by removing them from the list below.</li>',

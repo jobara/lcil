@@ -88,9 +88,6 @@
 
                 <x-hearth-input type="hidden" name="country" :value="parse_country_code($regimeAssessment->jurisdiction)" />
                 <x-hearth-input type="hidden" name="subdivision" :value="parse_subdivision_code($regimeAssessment->jurisdiction)" />
-                <x-hearth-input type="hidden" name="municipality" :value="$regimeAssessment->municipality" />
-                <x-hearth-input type="hidden" name="year_in_effect" :value="$regimeAssessment->year_in_effect" />
-                <x-hearth-input type="hidden" name="description" :value="$regimeAssessment->description" />
 
                 <ul>
                     <li>

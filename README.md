@@ -105,7 +105,7 @@ file with the appropriate information for accessing it.
 2. In the `.env` file, ensure that the following have been set correctly to access your local database:
    * `DB_HOST`: usually `localhost` or `127.0.0.1`
    * `DB_PORT`: usually `3306`
-   * `DB_DATABASE`: usually `licl`; will likely need to create a new database in MySQL or MariaDB first
+   * `DB_DATABASE`: usually `lcil`; will likely need to create a new database in MySQL or MariaDB first
    * `DB_USERNAME`
    * `DB_PASSWORD`
 

@@ -105,28 +105,43 @@ file with the appropriate information for accessing it.
 2. In the `.env` file, ensure that the following have been set correctly to access your local database:
    * `DB_HOST`: usually `localhost` or `127.0.0.1`
    * `DB_PORT`: usually `3306`
-   * `DB_DATABASE`: will likely need to create a new database in MySQL or MariaDB first
+   * `DB_DATABASE`: usually `licl`; will likely need to create a new database in MySQL or MariaDB first
    * `DB_USERNAME`
    * `DB_PASSWORD`
 
-3. Ensure that a database called `lcil_test` is also created in your local database. This is used for running the tests.
+3. If you need to create a database you can do so from the command line like:
+
+    ```bash
+    mysql -uroot -e "create database lcil;"
+    ```
+
+    You can also create the database from an application like [Sequel Ace](https://github.com/Sequel-Ace/Sequel-Ace).
+
+    _**NOTE:** If the database is run through an external app like [DBngin](https://dbngin.com) the CLI command above
+    may not work._
+
+4. Ensure that a database called `lcil_test` is also created in your local database. This is used for running the tests.
    If you prefer to use a different database you'll need to add a .env.testing file with the modified DB_DATABASE name.
    You'll also need to add DB_DATABASE_TEST with the new database name to your main .env file to setup the database for
    running the migrations as mentioned below.
 
-4. Run the migrations and seed the database
+    ```bash
+    mysql -uroot -e "create database lcil_test;"
+    ```
+
+5. Run the migrations and seed the database
 
    ```bash
    php artisan migrate:refresh --seed
    ```
 
-5. Run the migrations for the test database
+6. Run the migrations for the test database
 
    ```bash
    php artisan migrate:fresh --database=mysql-test
    ```
 
-6. Serve the application. If using [Laravel Valet](https://laravel.com/docs/9.x/valet), this step shouldn't be
+7. Serve the application. If using [Laravel Valet](https://laravel.com/docs/9.x/valet), this step shouldn't be
    necessary.
 
    ```bash
@@ -135,19 +150,19 @@ file with the appropriate information for accessing it.
    # use ctrl-c to terminate the server
    ```
 
-7. To update JS and CSS dependencies run the vite build
+8. To update JS and CSS dependencies run the vite build
 
    ```bash
    npm run build
    ```
 
-8. To debug JS or CSS run the `dev` npm script which will enable source maps
+9. To debug JS or CSS run the `dev` npm script which will enable source maps
 
    ```bash
    npm run dev
    ```
 
-9. For account creation the app requires a mail server. You can use [MailHog](https://github.com/mailhog/MailHog) to
+10. For account creation the app requires a mail server. You can use [MailHog](https://github.com/mailhog/MailHog) to
    simulate email communication. This is already configured in Sail, but will need to be installed manually for local
    development. Once MailHog is installed update the `MAIL_HOST` variable in the `.env` file with the IP that MailHog
    bound SMTP to.
@@ -445,4 +460,5 @@ php artisan view:clear
 
 * [Clockwork](https://underground.works/clockwork/): php dev tools in the browser
 * [Sequel Ace](https://github.com/Sequel-Ace/Sequel-Ace): Mac database management application
+* [DBngin](https://dbngin.com): Database version management tool
 * [Laravel Valet](https://laravel.com/docs/9.x/valet): development environment for macOS

@@ -9,11 +9,15 @@
             <span>{{ __('Regime Assessment Summary') }}</span>
             <span>{{ $jurisdiction }}</span>
             @auth
-                <span>({{ $regimeAssessment->status->value }})</span>
+                <span>({{ \App\Enums\RegimeAssessmentStatuses::labels()[$regimeAssessment->status->value] }})</span>
             @endauth
         </h1>
         <p>{{  $regimeAssessment->description }}</p>
     </x-slot>
+
+    @auth
+        <x-forms.error-summary />
+    @endauth
 
     <h2>{{ __('Measures') }}</h2>
     <p>
@@ -76,9 +80,32 @@
 
     @auth
         <aside>
-            <h2>{{ __('Regime Assessment Status') }}</h2>
-            {{-- TODO: need to implement editing of regime assessments and make this a select box--}}
-            <strong>{{ $regimeAssessment->status->value }}</strong>
+            <h2 id="ra-status-heading">{{ __('Regime Assessment Status') }}</h2>
+
+            <form method="POST" action="{{ route('regimeAssessments.update', $regimeAssessment) }}">
+                @csrf
+                @method('patch')
+
+                <x-hearth-input type="hidden" name="country" :value="parse_country_code($regimeAssessment->jurisdiction)" />
+                <x-hearth-input type="hidden" name="subdivision" :value="parse_subdivision_code($regimeAssessment->jurisdiction)" />
+                <x-hearth-input type="hidden" name="municipality" :value="$regimeAssessment->municipality" />
+                <x-hearth-input type="hidden" name="year_in_effect" :value="$regimeAssessment->year_in_effect" />
+                <x-hearth-input type="hidden" name="description" :value="$regimeAssessment->description" />
+
+                <ul>
+                    <li>
+                        <x-hearth-select
+                            name="status"
+                            aria-labelledby="ra-status-heading"
+                            required
+                            :options="\App\Enums\RegimeAssessmentStatuses::options()->toArray()"
+                            :selected="old('status', $regimeAssessment?->status?->value)"
+                        />
+                        <x-hearth-error for="status" />
+                    </li>
+                    <li><button type="submit">{{ __('Save') }}</button></li>
+                </ul>
+            </form>
         </aside>
     @endauth
 

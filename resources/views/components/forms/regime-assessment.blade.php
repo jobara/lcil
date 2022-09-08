@@ -13,10 +13,8 @@
         @method('patch')
     @endisset
 
+    <x-hearth-input type="hidden" name="status" :value="$regimeAssessment?->status->value ?? \App\Enums\RegimeAssessmentStatuses::Draft->value" />
     <ul role="list" x-data="{country: '{{ old('country', parse_country_code($regimeAssessment?->jurisdiction)) }}'}">
-        <li>
-            <x-hearth-input type="hidden" name="status" :value="$regimeAssessment?->status->value ?? \App\Enums\RegimeAssessmentStatuses::Draft->value" />
-        </li>
         <li>
             <x-forms.label for="country" :value="__('Country (required)')" />
             <x-forms.country-select :country="old('country', parse_country_code($regimeAssessment?->jurisdiction))" x-model="country" required />

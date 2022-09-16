@@ -1,0 +1,21 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 100vh;
+}
+
+article {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.wrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+[role=list], ul {
+    padding: 0;
+}

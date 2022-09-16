@@ -1,0 +1,10 @@
+.article header {
+    width: 100vw;
+}
+
+
+@media (min-width: 48rem) {
+    .content {
+        width: 48rem;
+    }
+}

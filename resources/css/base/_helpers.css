@@ -1,0 +1,4 @@
+/* Alpine helpers */
+[x-cloak] {
+    display: none !important;
+}

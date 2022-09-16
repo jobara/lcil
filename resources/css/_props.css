@@ -1,0 +1,14 @@
+@font-face {
+    font-display: swap;
+    font-family: "OpenSans";
+    font-weight: 200 900;
+    src:
+        url("../fonts/OpenSans-VariableFont_wdth,wght.woff2") format('woff2-variations'),
+        url("../fonts/OpenSans-VariableFont_wdth,wght.woff2") format('woff2');
+}
+
+:root {
+    --body-color: var(#000);
+    --body-background: var(red);
+    --font-base: var(OpenSans, Arial, Helvetica, sans-serif);
+}

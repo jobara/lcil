@@ -1,0 +1,17 @@
+[role="banner"] {
+    background-color: #C4C4C4;
+}
+
+/* Banner */
+@media (min-width: 48rem) {
+    [role="banner"] .wrapper {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+
+    [role="banner"] {
+        padding-top: 2rem;
+    }
+}

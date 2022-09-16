@@ -1,36 +1,42 @@
 @import "modern-css-reset";
+@import "_props.css";
+@import "base/_base.css";
+@import "base/_helpers.css";
+@import "base/_typography.css";
+@import "components/_banner.css";
+@import "components/_brand.css";
+@import "components/_card.css";
+@import "components/_nav-site.css";
+@import "components/_nav-user.css";
+@import "components/_search-results.css";
+@import "layout/_form.css";
+@import "layout/_nav.css";
+@import "layout/_article.css";
 
-// Alpine helpers
-[x-cloak] {
-    display: none !important;
+
+/*
+TODO: Refactor the styles below.
+*/
+
+.dropdown.languages {
+    display: none;
 }
 
-// Banner
-@media (min-width: 48rem) {
-    [role="banner"] .wrapper {
-        align-items: center;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        margin-block: var(--step-2);
-    }
-}
-
-// Alert
+/* Alert */
 .alert {
     border: var(--ll-border-thin);
     border-radius: var(--ll-border-radius);
     padding: var(--step-0) var(--step-1);
-
-    .title {
-        align-items: center;
-        display: flex;
-        flex-direction: row;
-        font-weight: 700;
-    }
 }
 
-// Authentication Card
+.alert .title {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    font-weight: 700;
+}
+
+/* Authentication Card */
 .auth-card {
     align-items: center;
     display: flex;
@@ -38,22 +44,21 @@
     justify-content: center;
     min-height: 100vh;
 
-    > * {
-        max-width: calc(65ch / 2);
-        width: 100%;
-    }
+    
+}
+
+.auth-card > * {
+    max-width: calc(65ch / 2);
+    width: 100%;
 }
 
 .auth-card__logo {
     text-align: center;
 }
 
-// Brand
-.brand {
-    font-size: var(--step-2);
-}
 
-// Dropdown
+
+/* Dropdown */
 [aria-expanded] + ul {
     display: none;
 }
@@ -85,7 +90,7 @@
     }
 }
 
-// Modal
+/* Modal */
 .modal-wrapper {
     background: rgba(0, 0, 0, 0.75);
     height: 100vh;
@@ -125,69 +130,7 @@
     }
 }
 
-// Navigation
-nav {
-    display: flex;
-    flex-direction: column;
-    gap: var(--step--2);
-    margin-block-start: var(--step-2);
-}
-
-nav ul {
-    flex-direction: column;
-    gap: var(--step--2);
-    padding-inline-start: 0;
-}
-
-nav ul ul {
-    margin-block-start: var(--step--1);
-}
-
-nav ul > li {
-    padding-inline-start: 0;
-}
-
-nav ul > li::before {
-    display: none;
-}
-
-nav button {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-}
-
-nav .icon {
-    height: 1em;
-    margin-inline-end: 0.125em;
-    width: 1em;
-}
-
-@media (min-width: 48rem) {
-    nav {
-        flex-direction: row;
-        margin-block-start: 0;
-        margin-inline-start: auto;
-    }
-
-    nav > [aria-expanded] {
-        display: none;
-    }
-
-    nav > [aria-expanded] + ul {
-        display: flex;
-    }
-
-    nav ul {
-        flex-direction: row;
-    }
-
-    nav ul ul {
-        flex-direction: column;
-    }
-}
-
-// Date Input
+/* Date Input */
 .date {
     display: flex;
     flex-wrap: wrap;

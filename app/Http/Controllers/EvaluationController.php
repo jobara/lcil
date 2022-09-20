@@ -52,6 +52,9 @@ class EvaluationController extends Controller
         Evaluation::upsert($toUpdate, ['regime_assessment_id', 'measure_id', 'provision_id'], ['assessment', 'comment']);
         Evaluation::destroy($toDelete);
 
-        return redirect(url()->current().'#save__message')->with('status', 'saved');
+        return redirect(\localized_route('evaluations.show', [
+            'regimeAssessment' => $regimeAssessment,
+            'measure' => $measure,
+        ]).'#save__message')->with('status', 'saved');
     }
 }

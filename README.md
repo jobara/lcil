@@ -359,6 +359,88 @@ There are some "constant" database entries that should be populated into the pro
    php artisan db:seed --class=ConstantsSeeder
    ```
 
+## Setting and clearing caches
+
+At times you may want to clear or reset caches, for example when updating a deployed site or making local development
+changes to the .env file.
+
+For more information see [Optimizing configuration loading documentation](https://laravel.com/docs/9.x/deployment#optimizing-configuration-loading)
+
+_**Note:** If clearing the caches doesn't address the issue, the serve may need to be restarted._
+
+### Application cache
+
+To clear manually stored caches:
+
+```bash
+php artisan cache:clear
+```
+
+To clear a specific store:
+
+```bash
+php artisan cache:clear --store={name}
+```
+
+For more information see: [Cache documentation](https://laravel.com/docs/9.x/cache)
+
+### Config cache
+
+To clear the config cache. This may need to be done if you change any settings in a config or environment variable.
+
+```bash
+php artisan config:clear
+```
+
+You could also combine the config files into a single cache, which will also improve performance.
+
+```bash
+php artisan config:cache
+```
+
+### Event cache
+
+You can cache even handling, which may improve performance.
+
+```bash
+php artisan event:cache
+```
+
+If you do so, you'll need to rerun the cache or clear it (see below) after making changes.
+
+```bash
+php artisan event:clear
+```
+
+### Route cache
+
+Route caches are only for deployments.
+
+```bash
+php artisan route:cache
+```
+
+The route cache can be cleared, in particular if you cached the routes in your local setup.
+
+```bash
+php artisan route:clear
+```
+
+### View cache
+
+The view cache is useful for deploys and pre-renders the views.
+
+```bash
+php artisan view:cache
+```
+
+However, it shouldn't be used for local development as your changes will not be reflected. In which case you may need to
+clear the view cache.
+
+```bash
+php artisan view:clear
+```
+
 ## Helpful tools
 
 * [Clockwork](https://underground.works/clockwork/): php dev tools in the browser

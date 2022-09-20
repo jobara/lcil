@@ -196,6 +196,9 @@ sail artisan localize
 
 # when running locally
 php artisan localize
+
+# composer script that will also remove old translations
+php composer localize
 ```
 
 This will extract the strings and collect them for the default language specified in `app.locale`. If you'd like to

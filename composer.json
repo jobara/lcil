@@ -62,11 +62,15 @@
         ],
         "coverage": [
             "@putenv XDEBUG_MODE=coverage",
-            "php artisan test --coverage"
+            "@php artisan test --coverage"
         ],
         "format": "vendor/bin/pint",
         "lint": [
             "./vendor/bin/phpstan analyse"
+        ],
+        "localize": [
+            "rm -f -- lang/en.json",
+            "@php artisan localize en"
         ]
     },
     "extra": {

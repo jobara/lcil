@@ -21,6 +21,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Redirect to locale prefixed homepage for default language if, default language prefix is included in the URL
+if (config('laravel-multilingual-routes.prefix_default') && config('laravel-multilingual-routes.prefix_default_home')) {
+    Route::redirect('/', \locale());
+}
+
 // Landing Page
 Route::multilingual('/', function () {
     return view('welcome');

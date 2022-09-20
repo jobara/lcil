@@ -26,7 +26,8 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
 
         Route::multilingual('/register', [RegisteredUserController::class, 'store'])
             ->method('post')
-            ->middleware('guest');
+            ->middleware('guest')
+            ->name('register.store');
     }
 
     Route::multilingual('/login', [AuthenticatedSessionController::class, 'create'])
@@ -41,7 +42,8 @@ Route::group(['middleware' => config('fortify.middleware', ['web'])], function (
         ->middleware(array_filter([
             'guest',
             $limiter ? 'throttle:'.$limiter : null,
-        ]));
+        ]))
+        ->name('login.store');
 
     Route::multilingual('/logout', [AuthenticatedSessionController::class, 'destroy'])
         ->method('post')

@@ -19,8 +19,8 @@ test('render cards', function () {
     );
 
     $toSee = [
-        '<ul role="list">',
-        '<li>',
+        '<ul role="list"',
+        '<li class="card">',
     ];
 
     foreach ($lawPolicySources as $lawPolicySource) {

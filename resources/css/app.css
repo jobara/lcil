@@ -9,9 +9,10 @@
 @import "components/_nav-site.css";
 @import "components/_nav-user.css";
 @import "components/_search-results.css";
+@import "components/_status.css";
+@import "layout/_article.css";
 @import "layout/_form.css";
 @import "layout/_nav.css";
-@import "layout/_article.css";
 
 
 /*

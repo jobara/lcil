@@ -57,7 +57,7 @@
                 :keywords="old('keywords', request('keywords'))"
             />
             @if (count($regimeAssessments))
-                <ul role="list">
+                <ul role="list" class="search-results">
                     @foreach (group_by_jurisdiction($regimeAssessments->items()) as $countryName => $subdivisionGroups)
                         <li>
                             <h2>{{ $countryName }}</h2>

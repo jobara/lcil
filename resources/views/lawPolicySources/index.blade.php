@@ -63,7 +63,7 @@
                 {{ $lawPolicySources->links() }}
             @endif
         @else
-            <p role="status">{{ __('Search results will appear here') }}</p>
+            <p role="status" class="card">{{ __('Search results will appear here') }}</p>
         @endisset
     </div>
 </x-app-layout>

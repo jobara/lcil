@@ -4,7 +4,7 @@ test('render', function () {
     $view = $this->blade('<x-site-navigation />');
 
     $toSee = [
-        '<nav aria-label="Site Navigation">',
+        '<nav aria-label="Site Navigation"',
         localized_route('lawPolicySources.index'),
         'Law and Policy Sources',
         localized_route('regimeAssessments.index'),

@@ -1,7 +1,10 @@
-.article header {
+article header {
     width: 100vw;
 }
 
+article .flow div{
+    margin: 1.5rem 0;
+}
 
 @media (min-width: 48rem) {
     .content {

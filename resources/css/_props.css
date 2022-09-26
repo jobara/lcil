@@ -8,7 +8,10 @@
 }
 
 :root {
-    --body-color: var(#000);
-    --body-background: var(red);
-    --font-base: var(OpenSans, Arial, Helvetica, sans-serif);
+    --body-color: #000;
+    --body-background: #fff;
+    --font-base: OpenSans, Arial, Helvetica, sans-serif;
+    --banner-background: #C4C4C4;
+    --card-background: #C4C4C4;
+
 }

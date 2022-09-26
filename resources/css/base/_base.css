@@ -15,7 +15,3 @@ article {
     padding-left: 1rem;
     padding-right: 1rem;
 }
-
-[role=list], ul {
-    padding: 0;
-}

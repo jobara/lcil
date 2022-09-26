@@ -2,5 +2,13 @@
     font-size: 2rem;
     font-weight: bold;
     text-decoration: none;
-    color: #000;
+    display: block;
+    width: 100%;
+}
+
+@media (min-width: 48rem) {
+    .brand .h3 {
+        font-size: 3rem;
+        display: initial;    
+    }
 }

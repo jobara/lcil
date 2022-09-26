@@ -1,5 +1,9 @@
 [role="banner"] {
-    background-color: #C4C4C4;
+    background-color: var(--banner-background);
+}
+
+[role="banner"] a {
+    color: var(--body-color);
 }
 
 /* Banner */

@@ -14,6 +14,7 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "owen-it/laravel-auditing": "^13.0",
+        "spatie/laravel-ignition": "^1.5",
         "spatie/laravel-options": "^1.0",
         "spatie/laravel-sluggable": "^3.4",
         "ueberdosis/tiptap-php": "^1.1"
@@ -28,8 +29,7 @@
         "nunomaduro/larastan": "^2.0",
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-laravel": "^1.2",
-        "phpunit/phpunit": "^9.5.10",
-        "spatie/laravel-ignition": "^1.0"
+        "phpunit/phpunit": "^9.5.10"
     },
     "autoload": {
         "psr-4": {

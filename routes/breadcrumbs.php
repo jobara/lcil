@@ -46,6 +46,12 @@ Breadcrumbs::for('regimeAssessments.index', function (BreadcrumbTrail $trail) {
     $trail->push(__('Regime Assessments'), \localized_route('regimeAssessments.index'));
 });
 
+// Regime Assessments > Create Regime Assessment
+Breadcrumbs::for('regimeAssessments.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('regimeAssessments.index');
+    $trail->push(__('Create Regime Assessment'));
+});
+
 // Regime Assessments > [Regime Assessment]
 Breadcrumbs::for('regimeAssessments.show', function (BreadcrumbTrail $trail, RegimeAssessment $regimeAssessment) {
     $trail->parent('regimeAssessments.index');
@@ -53,6 +59,12 @@ Breadcrumbs::for('regimeAssessments.show', function (BreadcrumbTrail $trail, Reg
         get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality),
         \localized_route('regimeAssessments.show', $regimeAssessment)
     );
+});
+
+// Regime Assessments > [Regime Assessment] > Edit Regime Assessment
+Breadcrumbs::for('regimeAssessments.edit', function (BreadcrumbTrail $trail, RegimeAssessment $regimeAssessment) {
+    $trail->parent('regimeAssessments.show', $regimeAssessment);
+    $trail->push(__('Edit Regime Assessment'));
 });
 
 // Regime Assessments > [Regime Assessment] > Measure Evaluation

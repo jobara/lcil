@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\RegimeAssessmentStatuses;
 use App\Models\Evaluation;
 use App\Models\LawPolicySource;
 use App\Models\Measure;
@@ -37,6 +38,8 @@ test('show route render - authenticated', function () {
         'jurisdiction' => 'CA-ON',
         'municipality' => 'Toronto',
         'year_in_effect' => 2022,
+        'description' => 'test description',
+        'status' => RegimeAssessmentStatuses::Published->value,
     ]);
 
     $provision = Provision::factory()
@@ -64,7 +67,7 @@ test('show route render - authenticated', function () {
         '<h1',
         '<span>Regime Assessment Summary</span>',
         '<span>Toronto, Ontario, Canada</span>',
-        "<span>({$regimeAssessment->status->value})</span>",
+        '<span>('.RegimeAssessmentStatuses::labels()[$regimeAssessment->status->value].')</span>',
         '</h1>',
         "<p>{$regimeAssessment->description}</p>",
         '<h2>Measures</h2>',
@@ -88,8 +91,16 @@ test('show route render - authenticated', function () {
         '<li>0 do not apply</li>',
         '</details>',
         '<aside>',
-        '<h2>Regime Assessment Status</h2>',
-        "<strong>{$regimeAssessment->status->value}",
+        '<h2 id="ra-status-heading">Regime Assessment Status</h2>',
+        '<form method="POST" action="'.route('regimeAssessments.update', $regimeAssessment),
+        '<input type="hidden" name="_method" value="patch">',
+        '<select',
+        'name="status" id="status" aria-labelledby="ra-status-heading"',
+        'required',
+        '<option value="draft" >Draft</option>',
+        '<option value="needs_review" >Needs Review</option>',
+        '<option value="published" selected>Published</option>',
+        '<li><button type="submit">Save</button></li>',
         '<aside>',
         '<h2>Regime Assessment Details</h2>',
         '<dl>',
@@ -101,13 +112,17 @@ test('show route render - authenticated', function () {
         "<dd>{$regimeAssessment->year_in_effect}</dd>",
         '<dt>ID:</dt>',
         "<dd>{$regimeAssessment->ra_id}</dd>",
-        '<a href="">View / Edit Details</a>',
+        '<a href="'.\localized_route('regimeAssessments.edit', $regimeAssessment),
+        'View / Edit Details',
     ];
 
-    $view = $this->actingAs($user)->view('regimeAssessments.show', [
-        'regimeAssessment' => $regimeAssessment,
-        'measureDimensions' => MeasureDimension::all(),
-    ]);
+    $view = $this->actingAs($user)
+        ->withViewErrors([])
+        ->view('regimeAssessments.show', [
+            'regimeAssessment' => $regimeAssessment,
+            'measureDimensions' => MeasureDimension::all(),
+        ]);
+
     $view->assertSeeInOrder($toSee, false);
 })->group('RegimeAssessments');
 
@@ -118,6 +133,8 @@ test('show route render - unauthenticated', function () {
         'jurisdiction' => 'CA-ON',
         'municipality' => 'Toronto',
         'year_in_effect' => 2022,
+        'description' => 'test description',
+        'status' => RegimeAssessmentStatuses::Published->value,
     ]);
 
     $provision = Provision::factory()
@@ -143,7 +160,14 @@ test('show route render - unauthenticated', function () {
         '<li>Choose a measure to evaluate.',
         '<li>Change assessment status to “Draft”, “Needs Review”, “Published”',
         '<h2>Regime Assessment Status</h2>',
-        "<strong>{$regimeAssessment->status->value}",
+        '<h2 id="ra-status-heading">Regime Assessment Status</h2>',
+        '<form method="POST" action="'.route('regimeAssessments.update', $regimeAssessment),
+        '<input type="hidden" name="_method" value="patch">',
+        'name="status" id="status" aria-labelledby="ra-status-heading"',
+        '<option value="draft" >Draft</option>',
+        '<option value="needs_review" >Needs Review</option>',
+        '<option value="published" selected>Published</option>',
+        '<li><button type="submit">Save</button></li>',
         '<a href="">View / Edit Details</a>',
     ];
 
@@ -184,10 +208,12 @@ test('show route render - no measure title', function () {
         $measure->code.'</a>',
     ];
 
-    $view = $this->actingAs($user)->view('regimeAssessments.show', [
-        'regimeAssessment' => $regimeAssessment,
-        'measureDimensions' => MeasureDimension::all(),
-    ]);
+    $view = $this->actingAs($user)
+        ->withViewErrors([])
+        ->view('regimeAssessments.show', [
+            'regimeAssessment' => $regimeAssessment,
+            'measureDimensions' => MeasureDimension::all(),
+        ]);
 
     $view->assertSeeInOrder($toSee, false);
 })->group('RegimeAssessments');
@@ -211,10 +237,12 @@ test('show route render - no year in effect', function () {
 
     $regimeAssessment->lawPolicySources()->attach($provision->lawPolicySource);
 
-    $view = $this->actingAs($user)->view('regimeAssessments.show', [
-        'regimeAssessment' => $regimeAssessment,
-        'measureDimensions' => MeasureDimension::all(),
-    ]);
+    $view = $this->actingAs($user)
+        ->withViewErrors([])
+        ->view('regimeAssessments.show', [
+            'regimeAssessment' => $regimeAssessment,
+            'measureDimensions' => MeasureDimension::all(),
+        ]);
 
     $view->assertDontSee('<dt>Effective Data:</dt>');
 })->group('RegimeAssessments');
@@ -244,11 +272,48 @@ test('show route render - no law and policy sources', function () {
         '</details>',
     ];
 
-    $view = $this->actingAs($user)->view('regimeAssessments.show', [
-        'regimeAssessment' => $regimeAssessment,
-        'measureDimensions' => MeasureDimension::all(),
-    ]);
+    $view = $this->actingAs($user)
+        ->withViewErrors([])
+        ->view('regimeAssessments.show', [
+            'regimeAssessment' => $regimeAssessment,
+            'measureDimensions' => MeasureDimension::all(),
+        ]);
 
     $view->assertSeeInOrder($toSee, false);
     $view->assertDontSee('<h3>Law and Policy Sources</h3>');
+})->group('RegimeAssessments');
+
+test('show route render errors', function () {
+    $user = User::factory()->create();
+    $regimeAssessment = RegimeAssessment::factory()->create([
+        'jurisdiction' => 'CA-ON',
+        'municipality' => 'Toronto',
+        'year_in_effect' => 2022,
+        'description' => 'test description',
+        'status' => RegimeAssessmentStatuses::Published->value,
+    ]);
+
+    $errors = [
+        'status' => 'The Regime Assessment Status (status) must be one of the following: '.implode(', ', RegimeAssessmentStatuses::values()).'.',
+    ];
+
+    $toSee = [
+        '<div id="error-summary" role="alert">',
+        "<li><a href=\"#status\">{$errors['status']}</a></li>",
+        'id="status"',
+        'aria-describedby',
+        'status-error',
+        'aria-invalid="true"',
+        '<p class="field__error" id="status-error">',
+        $errors['status'],
+    ];
+
+    $view = $this->actingAs($user)
+        ->withViewErrors($errors)
+        ->view('regimeAssessments.show', [
+            'regimeAssessment' => $regimeAssessment,
+            'measureDimensions' => MeasureDimension::all(),
+        ]);
+
+    $view->assertSeeInOrder($toSee, false);
 })->group('RegimeAssessments');

@@ -9,11 +9,15 @@
             <span>{{ __('Regime Assessment Summary') }}</span>
             <span>{{ $jurisdiction }}</span>
             @auth
-                <span>({{ $regimeAssessment->status->value }})</span>
+                <span>({{ \App\Enums\RegimeAssessmentStatuses::labels()[$regimeAssessment->status->value] }})</span>
             @endauth
         </h1>
         <p>{{  $regimeAssessment->description }}</p>
     </x-slot>
+
+    @auth
+        <x-forms.error-summary />
+    @endauth
 
     <h2>{{ __('Measures') }}</h2>
     <p>
@@ -76,9 +80,26 @@
 
     @auth
         <aside>
-            <h2>{{ __('Regime Assessment Status') }}</h2>
-            {{-- TODO: need to implement editing of regime assessments and make this a select box--}}
-            <strong>{{ $regimeAssessment->status->value }}</strong>
+            <h2 id="ra-status-heading">{{ __('Regime Assessment Status') }}</h2>
+
+            <form method="POST" action="{{ route('regimeAssessments.updateStatus', $regimeAssessment) }}">
+                @csrf
+                @method('patch')
+
+                <ul>
+                    <li>
+                        <x-hearth-select
+                            name="status"
+                            aria-labelledby="ra-status-heading"
+                            required
+                            :options="\App\Enums\RegimeAssessmentStatuses::options()->toArray()"
+                            :selected="old('status', $regimeAssessment?->status?->value)"
+                        />
+                        <x-hearth-error for="status" />
+                    </li>
+                    <li><button type="submit">{{ __('Save') }}</button></li>
+                </ul>
+            </form>
         </aside>
     @endauth
 
@@ -112,12 +133,10 @@
         @endif
 
         @auth
-            {{-- TODO: need to implement editing of regime assessments and make this a link to the edit page --}}
-            <a href="">{{ __('View / Edit Details') }}</a>
+            <a href="{{ \localized_route('regimeAssessments.edit', $regimeAssessment) }}">
+                {{ __('View / Edit Details') }}
+            </a>
         @endauth
-
-
-
 
     </aside>
 </x-app-layout>

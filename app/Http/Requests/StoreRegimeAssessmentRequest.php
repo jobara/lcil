@@ -47,7 +47,6 @@ class StoreRegimeAssessmentRequest extends RedirectFormRequest
             'year_in_effect.max' => 'The :attribute must be within '.config('settings.year.min').' and '.config('settings.year.max').'.',
             'year_in_effect.min' => 'The :attribute must be within '.config('settings.year.min').' and '.config('settings.year.max').'.',
             'year_in_effect.numeric' => 'The :attribute must be within '.config('settings.year.min').' and '.config('settings.year.max').'.',
-            'status.required' => 'The :attribute must be one of the following: '.implode(', ', RegimeAssessmentStatuses::values()).'.',
             'status.Illuminate\Validation\Rules\Enum' => 'The :attribute must be one of the following: '.implode(', ', RegimeAssessmentStatuses::values()).'.',
         ];
     }
@@ -71,7 +70,8 @@ class StoreRegimeAssessmentRequest extends RedirectFormRequest
                 'max:'.config('settings.year.max'),
             ],
             'description' => ['nullable', 'string'],
-            'status' => ['required', new Enum(RegimeAssessmentStatuses::class)],
+            'status' => ['sometimes', new Enum(RegimeAssessmentStatuses::class)],
+            'lawPolicySources' => ['nullable', 'array'],
         ];
     }
 }

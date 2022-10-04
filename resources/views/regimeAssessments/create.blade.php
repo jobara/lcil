@@ -8,7 +8,7 @@
     @auth
         <x-forms.error-summary />
 
-        <x-forms.regime-assessment />
+        <x-forms.regime-assessment :lawPolicySources="$lawPolicySources" />
     @endauth
 
 </x-app-layout>

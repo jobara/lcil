@@ -1,4 +1,4 @@
-@props(['regimeAssessment' => null, 'id' => 'ra-form'])
+@props(['regimeAssessment' => null, 'lawPolicySources' => null, 'id' => 'ra-form'])
 <form
     {{
         $attributes->merge([
@@ -53,32 +53,33 @@
             <x-hearth-textarea name="description">{{ old('description', $regimeAssessment?->description) }}</x-hearth-textarea>
             <x-hearth-error for="description" />
         </li>
+        <li>
+            <section>
+                <h2 id="choose-law-policy-source">{{ __('Choose Available Law and Policy Sources') }}</h2>
+                <div>
+                    {{ __('Possible actions:') }}
+                    <ul>
+                        <li>{{ __('Select sources of law and policy to add to this regime assessment.') }}</li>
+                        <li>
+                            {!! Str::inlineMarkdown(__('[Create Law and Policy Source](:url) if it doesn’t already exist.', ['url' => \localized_route('lawPolicySources.create')])); !!}
+                        </li>
+                    </ul>
+                </div>
+
+                @isset($lawPolicySources)
+                    @if (count($lawPolicySources))
+                        <div role="group" aria-labelledby="choose-law-policy-source">
+                            <x-forms.law-policy-source-selection :lawPolicySources="$lawPolicySources" :checked="$regimeAssessment?->lawPolicySources" />
+                        </div>
+                    @endif
+                @else
+                    <a href="{{ \localized_route('lawPolicySources.create') }}">Create Law and Policy Source</a>
+                @endisset
+
+            </section>
+        </li>
+        <li>
+            <button type="submit">{{ __('Submit') }}</button>
+        </li>
     </ul>
 </form>
-
-<section>
-    <h2>{{ __('Choose Available Law and Policy Sources') }}</h2>
-    <div>
-        {{ __('Possible actions:') }}
-        <ul>
-            <li>{{ __('Search for sources of law and policy to add to this regime assessment.') }}</li>
-            <li>
-                {!! Str::inlineMarkdown(__('[Create Law and Policy Source](:url) if it doesn’t already exist.', ['url' => \localized_route('lawPolicySources.create')])); !!}
-            </li>
-        </ul>
-    </div>
-</section>
-
-<section>
-    <h2>{{ __('Refine Selection') }}</h2>
-    <div>
-        {{ __('Possible actions:') }}
-        <ul>
-            <li>{{ __('Refine chosen sources of law and policy by removing them from the list below.') }}</li>
-            <li>{{ __('Add more sources of law and policy by searching above.') }}</li>
-            <li>{{ __('Submit when done.') }}</li>
-        </ul>
-    </div>
-</section>
-
-<button type="submit" form="{{ $id }}">{{ __('Submit') }}</button>

@@ -1,6 +1,7 @@
 <?php
 
 use App\Enums\RegimeAssessmentStatuses;
+use App\Models\LawPolicySource;
 use App\Models\RegimeAssessment;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
@@ -22,6 +23,10 @@ test('edit route display', function () {
 
     $response->assertStatus(200);
     $response->assertViewIs('regimeAssessments.edit');
+    $response->assertViewHas('regimeAssessment');
+    $response->assertViewHas('lawPolicySources');
+    expect($response['regimeAssessment'])->toBeInstanceOf(RegimeAssessment::class);
+    expect(is_array($response['lawPolicySources']))->toBeTrue();
 })->group('RegimeAssessments');
 
 test('edit route render', function () {
@@ -33,6 +38,12 @@ test('edit route render', function () {
         'year_in_effect' => 2022,
         'status' => RegimeAssessmentStatuses::Draft->value,
     ]);
+
+    $lawPolicySources = LawPolicySource::all()->sortBy([
+        ['jurisdiction', 'asc'],
+        ['municipality', 'asc'],
+        ['name', 'asc'],
+    ])->all();
 
     $toSee = [
         '<title>Edit Regime Assessment: Toronto, Ontario, Canada &mdash; Legal Capacity Inclusion Lens</title>',
@@ -49,7 +60,10 @@ test('edit route render', function () {
 
     $view = $this->actingAs($user)
         ->withViewErrors([])
-        ->view('regimeAssessments.edit', ['regimeAssessment' => $regimeAssessment]);
+        ->view('regimeAssessments.edit', [
+            'regimeAssessment' => $regimeAssessment,
+            'lawPolicySources' => $lawPolicySources,
+        ]);
 
     $view->assertSeeInOrder($toSee, false);
 })->group('RegimeAssessments');
@@ -57,6 +71,13 @@ test('edit route render', function () {
 test('edit route render errors', function ($data, $errors) {
     $user = User::factory()->create();
     $regimeAssessment = RegimeAssessment::factory()->create();
+
+    $lawPolicySources = LawPolicySource::all()->sortBy([
+        ['jurisdiction', 'asc'],
+        ['municipality', 'asc'],
+        ['name', 'asc'],
+    ])->all();
+
     $toSee = ['<div id="error-summary" role="alert">'];
 
     foreach ($errors as $key => $message) {
@@ -65,7 +86,10 @@ test('edit route render errors', function ($data, $errors) {
 
     $view = $this->actingAs($user)
         ->withViewErrors($errors)
-        ->view('regimeAssessments.edit', ['regimeAssessment' => $regimeAssessment]);
+        ->view('regimeAssessments.edit', [
+            'regimeAssessment' => $regimeAssessment,
+            'lawPolicySources' => $lawPolicySources,
+        ]);
 
     $view->assertSeeInOrder($toSee, false);
 })->with('regimeAssessmentValidationErrors')

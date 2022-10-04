@@ -82,12 +82,9 @@
         <aside>
             <h2 id="ra-status-heading">{{ __('Regime Assessment Status') }}</h2>
 
-            <form method="POST" action="{{ route('regimeAssessments.update', $regimeAssessment) }}">
+            <form method="POST" action="{{ route('regimeAssessments.updateStatus', $regimeAssessment) }}">
                 @csrf
                 @method('patch')
-
-                <x-hearth-input type="hidden" name="country" :value="parse_country_code($regimeAssessment->jurisdiction)" />
-                <x-hearth-input type="hidden" name="subdivision" :value="parse_subdivision_code($regimeAssessment->jurisdiction)" />
 
                 <ul>
                     <li>
@@ -140,9 +137,6 @@
                 {{ __('View / Edit Details') }}
             </a>
         @endauth
-
-
-
 
     </aside>
 </x-app-layout>

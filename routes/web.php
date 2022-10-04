@@ -106,6 +106,10 @@ Route::patch('regime-assessments/{regimeAssessment}', [RegimeAssessmentControlle
     ->name('regimeAssessments.update')
     ->middleware('auth');
 
+Route::patch('regime-assessments/{regimeAssessment}/updateStatus', [RegimeAssessmentController::class, 'updateStatus'])
+    ->name('regimeAssessments.updateStatus')
+    ->middleware('auth');
+
 // Regime Assessments - Measure Evaluations
 Route::multilingual('regime-assessments/{regimeAssessment}/evaluations/{measure}', [EvaluationController::class, 'show'])
     ->name('evaluations.show');

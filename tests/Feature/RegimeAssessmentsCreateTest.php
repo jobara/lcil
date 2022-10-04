@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\LawPolicySource;
 use App\Models\User;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,10 +14,18 @@ test('create route display', function () {
 
     $response->assertStatus(200);
     $response->assertViewIs('regimeAssessments.create');
+    $response->assertViewHas('lawPolicySources');
+    expect(is_array($response['lawPolicySources']))->toBeTrue();
 })->group('RegimeAssessments');
 
 test('create route render', function () {
     $user = User::factory()->create();
+
+    $lawPolicySources = LawPolicySource::all()->sortBy([
+        ['jurisdiction', 'asc'],
+        ['municipality', 'asc'],
+        ['name', 'asc'],
+    ])->all();
 
     $toSee = [
         '<title>Create Regime Assessment &mdash; Legal Capacity Inclusion Lens</title>',
@@ -31,13 +40,19 @@ test('create route render', function () {
 
     $view = $this->actingAs($user)
         ->withViewErrors([])
-        ->view('regimeAssessments.create');
+        ->view('regimeAssessments.create', ['lawPolicySources' => $lawPolicySources]);
 
     $view->assertSeeInOrder($toSee, false);
 })->group('RegimeAssessments');
 
 test('create route render errors', function ($data, $errors) {
     $user = User::factory()->create();
+    $lawPolicySources = LawPolicySource::all()->sortBy([
+        ['jurisdiction', 'asc'],
+        ['municipality', 'asc'],
+        ['name', 'asc'],
+    ])->all();
+
     $toSee = ['<div id="error-summary" role="alert">'];
 
     foreach ($errors as $key => $message) {
@@ -46,7 +61,7 @@ test('create route render errors', function ($data, $errors) {
 
     $view = $this->actingAs($user)
         ->withViewErrors($errors)
-        ->view('regimeAssessments.create');
+        ->view('regimeAssessments.create', ['lawPolicySources' => $lawPolicySources]);
 
     $view->assertSeeInOrder($toSee, false);
 })->with('regimeAssessmentValidationErrors')

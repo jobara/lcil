@@ -80,11 +80,5 @@ dataset('regimeAssessmentValidationErrors', function () {
             ],
             ['status' => 'The Regime Assessment Status (status) must be one of the following: '.implode(', ', RegimeAssessmentStatuses::values()).'.'],
         ],
-        'missing status' => [
-            [
-                'country' => 'CA',
-            ],
-            ['status' => 'The Regime Assessment Status (status) must be one of the following: '.implode(', ', RegimeAssessmentStatuses::values()).'.'],
-        ],
     ];
 });

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Enums\RegimeAssessmentStatuses;
 use App\Http\Requests\StoreRegimeAssessmentRequest;
+use App\Http\Requests\UpdateRegimeAssessmentStatusRequest;
+use App\Models\LawPolicySource;
 use App\Models\MeasureDimension;
 use App\Models\RegimeAssessment;
 use Illuminate\Contracts\View\View;
@@ -14,13 +16,24 @@ class RegimeAssessmentController extends Controller
 {
     public function create(Request $request): View
     {
-        return view('regimeAssessments.create');
+        return view('regimeAssessments.create', [
+            'lawPolicySources' => LawPolicySource::all()->sortBy([
+                ['jurisdiction', 'asc'],
+                ['municipality', 'asc'],
+                ['name', 'asc'],
+            ])->all(),
+        ]);
     }
 
     public function edit(RegimeAssessment $regimeAssessment): View
     {
         return view('regimeAssessments.edit', [
-            'regimeAssessment' => $regimeAssessment,
+            'regimeAssessment' => $regimeAssessment->load('lawPolicySources'),
+            'lawPolicySources' => LawPolicySource::all()->sortBy([
+                ['jurisdiction', 'asc'],
+                ['municipality', 'asc'],
+                ['name', 'asc'],
+            ])->all(),
         ]);
     }
 
@@ -74,6 +87,8 @@ class RegimeAssessmentController extends Controller
         $data = $this->assembleData($request);
         $regimeAssessment = RegimeAssessment::create($data);
 
+        $regimeAssessment->lawPolicySources()->sync(array_keys($data['lawPolicySources'] ?? []));
+
         return redirect(\localized_route('regimeAssessments.show', $regimeAssessment));
     }
 
@@ -81,6 +96,19 @@ class RegimeAssessmentController extends Controller
     {
         $data = $this->assembleData($request);
         $regimeAssessment->fill($data);
+
+        $regimeAssessment->lawPolicySources()->sync(array_keys($data['lawPolicySources'] ?? []));
+
+        if ($regimeAssessment->isDirty()) {
+            $regimeAssessment->save();
+        }
+
+        return redirect(\localized_route('regimeAssessments.show', $regimeAssessment));
+    }
+
+    public function updateStatus(UpdateRegimeAssessmentStatusRequest $request, RegimeAssessment $regimeAssessment): RedirectResponse
+    {
+        $regimeAssessment->fill($request->validated());
 
         if ($regimeAssessment->isDirty()) {
             $regimeAssessment->save();

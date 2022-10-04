@@ -9,6 +9,10 @@
 The Legal Capacity Inclusion Lens (LCIL) is built using the [Laravel](https://laravel.com) PHP framework and
 [Hearth](https://github.com/fluid-project/hearth), a Laravel starter kit.
 
+Deployments:
+
+* [dev](https://lcil-dev.fluidproject.org)
+
 ## Development setup
 
 ### Requirements

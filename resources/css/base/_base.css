@@ -1,3 +1,21 @@
+@font-face {
+    font-display: swap;
+    font-family: "OpenSans";
+    font-weight: 200 900;
+    src:
+        url("../fonts/OpenSans-VariableFont_wdth,wght.woff2") format('woff2-variations'),
+        url("../fonts/OpenSans-VariableFont_wdth,wght.woff2") format('woff2');
+}
+
+:root {
+    --body-color: #000;
+    --body-background: #fff;
+    --font-base: OpenSans, Arial, Helvetica, sans-serif;
+    --banner-background: #C4C4C4;
+    --card-background: #C4C4C4;
+
+}
+
 body {
     display: flex;
     flex-direction: column;

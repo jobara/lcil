@@ -5,10 +5,10 @@
     "isEntry": true,
     "integrity": "sha384-OzBkZI7+pr08TkQjgAlHYZG1CG8FIorF45DGINfM9ld/8HW4X902lYWJ5QdtSk1I"
   },
-  "resources/css/app.scss": {
-    "file": "assets/app.03fd1acc.css",
-    "src": "resources/css/app.scss",
+  "resources/css/app.css": {
+    "file": "assets/app.0ec0b5bb.css",
+    "src": "resources/css/app.css",
     "isEntry": true,
-    "integrity": "sha384-pRx9T6ZEDV3oHaHJ15yB26F8wchBw9vPjQmuC+0Pd3hfm5ezIPwZj9tzLENSNVi0"
+    "integrity": "sha384-rvut6ENDmpRgpb2JFPp5gjEToYTSbojDAI9IshmC6hSwAxLKjnQgSpzMn1pFYNDM"
   }
 }

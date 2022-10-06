@@ -1,8 +1,13 @@
 @import "modern-css-reset";
-@import "_props.css";
+@import "vendor/_alpine.css";
+
 @import "base/_base.css";
-@import "base/_helpers.css";
 @import "base/_typography.css";
+
+@import "layout/_article.css";
+@import "layout/_form.css";
+@import "layout/_nav.css";
+
 @import "components/_banner.css";
 @import "components/_brand.css";
 @import "components/_card.css";
@@ -10,9 +15,7 @@
 @import "components/_nav-user.css";
 @import "components/_search-results.css";
 @import "components/_status.css";
-@import "layout/_article.css";
-@import "layout/_form.css";
-@import "layout/_nav.css";
+
 
 
 /*
@@ -45,7 +48,7 @@ TODO: Refactor the styles below.
     justify-content: center;
     min-height: 100vh;
 
-    
+
 }
 
 .auth-card > * {

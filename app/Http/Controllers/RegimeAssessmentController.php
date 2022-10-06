@@ -11,6 +11,7 @@ use App\Models\RegimeAssessment;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RegimeAssessmentController extends Controller
 {
@@ -74,6 +75,10 @@ class RegimeAssessmentController extends Controller
 
     public function show(RegimeAssessment $regimeAssessment): View
     {
+        if (! Auth::check() && $regimeAssessment->status !== RegimeAssessmentStatuses::Published) {
+            abort(404);
+        }
+
         $regimeAssessment->load('lawPolicySources');
 
         return view('regimeAssessments.show', [
@@ -85,6 +90,7 @@ class RegimeAssessmentController extends Controller
     public function store(StoreRegimeAssessmentRequest $request): RedirectResponse
     {
         $data = $this->assembleData($request);
+        $data['status'] ??= RegimeAssessmentStatuses::Draft->value;
         $regimeAssessment = RegimeAssessment::create($data);
 
         $regimeAssessment->lawPolicySources()->sync(array_keys($data['lawPolicySources'] ?? []));

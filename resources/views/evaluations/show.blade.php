@@ -102,6 +102,21 @@
                                 <x-hearth-error for="{{ $commentID }}" />
                             </div>
                         @endauth
+                        @guest
+                            @php
+                                $evaluation = $evaluations->where('provision_id', $provision->id)->first();
+                            @endphp
+                            @isset($evaluation)
+                                <h4>{{ __('Measure Evaluation') }}</h4>
+                                <p>
+                                    {{ __('How well does this provision satisfy the measure No disability-based exclusions exclusion?') }}
+                                    <strong>{{ App\Enums\EvaluationAssessments::labels()[$evaluation->assessment->value] }}</strong>
+                                </p>
+                                @isset($evaluation->comment)
+                                    <p>{{ $evaluation->comment }}</p>
+                                @endisset
+                            @endisset
+                        @endguest
                     @empty
                         <p>{{ __('No provisions have been added.') }}</p>
                     @endforelse

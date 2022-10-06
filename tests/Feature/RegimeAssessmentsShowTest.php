@@ -15,10 +15,42 @@ uses(RefreshDatabase::class, WithFaker::class);
 
 test('show route display', function () {
     // create a Regime Assessment and measure to use for the test
-    $regimeAssessment = RegimeAssessment::factory()->create();
+    $regimeAssessment = RegimeAssessment::factory()->create([
+        'status' => RegimeAssessmentStatuses::Published->value,
+    ]);
     Measure::factory()->create();
 
     $response = $this->get(localized_route('regimeAssessments.show', $regimeAssessment));
+
+    $response->assertStatus(200);
+    $response->assertViewIs('regimeAssessments.show');
+    $response->assertViewHas('regimeAssessment');
+    $response->assertViewHas('measureDimensions');
+
+    expect($response['regimeAssessment'])->toBeInstanceOf(RegimeAssessment::class);
+    expect($response['measureDimensions']->first())->toBeInstanceOf(MeasureDimension::class);
+})->group('RegimeAssessments');
+
+test('show route display - block unpublished from guest', function () {
+    // create a Regime Assessment and measure to use for the test
+    $regimeAssessment = RegimeAssessment::factory()->create([
+        'status' => RegimeAssessmentStatuses::Draft->value,
+    ]);
+    Measure::factory()->create();
+
+    $response = $this->get(localized_route('regimeAssessments.show', $regimeAssessment));
+
+    $response->assertNotFound();
+})->group('RegimeAssessments');
+
+test('show route display - authenticated users can view unpublished', function () {
+    $user = User::factory()->create();
+    $regimeAssessment = RegimeAssessment::factory()->create([
+        'status' => RegimeAssessmentStatuses::NeedsReview->value,
+    ]);
+    Measure::factory()->create();
+
+    $response = $this->actingAs($user)->get(localized_route('regimeAssessments.show', $regimeAssessment));
 
     $response->assertStatus(200);
     $response->assertViewIs('regimeAssessments.show');

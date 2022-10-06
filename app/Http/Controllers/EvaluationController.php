@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\RegimeAssessmentStatuses;
 use App\Http\Requests\StoreEvaluationRequest;
 use App\Models\Evaluation;
 use App\Models\Measure;
@@ -9,11 +10,16 @@ use App\Models\Provision;
 use App\Models\RegimeAssessment;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 
 class EvaluationController extends Controller
 {
     public function show(RegimeAssessment $regimeAssessment, Measure $measure): View
     {
+        if (! Auth::check() && $regimeAssessment->status !== RegimeAssessmentStatuses::Published) {
+            abort(404);
+        }
+
         $evaluations = Evaluation::where('regime_assessment_id', $regimeAssessment->id)
             ->where('measure_id', $measure->id)
             ->get();

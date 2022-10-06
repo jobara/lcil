@@ -8,6 +8,7 @@ use App\Http\Controllers\MeasureController;
 use App\Http\Controllers\ProvisionController;
 use App\Http\Controllers\RegimeAssessmentController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,9 +28,7 @@ if (config('laravel-multilingual-routes.prefix_default') && config('laravel-mult
 }
 
 // Landing Page
-Route::multilingual('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::multilingual('/', [WelcomeController::class, 'show'])->name('welcome');
 
 // About Page
 Route::multilingual('about', function () {
@@ -68,7 +67,7 @@ Route::multilingual('law-policy-sources/{lawPolicySource}/create', [ProvisionCon
     ->name('provisions.create')
     ->middleware('auth');
 
-Route::multilingual('law-policy-sources/{lawPolicySource}/provisions/{slug}', [ProvisionController::class, 'edit'])
+Route::multilingual('law-policy-sources/{lawPolicySource}/provisions/{slug}/edit', [ProvisionController::class, 'edit'])
     ->name('provisions.edit')
     ->middleware('auth');
 

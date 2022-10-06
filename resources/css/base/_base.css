@@ -33,3 +33,11 @@ article {
     padding-left: 1rem;
     padding-right: 1rem;
 }
+
+[aria-expanded]+ul {
+    display: none;
+}
+
+[aria-expanded="true"]+ul {
+    display: flex;
+}

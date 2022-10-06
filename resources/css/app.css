@@ -8,157 +8,16 @@
 @import "layout/_form.css";
 @import "layout/_nav.css";
 
+@import "components/_alert.css";
+@import "components/_auth-card.css";
 @import "components/_banner.css";
 @import "components/_brand.css";
 @import "components/_card.css";
+@import "components/_date-input.css";
+@import "components/_dropdown.css";
+@import "components/_language-selection.css";
+@import "components/_modal.css";
 @import "components/_nav-site.css";
 @import "components/_nav-user.css";
 @import "components/_search-results.css";
 @import "components/_status.css";
-
-
-
-/*
-TODO: Refactor the styles below.
-*/
-
-.dropdown.languages {
-    display: none;
-}
-
-/* Alert */
-.alert {
-    border: var(--ll-border-thin);
-    border-radius: var(--ll-border-radius);
-    padding: var(--step-0) var(--step-1);
-}
-
-.alert .title {
-    align-items: center;
-    display: flex;
-    flex-direction: row;
-    font-weight: 700;
-}
-
-/* Authentication Card */
-.auth-card {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: 100vh;
-
-
-}
-
-.auth-card > * {
-    max-width: calc(65ch / 2);
-    width: 100%;
-}
-
-.auth-card__logo {
-    text-align: center;
-}
-
-
-
-/* Dropdown */
-[aria-expanded] + ul {
-    display: none;
-}
-
-[aria-expanded="true"] + ul {
-    display: flex;
-}
-
-.dropdown ul {
-    background-color: var(--ll-background-color);
-    border: var(--ll-border-thin);
-    border-radius: var(--ll-border-radius);
-    padding: var(--step--5) var(--step--4);
-    text-align: start;
-}
-
-@media (min-width: 48rem) {
-    .dropdown {
-        position: relative;
-    }
-
-    .dropdown ul {
-        height: auto;
-        inset-inline-end: 0;
-        position: absolute;
-        text-align: end;
-        white-space: nowrap;
-        width: auto;
-    }
-}
-
-/* Modal */
-.modal-wrapper {
-    background: rgba(0, 0, 0, 0.75);
-    height: 100vh;
-    left: 0;
-    margin-top: 0;
-    position: fixed;
-    top: 0;
-    width: 100vw;
-    z-index: 999;
-}
-
-.modal {
-    background: white;
-    border: var(--ll-border-thin);
-    border-radius: var(--ll-border-radius);
-    display: block;
-    left: var(--step-0);
-    margin-top: 0;
-    padding: var(--step-0);
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
-    width: calc(100vw - (2 * var(--step-0)));
-    z-index: 999;
-}
-
-.modal > * + * {
-    margin-block-start: 2em;
-}
-
-@media (min-width: 48rem) {
-    .modal {
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: auto;
-    }
-}
-
-/* Date Input */
-.date {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.date .field + .field {
-    margin-inline-start: var(--step-0);
-}
-
-.date .field--year input {
-    width: 6ch;
-}
-
-.date .field--day input {
-    width: 4ch;
-}
-
-.date .field--month select {
-    display: block;
-    width: auto;
-}
-
-.date legend,
-.date .field__hint,
-.date [x-show="error"] {
-    width: 100%;
-}

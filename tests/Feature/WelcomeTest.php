@@ -61,7 +61,7 @@ test('welcome route render', function () {
         '<section>',
         '<h2>Search Regime Assessments</h2>',
         '<div x-data="{country: \'\'}">',
-        '<form method="GET" action="https://lcil.test/regime-assessments">',
+        '<form method="GET" action="'.localized_route('regimeAssessments.index'),
         '<ul role="list">',
         '<li>',
         '<label id="country-label" for="country">Country:</label>',

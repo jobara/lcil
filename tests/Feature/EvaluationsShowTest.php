@@ -1,6 +1,8 @@
 <?php
 
+use App\Enums\EvaluationAssessments;
 use App\Enums\LawPolicyTypes;
+use App\Enums\RegimeAssessmentStatuses;
 use App\Models\Evaluation;
 use App\Models\LawPolicySource;
 use App\Models\Measure;
@@ -15,9 +17,46 @@ uses(RefreshDatabase::class, WithFaker::class);
 test('show route display', function () {
     $evaluation = Evaluation::factory()->create();
     $regimeAssessment = $evaluation->regimeAssessment;
+    $regimeAssessment->status = RegimeAssessmentStatuses::Published->value;
+    $regimeAssessment->save();
     $measure = $evaluation->measure;
 
     $response = $this->get(\localized_route('evaluations.show', ['regimeAssessment' => $regimeAssessment, 'measure' => $measure]));
+
+    $response->assertStatus(200);
+    $response->assertViewIs('evaluations.show');
+    $response->assertViewHas('regimeAssessment');
+    $response->assertViewHas('measure');
+    $response->assertViewHas('evaluations');
+
+    expect($response['regimeAssessment'])->toBeInstanceOf(RegimeAssessment::class);
+    expect($response['measure'])->toBeInstanceOf(Measure::class);
+    foreach ($response['evaluations'] as $evaluation) {
+        expect($evaluation)->toBeInstanceOf(Evaluation::class);
+    }
+})->group('Evaluations');
+
+test('show route display - block unpublished from guest', function () {
+    $evaluation = Evaluation::factory()->create();
+    $regimeAssessment = $evaluation->regimeAssessment;
+    $regimeAssessment->status = RegimeAssessmentStatuses::Draft->value;
+    $regimeAssessment->save();
+    $measure = $evaluation->measure;
+
+    $response = $this->get(\localized_route('evaluations.show', ['regimeAssessment' => $regimeAssessment, 'measure' => $measure]));
+
+    $response->assertNotFound();
+})->group('Evaluations');
+
+test('show route display - authenticated users can view unpublished', function () {
+    $user = User::factory()->create();
+    $evaluation = Evaluation::factory()->create();
+    $regimeAssessment = $evaluation->regimeAssessment;
+    $regimeAssessment->status = RegimeAssessmentStatuses::NeedsReview->value;
+    $regimeAssessment->save();
+    $measure = $evaluation->measure;
+
+    $response = $this->actingAs($user)->get(\localized_route('evaluations.show', ['regimeAssessment' => $regimeAssessment, 'measure' => $measure]));
 
     $response->assertStatus(200);
     $response->assertViewIs('evaluations.show');
@@ -138,6 +177,7 @@ test('show route render - with law and policy source', function () {
     ];
 
     $dontSee = [
+        '<h4>Measure Evaluation</h4>',
         '<p>No provisions have been added.</p>',
         '<time',
     ];
@@ -177,7 +217,10 @@ test('show route render - guest with law and policy source', function () {
         ->for($measure)
         ->for($regimeAssessment)
         ->for($lawPolicySource->provisions->first())
-        ->create();
+        ->create([
+            'assessment' => EvaluationAssessments::Fully->value,
+            'comment' => 'test comment',
+        ]);
 
     $jurisdiction = htmlentities(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
 
@@ -204,6 +247,10 @@ test('show route render - guest with law and policy source', function () {
         '<div id="'.$lawPolicySource->slug.'-content" x-show="open" x-cloak>',
         '<h4>',
         'Section / Subsection: '.$lawPolicySource->provisions->first()->section,
+        '<h4>Measure Evaluation</h4>',
+        'How well does this provision satisfy the measure No disability-based exclusions exclusion?',
+        '<strong>'.EvaluationAssessments::labels()[$evaluation->assessment->value].'</strong>',
+        "<p>$evaluation->comment</p>",
     ];
 
     $dontSee = [
@@ -225,6 +272,112 @@ test('show route render - guest with law and policy source', function () {
 
     $view->assertSeeInOrder($toSee, false);
     assertDontSeeAny($view, $dontSee, false);
+})->group('Evaluations');
+
+test('show route render - guest with law and policy source no evaluation', function () {
+    $measure = Measure::factory()->create();
+    $regimeAssessment = RegimeAssessment::factory()->create();
+    $lawPolicySource = LawPolicySource::factory()
+        ->create([
+            'name' => 'Test Law and Policy Source',
+            'type' => LawPolicyTypes::Statute->value,
+            'is_core' => true,
+            'reference' => $this->faker->unique()->url(),
+            'jurisdiction' => 'CA-ON',
+            'municipality' => 'Toronto',
+            'year_in_effect' => 2022,
+        ]);
+    $provision = Provision::factory()
+        ->for($lawPolicySource)
+        ->create([
+            'section' => '12',
+        ]);
+    $regimeAssessment->lawPolicySources()->attach($lawPolicySource);
+
+    $jurisdiction = htmlentities(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
+
+    $toSee = [
+        '<section x-data="{open: false}">',
+        '<h3 id="'.$lawPolicySource->slug,
+        '<button',
+        'type="button"',
+        'x-on:click="open = !open"',
+        'x-bind:aria-expanded="open"',
+        'aria-controls="'.$lawPolicySource->slug.'-content"',
+        $lawPolicySource->name,
+        '<dl>',
+        '<dt>Type:</dt>',
+        "<dd>{$lawPolicySource->type->labels()[$lawPolicySource->type->value]}</dd>",
+        '<dt>Jurisdiction:</dt>',
+        "<dd>{$jurisdiction}</dd>",
+        '<dt>Year in effect:</dt>',
+        "<dd>{$lawPolicySource->year_in_effect}</dd>",
+        '<dt>Reference:</dt>',
+        '<dd><a href="" aria-labelledby="'.$lawPolicySource->slug.'">Link</a></dd>',
+        '<dt>Provisions:</dt>',
+        '<dd>1 (0 evaluated)</dd>',
+        '<div id="'.$lawPolicySource->slug.'-content" x-show="open" x-cloak>',
+        '<h4>',
+        'Section / Subsection: '.$lawPolicySource->provisions->first()->section,
+    ];
+
+    $dontSee = [
+        '<h4>Measure Evaluation</h4>',
+    ];
+
+    $view = $this->withViewErrors([])
+        ->view('evaluations.show', [
+            'regimeAssessment' => $regimeAssessment,
+            'measure' => $measure,
+            'evaluations' => Evaluation::all(),
+        ]);
+
+    $view->assertSeeInOrder($toSee, false);
+    assertDontSeeAny($view, $dontSee, false);
+})->group('Evaluations');
+
+test('show route render - guest with law and policy source no evaluation comment', function () {
+    $measure = Measure::factory()->create();
+    $regimeAssessment = RegimeAssessment::factory()->create();
+    $lawPolicySource = LawPolicySource::factory()
+        ->create([
+            'name' => 'Test Law and Policy Source',
+            'type' => LawPolicyTypes::Statute->value,
+            'is_core' => true,
+            'reference' => $this->faker->unique()->url(),
+            'jurisdiction' => 'CA-ON',
+            'municipality' => 'Toronto',
+            'year_in_effect' => 2022,
+        ]);
+    Provision::factory()
+        ->for($lawPolicySource)
+        ->create([
+            'section' => '12',
+        ]);
+    $regimeAssessment->lawPolicySources()->attach($lawPolicySource);
+    $evaluation = Evaluation::factory()
+        ->for($measure)
+        ->for($regimeAssessment)
+        ->for($lawPolicySource->provisions->first())
+        ->create([
+            'assessment' => EvaluationAssessments::Fully->value,
+            'comment' => null,
+        ]);
+
+    $toSee = [
+        '<h4>Measure Evaluation</h4>',
+        'How well does this provision satisfy the measure No disability-based exclusions exclusion?',
+        '<strong>'.EvaluationAssessments::labels()[$evaluation->assessment->value].'</strong>',
+    ];
+
+    $view = $this->withViewErrors([])
+        ->view('evaluations.show', [
+            'regimeAssessment' => $regimeAssessment,
+            'measure' => $measure,
+            'evaluations' => Evaluation::all(),
+        ]);
+
+    $view->assertSeeInOrder($toSee, false);
 })->group('Evaluations');
 
 test('show route render - law and policy source minimum fields', function () {

@@ -42,42 +42,42 @@ Route::get('jurisdictions/{country}', [JurisdictionController::class, 'show'])->
 // Law and Policy Sources
 Route::multilingual('law-policy-sources/{lawPolicySource}/edit', [LawPolicySourceController::class, 'edit'])
     ->name('lawPolicySources.edit')
-    ->middleware('auth');
+    ->middleware(['auth', 'verified']);
 
 Route::multilingual('law-policy-sources', [LawPolicySourceController::class, 'index'])
     ->name('lawPolicySources.index');
 
 Route::multilingual('law-policy-sources/create', [LawPolicySourceController::class, 'create'])
     ->name('lawPolicySources.create')
-    ->middleware('auth');
+    ->middleware(['auth', 'verified']);
 
 Route::multilingual('law-policy-sources/{lawPolicySource}', [LawPolicySourceController::class, 'show'])
     ->name('lawPolicySources.show');
 
 Route::post('law-policy-sources', [LawPolicySourceController::class, 'store'])
     ->name('lawPolicySources.store')
-    ->middleware('auth');
+    ->middleware(['auth', 'verified']);
 
 Route::patch('law-policy-sources/{lawPolicySource}', [LawPolicySourceController::class, 'update'])
     ->name('lawPolicySources.update')
-    ->middleware('auth');
+    ->middleware(['auth', 'verified']);
 
 // Law and Policy Sources - Provisions
 Route::multilingual('law-policy-sources/{lawPolicySource}/create', [ProvisionController::class, 'create'])
     ->name('provisions.create')
-    ->middleware('auth');
+    ->middleware(['auth', 'verified']);
 
 Route::multilingual('law-policy-sources/{lawPolicySource}/provisions/{slug}/edit', [ProvisionController::class, 'edit'])
     ->name('provisions.edit')
-    ->middleware('auth');
+    ->middleware(['auth', 'verified']);
 
 Route::post('law-policy-sources/{lawPolicySource}', [ProvisionController::class, 'store'])
     ->name('provisions.store')
-    ->middleware('auth');
+    ->middleware(['auth', 'verified']);
 
 Route::patch('law-policy-sources/{lawPolicySource}/provisions/{slug}', [ProvisionController::class, 'update'])
     ->name('provisions.update')
-    ->middleware('auth');
+    ->middleware(['auth', 'verified']);
 
 // Measures Page
 Route::multilingual('measures', [MeasureController::class, 'index'])->name('measures');
@@ -85,11 +85,11 @@ Route::multilingual('measures', [MeasureController::class, 'index'])->name('meas
 // Regime Assessments
 Route::multilingual('regime-assessments/create', [RegimeAssessmentController::class, 'create'])
     ->name('regimeAssessments.create')
-    ->middleware('auth');
+    ->middleware(['auth', 'verified']);
 
 Route::multilingual('regime-assessments/{regimeAssessment}/edit', [RegimeAssessmentController::class, 'edit'])
     ->name('regimeAssessments.edit')
-    ->middleware('auth');
+    ->middleware(['auth', 'verified']);
 
 Route::multilingual('regime-assessments', [RegimeAssessmentController::class, 'index'])
     ->name('regimeAssessments.index');
@@ -99,15 +99,15 @@ Route::multilingual('regime-assessments/{regimeAssessment}', [RegimeAssessmentCo
 
 Route::post('regime-assessments', [RegimeAssessmentController::class, 'store'])
     ->name('regimeAssessments.store')
-    ->middleware('auth');
+    ->middleware(['auth', 'verified']);
 
 Route::patch('regime-assessments/{regimeAssessment}', [RegimeAssessmentController::class, 'update'])
     ->name('regimeAssessments.update')
-    ->middleware('auth');
+    ->middleware(['auth', 'verified']);
 
 Route::patch('regime-assessments/{regimeAssessment}/updateStatus', [RegimeAssessmentController::class, 'updateStatus'])
     ->name('regimeAssessments.updateStatus')
-    ->middleware('auth');
+    ->middleware(['auth', 'verified']);
 
 // Regime Assessments - Measure Evaluations
 Route::multilingual('regime-assessments/{regimeAssessment}/evaluations/{measure}', [EvaluationController::class, 'show'])
@@ -115,7 +115,12 @@ Route::multilingual('regime-assessments/{regimeAssessment}/evaluations/{measure}
 
 Route::post('regime-assessments/{regimeAssessment}/evaluations/{measure}', [EvaluationController::class, 'update'])
     ->name('evaluations.update')
-    ->middleware('auth');
+    ->middleware(['auth', 'verified']);
+
+// e-mail verification notice
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
 
 // Hearth generated routes
 Route::multilingual('dashboard', function () {

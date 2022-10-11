@@ -18,6 +18,8 @@ class RegistrationTest extends TestCase
 
     public function test_new_users_can_register()
     {
+        config(['settings.registration.restricted' => false]);
+
         $response = $this->post(localized_route('register'), [
             'name' => 'Test User',
             'email' => 'test@example.com',

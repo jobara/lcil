@@ -15,6 +15,7 @@ services:
     depends_on:
       - mysql
       - redis
+    restart: always
 
   mysql:
     image: mysql:8.0
@@ -27,6 +28,7 @@ services:
       - ${APP_DATA_DIR}/mysql:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping"]
+    restart: always
 
   redis:
     image: redis:7-alpine
@@ -34,6 +36,7 @@ services:
       - ${APP_DATA_DIR}/redis/data:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
+    restart: always
 
   meilisearch:
     image: 'getmeili/meilisearch:v0.28'
@@ -43,3 +46,4 @@ services:
       test: ["CMD", "wget", "--no-verbose", "--spider",  "http://localhost:7700/health"]
       retries: 3
       timeout: 5s
+    restart: always

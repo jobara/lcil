@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use App\Rules\EmailRestriction;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -31,6 +32,7 @@ class CreateNewUser implements CreatesNewUsers
                     'email',
                     'max:255',
                     Rule::unique(User::class),
+                    new EmailRestriction,
                 ],
                 'password' => $this->passwordRules(),
                 'locale' => ['required', Rule::in(config('locales.supported', ['en', 'fr']))],

@@ -367,6 +367,19 @@ In the `.env` file a couple additional variables need to be adjusted to switch t
 
 There are some "constant" database entries that should be populated into the production database. On the initial run
 
+### Restricting Registration
+
+The application uses [Laravel Fortify](https://laravel.com/docs/9.x/fortify) to manage authentication. The majority of
+configuration options can be found in the fortify.php config file. In addition, the application provides an additional
+layer of registration restriction by providing `registration` options in the settings.php config file.
+
+* `settings.registration.restricted`: defines if registration restrictions should be enforced. Defaults to true. Can
+  also be set with the `RESTRICT_REGISTRATION` environment variable.
+* `settings.registration.allowlist`: An array of domain names to allow. E.g. `['example.com']`. If this value is
+  removed, or an empty array, all domains will be permitted.
+* `settings.registration.blocklist`: An array of domain names to block, takes precedence over allowlist.
+  E.g `['example.com']`. An empty array, `[]`, can be used if no domains are blocked.
+
 ### Migrating and Seeding
 
 1. Run the database migrations

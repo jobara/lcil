@@ -13,6 +13,7 @@
     --font-base: OpenSans, Arial, Helvetica, sans-serif;
     --banner-background: #C4C4C4;
     --card-background: #C4C4C4;
+    --icon-background: #C4C4C4;
 
 }
 
@@ -27,6 +28,10 @@ article {
     display: flex;
     justify-content: center;
     flex-direction: column;
+}
+
+form {
+    margin-block: 2rem;
 }
 
 .wrapper {

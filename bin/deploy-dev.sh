@@ -16,6 +16,9 @@ $EXEC_CMD composer install --optimize-autoloader
 $EXEC_CMD ./artisan migrate:fresh --seed --force
 $EXEC_CMD ./artisan view:clear
 $EXEC_CMD ./artisan storage:link
+$EXEC_CMD ./artisan google-fonts:fetch
+$EXEC_CMD ./artisan icons:clear
+$EXEC_CMD ./artisan icons:cache
 $EXEC_CMD ./artisan route:cache
 $EXEC_CMD ./artisan config:cache
 $EXEC_CMD ./artisan up

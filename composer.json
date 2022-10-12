@@ -6,6 +6,7 @@
     "license": "BSD-3-Clause",
     "require": {
         "php": "^8.1",
+        "codeat3/blade-google-material-design-icons": "^1.15",
         "diglactic/laravel-breadcrumbs": "^7.2",
         "fluid-project/hearth": "^3.0.0",
         "guzzlehttp/guzzle": "^7.2",

@@ -1,0 +1,8 @@
+.nav-actions {
+    margin-block-end: 1.5rem;
+}
+
+.nav-actions ul {
+    display: flex;
+    justify-content: space-between;
+}

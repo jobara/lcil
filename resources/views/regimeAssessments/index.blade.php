@@ -6,13 +6,29 @@
 
     <div x-data="{country: '{{ old('country', request('country')) }}'}">
         @auth
-            {{-- push focus to the first focusable element in the search form --}}
-            <a href="#" @click.prevent="$focus.within($refs.search).first()">
-                {{ __('Search for regime assessments') }}
-            </a>
-            <a href="{{ localized_route('regimeAssessments.create') }}">
-                {{ __('Create new regime assessment if it does not already exist') }}
-            </a>
+            <nav class="nav-actions" aria-label="{{  __('Section Actions') }}">
+                {{-- push focus to the first focusable element in the search form --}}
+                <ul role="list">
+                    <li>
+                        <a href="#" @click.prevent="$focus.within($refs.search).first()">
+                            <div class="icon-round">
+                                @svg('gmdi-search', ['aria-hidden' => 'true'])
+                            </div>
+                            {{ __('Search for regime assessments') }}
+                            @svg('gmdi-arrow-downward', 'icon-inline', ['aria-hidden' => 'true'])
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ localized_route('regimeAssessments.create') }}">
+                            <div class="icon-round">
+                                @svg('gmdi-description', ['aria-hidden' => 'true'])
+                            </div>
+                            {{ __('Create new regime assessment if it does not already exist') }}
+                            @svg('gmdi-arrow-forward', 'icon-inline', ['aria-hidden' => 'true'])
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         @else
             <p>{{ __('Search for regime assessments') }}</p>
         @endauth

@@ -77,7 +77,7 @@
                     @foreach (group_by_jurisdiction($regimeAssessments->items()) as $countryName => $subdivisionGroups)
                         <li>
                             <h2>{{ $countryName }}</h2>
-                            <ul role="list">
+                            <ul role="list" class="search-results__sub">
                                 @foreach ($subdivisionGroups as $subdivisionName => $groupedRegimeAssessments)
                                     <li>
                                         <h3>{{ $subdivisionName ? $subdivisionName : __('Federal') }}</h3>

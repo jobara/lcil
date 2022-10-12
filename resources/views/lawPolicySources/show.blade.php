@@ -45,7 +45,9 @@
             <a href="{{ \localized_route('provisions.create', $lawPolicySource) }}">{{ __('Add Provision') }}</a>
         @endauth
         @forelse ($lawPolicySource->provisions->sortBy('section') as $provision)
-            <x-provision-card :lawPolicySource="$lawPolicySource" :provision="$provision" />
+            <div class="card">
+                <x-provision-card :lawPolicySource="$lawPolicySource" :provision="$provision" />
+            </div>
         @empty
             <p>{{ __('No provisions have been added.') }}</p>
         @endforelse

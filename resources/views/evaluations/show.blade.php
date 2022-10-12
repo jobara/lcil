@@ -65,58 +65,60 @@
 
                 <div id="{{ "{$lawPolicySource->slug}-content" }}" x-show="open" x-cloak>
                     @forelse ($lawPolicySource->provisions->sortBy('section') as $provision)
-                        <x-provision-card :lawPolicySource="$lawPolicySource" :provision="$provision" :level="4" />
-                        @auth
-                            @php
-                                $evaluation = $evaluations->where('provision_id', $provision->id)->first();
-                                $assessmentName = 'evaluations['.$provision->id.'][assessment]';
-                                $assessmentID = \Illuminate\Support\Str::slug($assessmentName);
-                                $commentName = 'evaluations['.$provision->id.'][comment]';
-                                $commentID = \Illuminate\Support\Str::slug($commentName);
-                            @endphp
-                            <div x-data="{assessment: '{{ old('evaluations.'.$provision->id.'.assessment', $evaluation?->assessment?->value ?? '') }}'}">
-                                <x-hearth-input type="hidden" name="{{ 'evaluations['.$provision->id.'][provision_id]' }}" value="{{ $provision->id }}" />
-                                <x-forms.label for="{{ $assessmentID }}" :value="__('Measure Evaluation:')" />
-                                <x-hearth-hint for="{{ $assessmentID }}">
-                                    {{ __('How well does this provision satisfy the measure :title exclusion?', ['title' => $measure->title]) }}
-                                </x-hearth-hint>
+                        <div class="card">
+                            <x-provision-card :lawPolicySource="$lawPolicySource" :provision="$provision" :level="4" />
+                            @auth
                                 @php
-                                    $name = "evaluations[{$provision->id}][assessment]";
+                                    $evaluation = $evaluations->where('provision_id', $provision->id)->first();
+                                    $assessmentName = 'evaluations['.$provision->id.'][assessment]';
+                                    $assessmentID = \Illuminate\Support\Str::slug($assessmentName);
+                                    $commentName = 'evaluations['.$provision->id.'][comment]';
+                                    $commentID = \Illuminate\Support\Str::slug($commentName);
                                 @endphp
-                                <x-hearth-select
-                                    x-model="assessment"
-                                    name="{{ $assessmentName }}"
-                                    id="{{ $assessmentID }}"
-                                    hinted
-                                    :options="\App\Enums\EvaluationAssessments::options()->nullable('')->toArray()"
-                                    :selected="old('evaluations.'.$provision->id.'.assessment', $evaluation?->assessment?->value ?? '')"
-                                />
-                                <x-hearth-error for="{{ $assessmentID }}" />
-                                <x-hearth-label for="{{ $commentID }}" :value="__('Measure Evaluation Remarks')" />
-                                <x-hearth-textarea
-                                    id="{{ $commentID }}"
-                                    name="{{ $commentName }}"
-                                    :value="old('evaluations.'.$provision->id.'.comment', $evaluation?->comment ?? '')"
-                                    x-bind:disabled="!assessment"
-                                />
-                                <x-hearth-error for="{{ $commentID }}" />
-                            </div>
-                        @endauth
-                        @guest
-                            @php
-                                $evaluation = $evaluations->where('provision_id', $provision->id)->first();
-                            @endphp
-                            @isset($evaluation)
-                                <h4>{{ __('Measure Evaluation') }}</h4>
-                                <p>
-                                    {{ __('How well does this provision satisfy the measure No disability-based exclusions exclusion?') }}
-                                    <strong>{{ App\Enums\EvaluationAssessments::labels()[$evaluation->assessment->value] }}</strong>
-                                </p>
-                                @isset($evaluation->comment)
-                                    <p>{{ $evaluation->comment }}</p>
+                                <div x-data="{assessment: '{{ old('evaluations.'.$provision->id.'.assessment', $evaluation?->assessment?->value ?? '') }}'}">
+                                    <x-hearth-input type="hidden" name="{{ 'evaluations['.$provision->id.'][provision_id]' }}" value="{{ $provision->id }}" />
+                                    <x-forms.label for="{{ $assessmentID }}" :value="__('Measure Evaluation:')" />
+                                    <x-hearth-hint for="{{ $assessmentID }}">
+                                        {{ __('How well does this provision satisfy the measure :title exclusion?', ['title' => $measure->title]) }}
+                                    </x-hearth-hint>
+                                    @php
+                                        $name = "evaluations[{$provision->id}][assessment]";
+                                    @endphp
+                                    <x-hearth-select
+                                        x-model="assessment"
+                                        name="{{ $assessmentName }}"
+                                        id="{{ $assessmentID }}"
+                                        hinted
+                                        :options="\App\Enums\EvaluationAssessments::options()->nullable('')->toArray()"
+                                        :selected="old('evaluations.'.$provision->id.'.assessment', $evaluation?->assessment?->value ?? '')"
+                                    />
+                                    <x-hearth-error for="{{ $assessmentID }}" />
+                                    <x-hearth-label for="{{ $commentID }}" :value="__('Measure Evaluation Remarks')" />
+                                    <x-hearth-textarea
+                                        id="{{ $commentID }}"
+                                        name="{{ $commentName }}"
+                                        :value="old('evaluations.'.$provision->id.'.comment', $evaluation?->comment ?? '')"
+                                        x-bind:disabled="!assessment"
+                                    />
+                                    <x-hearth-error for="{{ $commentID }}" />
+                                </div>
+                            @endauth
+                            @guest
+                                @php
+                                    $evaluation = $evaluations->where('provision_id', $provision->id)->first();
+                                @endphp
+                                @isset($evaluation)
+                                    <h4>{{ __('Measure Evaluation') }}</h4>
+                                    <p>
+                                        {{ __('How well does this provision satisfy the measure No disability-based exclusions exclusion?') }}
+                                        <strong>{{ App\Enums\EvaluationAssessments::labels()[$evaluation->assessment->value] }}</strong>
+                                    </p>
+                                    @isset($evaluation->comment)
+                                        <p>{{ $evaluation->comment }}</p>
+                                    @endisset
                                 @endisset
-                            @endisset
-                        @endguest
+                            @endguest
+                        </div>
                     @empty
                         <p>{{ __('No provisions have been added.') }}</p>
                     @endforelse

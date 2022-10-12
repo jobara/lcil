@@ -12,7 +12,7 @@
                         @if (count($groupedLawPolicySources))
                             <ul role="list">
                                 @foreach ($groupedLawPolicySources as $lawPolicySource)
-                                    <li>
+                                    <li class="card">
                                         <x-heading :level="$level + 2">
                                             {{ $lawPolicySource->name }}
                                         </x-heading>

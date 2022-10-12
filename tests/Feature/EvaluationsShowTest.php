@@ -81,7 +81,7 @@ test('show route render - no law and policy sources', function () {
 
     $toSee = [
         "<title>Regime Assessment Evaluation - {$measure->code}: {$jurisdiction} &mdash; Legal Capacity Inclusion Lens</title>",
-        '<nav aria-label="Breadcrumbs">',
+        '<nav class="breadcrumbs" aria-label="Breadcrumbs">',
         '<li><a href="'.localized_route('regimeAssessments.index').'">Regime Assessments</a></li>',
         '<li><a href="'.localized_route('regimeAssessments.show', $regimeAssessment),
         "{$jurisdiction}</a></li>",

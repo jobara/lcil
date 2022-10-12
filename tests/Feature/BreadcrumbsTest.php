@@ -12,7 +12,7 @@ test('render', function () {
     );
 
     $toSee = [
-        '<nav aria-label="Breadcrumbs">',
+        '<nav class="breadcrumbs" aria-label="Breadcrumbs">',
         '<li><a href="/">parent</a></li>',
         '<li  aria-current="page" >child</li>',
     ];
@@ -28,7 +28,7 @@ test('render - empty', function () {
         ['breadcrumbs' => $breadcrumbs]
     );
 
-    $view->assertDontSee('<nav aria-label="Breadcrumbs">', false);
+    $view->assertDontSee('<nav class="breadcrumbs" aria-label="Breadcrumbs">', false);
     $view->assertDontSee('aria-current="page"', false);
 });
 
@@ -45,7 +45,7 @@ test('render - url missing in middle', function () {
     );
 
     $toSee = [
-        '<nav aria-label="Breadcrumbs">',
+        '<nav class="breadcrumbs" aria-label="Breadcrumbs">',
         '<li><a href="/">parent</a></li>',
         '<li >intermediate</li>',
         '<li  aria-current="page" >child</li>',
@@ -66,7 +66,7 @@ test('render - url not rendered for last segment', function () {
     );
 
     $toSee = [
-        '<nav aria-label="Breadcrumbs">',
+        '<nav class="breadcrumbs" aria-label="Breadcrumbs">',
         '<li><a href="/">parent</a></li>',
         '<li  aria-current="page" >child</li>',
     ];

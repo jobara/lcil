@@ -1,0 +1,15 @@
+.breadcrumbs ol {
+    list-style: none;
+    padding: 0;
+}
+
+.breadcrumbs li {
+    display: inline-block;
+}
+
+.breadcrumbs svg {
+    height: 1rem;
+    position: relative;
+    top: 0.1rem;
+    width: 1rem;
+}

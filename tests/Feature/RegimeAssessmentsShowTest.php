@@ -93,7 +93,7 @@ test('show route render - authenticated', function () {
 
     $toSee = [
         '<title>Regime Assessment Summary: Toronto, Ontario, Canada &mdash; Legal Capacity Inclusion Lens</title>',
-        '<nav aria-label="Breadcrumbs">',
+        '<nav class="breadcrumbs" aria-label="Breadcrumbs">',
         '<a href="'.localized_route('regimeAssessments.index').'">Regime Assessments</a>',
         '<li  aria-current="page" >Toronto, Ontario, Canada</li>',
         '<h1',

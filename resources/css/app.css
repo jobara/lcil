@@ -21,5 +21,6 @@
 @import "components/_nav-site.css";
 @import "components/_nav-actions.css";
 @import "components/_nav-user.css";
+@import "components/_rich-text-editor.css";
 @import "components/_search-results.css";
 @import "components/_status.css";

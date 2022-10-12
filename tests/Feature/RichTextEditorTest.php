@@ -6,14 +6,17 @@ test('default render', function () {
     );
 
     $toSee = [
+        'class="richTextEditor"',
         'id="test-editor"',
         'x-data="editor(\'\'',
         'editorProps: {',
         'attributes: {',
         '\'id\': \'test-editable\'',
+        '\'class\': \'richTextEditor__editable\'',
         '\'aria-multiline\': true',
         '\'role\': \'textbox\'',
         'id="test-toolbar"',
+        'class="richTextEditor__toolbar"',
         'role="toolbar"',
         'aria-controls="test-editable"',
         '@keyup.home="focusFirst($event.target)"',
@@ -24,7 +27,8 @@ test('default render', function () {
         '@focus="updateTabindexes($event.target)"',
         '@keyup.right="focusNext($event.target)"',
         'x-bind:aria-pressed="updatedAt && getEditor().isActive(\'bold\')"',
-        'bold',
+        'aria-label="bold"',
+        '<svg',
         '<button',
         'type="button"',
         'tabindex="-1"',
@@ -33,7 +37,8 @@ test('default render', function () {
         '@keyup.right="focusNext($event.target)"',
         '@keyup.left="focusPrev($event.target)"',
         'x-bind:aria-pressed="updatedAt && getEditor().isActive(\'italic\')"',
-        'italic',
+        'aria-label="italic"',
+        '<svg',
         '<button',
         'type="button"',
         'tabindex="-1"',
@@ -42,7 +47,8 @@ test('default render', function () {
         '@keyup.right="focusNext($event.target)"',
         '@keyup.left="focusPrev($event.target)"',
         'x-bind:aria-pressed="updatedAt && getEditor().isActive(\'underline\')"',
-        'underline',
+        'aria-label="underline"',
+        '<svg',
         '<button',
         'type="button"',
         'tabindex="-1"',
@@ -51,7 +57,8 @@ test('default render', function () {
         '@keyup.right="focusNext($event.target)"',
         '@keyup.left="focusPrev($event.target)"',
         'x-bind:aria-pressed="updatedAt && getEditor().isActive(\'strike\')"',
-        'strike',
+        'aria-label="strikethrough"',
+        '<svg',
         '<button',
         'type="button"',
         'tabindex="-1"',
@@ -60,7 +67,8 @@ test('default render', function () {
         '@keyup.right="focusNext($event.target)"',
         '@keyup.left="focusPrev($event.target)"',
         'x-bind:aria-pressed="updatedAt && getEditor().isActive(\'bulletList\')"',
-        'bullet list',
+        'aria-label="bulleted list"',
+        '<svg',
         '<button',
         'type="button"',
         'tabindex="-1"',
@@ -68,8 +76,9 @@ test('default render', function () {
         '@focus="updateTabindexes($event.target)"',
         '@keyup.left="focusPrev($event.target)"',
         'x-bind:aria-pressed="updatedAt && getEditor().isActive(\'orderedList\')"',
-        'ordered list',
-        '<div x-ref="editorReference"></div>',
+        'aria-label="numbered list"',
+        '<svg',
+        '<div class="richTextEditor__editableContainer" x-ref="editorReference"></div>',
         '<input',
         'name="test" id="test" type="hidden" x-model="content"',
     ];
@@ -78,7 +87,6 @@ test('default render', function () {
         '\'aria-required\': \'true\'',
         '\'autofocus\': \'true\'',
         '\'aria-disabled\': \'true\'',
-        'aria-label',
         'aria-labelledby',
         'aria-invalid',
         'disabled',
@@ -126,6 +134,18 @@ test('render - id', function () {
 
     $view->assertSeeInOrder($toSee, false);
     assertDontSeeAny($view, $dontSee, false);
+});
+
+test('render - class', function () {
+    $view = $this->withViewErrors([])->blade(
+        '<x-forms.rich-text-editor name="other" class="test" />'
+    );
+
+    $toSee = [
+        'class="richTextEditor test"',
+    ];
+
+    $view->assertSeeInOrder($toSee, false);
 });
 
 test('render - autofocus', function () {
@@ -185,13 +205,13 @@ test('render - disabled', function () {
         'underline',
         '<button',
         'disabled',
-        'strike',
+        'strikethrough',
         '<button',
         'disabled',
-        'bullet list',
+        'bulleted list',
         '<button',
         'disabled',
-        'ordered list',
+        'numbered list',
         '<input',
         'disabled',
     ];

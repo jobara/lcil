@@ -1,4 +1,6 @@
 <div
+
+    class="{{ $attributes->class(['richTextEditor'])->get('class') }}"
     id="{{ $id }}-editor"
     x-data="editor('{{ $slot }}', {
         @if ($disabled)
@@ -29,6 +31,7 @@
                     'aria-invalid': true,
                 @endif
                 'id': '{{ $id }}-editable',
+                'class': 'richTextEditor__editable',
                 'aria-multiline': true,
                 'role': 'textbox'
             }
@@ -37,6 +40,7 @@
 >
     <div
         id="{{ $id }}-toolbar"
+        class="richTextEditor__toolbar"
         role="toolbar"
         @if ($disabled)
             aria-disabled=true
@@ -58,8 +62,9 @@
             @focus="updateTabindexes($event.target)"
             @keyup.right="focusNext($event.target)"
             x-bind:aria-pressed="updatedAt && getEditor().isActive('bold')"
+            aria-label="{{ __('bold') }}"
         >
-            {{ __('bold') }}
+            @svg('gmdi-format-bold', ['aria-hidden' => 'true'])
         </button>
         <button
             type="button"
@@ -70,8 +75,9 @@
             @keyup.right="focusNext($event.target)"
             @keyup.left="focusPrev($event.target)"
             x-bind:aria-pressed="updatedAt && getEditor().isActive('italic')"
+            aria-label="{{ __('italic') }}"
         >
-            {{ __('italic') }}
+            @svg('gmdi-format-italic', ['aria-hidden' => 'true'])
         </button>
         <button
             type="button"
@@ -82,8 +88,9 @@
             @keyup.right="focusNext($event.target)"
             @keyup.left="focusPrev($event.target)"
             x-bind:aria-pressed="updatedAt && getEditor().isActive('underline')"
+            aria-label="{{ __('underline') }}"
         >
-            {{ __('underline') }}
+            @svg('gmdi-format-underlined', ['aria-hidden' => 'true'])
         </button>
         <button
             type="button"
@@ -94,8 +101,9 @@
             @keyup.right="focusNext($event.target)"
             @keyup.left="focusPrev($event.target)"
             x-bind:aria-pressed="updatedAt && getEditor().isActive('strike')"
+            aria-label="{{ __('strikethrough') }}"
         >
-            {{ __('strike') }}
+            @svg('gmdi-format-strikethrough', ['aria-hidden' => 'true'])
         </button>
         <button
             type="button"
@@ -106,8 +114,9 @@
             @keyup.right="focusNext($event.target)"
             @keyup.left="focusPrev($event.target)"
             x-bind:aria-pressed="updatedAt && getEditor().isActive('bulletList')"
+            aria-label="{{ __('bulleted list') }}"
         >
-            {{ __('bullet list') }}
+            @svg('gmdi-format-list-bulleted', ['aria-hidden' => 'true'])
         </button>
         <button
             type="button"
@@ -117,12 +126,13 @@
             @focus="updateTabindexes($event.target)"
             @keyup.left="focusPrev($event.target)"
             x-bind:aria-pressed="updatedAt && getEditor().isActive('orderedList')"
+            aria-label="{{ __('numbered list') }}"
         >
-            {{ __('ordered list') }}
+            @svg('gmdi-format-list-numbered', ['aria-hidden' => 'true'])
         </button>
     </div>
 
-    <div x-ref="editorReference"></div>
+    <div class="richTextEditor__editableContainer" x-ref="editorReference"></div>
 
     <x-hearth-input
         type="hidden"

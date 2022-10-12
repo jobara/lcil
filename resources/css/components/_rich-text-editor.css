@@ -1,0 +1,61 @@
+.richTextEditor .richTextEditor__editable,
+.richTextEditor .richTextEditor__editableContainer {
+    margin: 0;
+}
+
+.richTextEditor .richTextEditor__toolbar {
+    margin-block-end: 0;
+}
+
+.richTextEditor__editable {
+    background-color: #FFF;
+    border: solid 1px #C4C4C4;
+}
+
+.richTextEditor__editable ul {
+    padding: revert;
+}
+
+.richTextEditor__toolbar {
+    background-color: #E8E8E8;
+    border-top-left-radius: 0.2rem;
+    border-top-right-radius: 0.2rem;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0;
+    padding-block-start: 0.5rem;
+    padding-inline: 0.5rem;
+
+}
+
+.richTextEditor__toolbar > * {
+    align-items: center;
+    display: flex;
+    height: 2rem;
+    justify-content: center;
+    width: 2rem;
+}
+
+.richTextEditor__toolbar > * + * {
+    margin-inline-start: 0.5rem;
+}
+
+.richTextEditor__toolbar > [aria-pressed=true] {
+    background-color: #C4C4C4;
+    border: 1px solid #000;
+    border-radius: 0.2rem;
+ }
+
+.richTextEditor__toolbar > [aria-pressed=true]:hover {
+    background-color: #E8E8E8;
+ }
+
+.richTextEditor__editableContainer {
+    background-color: #E8E8E8;
+    border-bottom-left-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+    padding-inline: 0.5rem;
+    padding-block-end: 0.5rem;
+    padding-block-start: 0.5rem;
+    margin-block-start: 0;
+}

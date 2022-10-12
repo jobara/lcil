@@ -52,7 +52,7 @@ test('create route render errors', function ($data, $errors, $anchors = []) {
         'name' => 'test policy',
     ]);
 
-    $toSee = ['<div id="error-summary" role="alert">'];
+    $toSee = ['<div id="error-summary" role="alert" class="error-summary">'];
 
     foreach ($errors as $key => $message) {
         $anchor = $anchors[$key] ?? $key;

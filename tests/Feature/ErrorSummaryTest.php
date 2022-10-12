@@ -14,8 +14,10 @@ test('render - errors', function () {
     ])->blade('<x-forms.error-summary />');
 
     $toSee = [
-        '<div id="error-summary" role="alert">',
-        '<p id="error-summary__message">Please check the following fields in order to proceed:</p>',
+        '<div id="error-summary" role="alert" class="error-summary">',
+        '<p id="error-summary__message">',
+        '<svg',
+        'Please check the following fields in order to proceed:',
         '<li><a href="#name">The name field is required.</a></li>',
         '<li><a href="#country">The country must be at least 2 characters.</a></li>',
     ];
@@ -29,8 +31,22 @@ test('render - custom id', function () {
     ])->blade('<x-forms.error-summary id="custom" />');
 
     $toSee = [
-        '<div id="custom" role="alert">',
-        '<p id="custom__message">Please check the following fields in order to proceed:</p>',
+        '<div id="custom" role="alert" class="error-summary">',
+        '<p id="custom__message">',
+        '<svg',
+        'Please check the following fields in order to proceed:',
+    ];
+
+    $view->assertSeeInOrder($toSee, false);
+});
+
+test('render - custom class', function () {
+    $view = $this->withViewErrors([
+        'name' => 'The name field is required.',
+    ])->blade('<x-forms.error-summary class="custom" />');
+
+    $toSee = [
+        '<div id="error-summary" role="alert" class="error-summary custom">',
     ];
 
     $view->assertSeeInOrder($toSee, false);
@@ -42,7 +58,7 @@ test('render - custom role', function () {
     ])->blade('<x-forms.error-summary role="status" />');
 
     $toSee = [
-        '<div id="error-summary" role="status">',
+        '<div id="error-summary" role="status" class="error-summary">',
     ];
 
     $view->assertSeeInOrder($toSee, false);
@@ -57,8 +73,10 @@ test('render - custom message', function () {
     );
 
     $toSee = [
-        '<div id="error-summary" role="alert">',
-        '<p id="error-summary__message">Test message</p>',
+        '<div id="error-summary" role="alert" class="error-summary">',
+        '<p id="error-summary__message">',
+        '<svg',
+        'Test message',
     ];
 
     $view->assertSeeInOrder($toSee, false);
@@ -74,8 +92,10 @@ test('render - custom anchor', function () {
     );
 
     $toSee = [
-        '<div id="error-summary" role="alert">',
-        '<p id="error-summary__message">Please check the following fields in order to proceed:</p>',
+        '<div id="error-summary" role="alert" class="error-summary">',
+        '<p id="error-summary__message">',
+        '<svg',
+        'Please check the following fields in order to proceed:',
         '<li><a href="#test-name">The name field is required.</a></li>',
         '<li><a href="#country">The country must be at least 2 characters.</a></li>',
     ];
@@ -93,8 +113,10 @@ test('render - sanitized', function () {
     );
 
     $toSee = [
-        '<div id="error-summary" role="alert">',
-        '<p id="error-summary__message">Please check the following fields in order to proceed:</p>',
+        '<div id="error-summary" role="alert" class="error-summary">',
+        '<p id="error-summary__message">',
+        '<svg',
+        'Please check the following fields in order to proceed:',
         '<li><a href="#namefirst">The name field is required.</a></li>',
         '<li><a href="#other">The other field is required.</a></li>',
     ];
@@ -113,8 +135,10 @@ test('render - wildcards', function () {
     );
 
     $toSee = [
-        '<div id="error-summary" role="alert">',
-        '<p id="error-summary__message">Please check the following fields in order to proceed:</p>',
+        '<div id="error-summary" role="alert" class="error-summary">',
+        '<p id="error-summary__message">',
+        '<svg',
+        'Please check the following fields in order to proceed:',
         '<li><a href="#name1first">The name field is required.</a></li>',
         '<li><a href="#name2first">The name field is required.</a></li>',
         '<li><a href="#other">The other field is required.</a></li>',

@@ -330,7 +330,7 @@ test('show route render errors', function () {
     ];
 
     $toSee = [
-        '<div id="error-summary" role="alert">',
+        '<div id="error-summary" role="alert" class="error-summary">',
         "<li><a href=\"#status\">{$errors['status']}</a></li>",
         'id="status"',
         'aria-describedby',

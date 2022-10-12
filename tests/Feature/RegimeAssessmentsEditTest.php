@@ -78,7 +78,7 @@ test('edit route render errors', function ($data, $errors) {
         ['name', 'asc'],
     ])->all();
 
-    $toSee = ['<div id="error-summary" role="alert">'];
+    $toSee = ['<div id="error-summary" role="alert" class="error-summary">'];
 
     foreach ($errors as $key => $message) {
         $toSee[] = "<li><a href=\"#{$key}\">{$message}</a></li>";

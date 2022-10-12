@@ -1,0 +1,10 @@
+.error-summary {
+    background-color: #FF6D6D;
+    border: 1px solid #8A0000;
+    border-radius: 0.2rem;
+    padding: 0.5rem;
+}
+
+.field__error {
+    color: #8A0000;
+}

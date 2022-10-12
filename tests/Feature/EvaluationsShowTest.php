@@ -551,7 +551,7 @@ test('edit route render errors', function ($data, $errors, $anchors = []) {
         ]);
     $regimeAssessment->lawPolicySources()->attach($lawPolicySource);
 
-    $toSee = ['<div id="error-summary" role="alert">'];
+    $toSee = ['<div id="error-summary" role="alert" class="error-summary">'];
 
     foreach ($errors as $key => $message) {
         $anchor = sprintf($anchors[$key] ?? $key, $provision->id);

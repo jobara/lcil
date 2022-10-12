@@ -63,7 +63,7 @@ test('edit route render errors', function ($data, $errors, $anchors = []) {
     ]);
     $provision = Provision::factory()->for($lawPolicySource)->create();
 
-    $toSee = ['<div id="error-summary" role="alert">'];
+    $toSee = ['<div id="error-summary" role="alert" class="error-summary">'];
 
     foreach ($errors as $key => $message) {
         $anchor = $anchors[$key] ?? $key;

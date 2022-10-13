@@ -16,11 +16,12 @@
                 'decision_type.0' => 'decision-type-financial-property',
             ]"
         />
-
-        <x-forms.provision :lawPolicySource="$lawPolicySource" :provision="$provision" />
     @endauth
     <aside>
         <x-law-policy-source-card :lawPolicySource="$lawPolicySource" level="2" expanded />
     </aside>
+    @auth
+        <x-forms.provision :lawPolicySource="$lawPolicySource" :provision="$provision" />
+    @endauth
 
 </x-app-layout>

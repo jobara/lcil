@@ -36,7 +36,7 @@ test('create route render', function () {
 test('create route render errors', function ($data, $errors, $anchors = []) {
     $user = User::factory()->create();
 
-    $toSee = ['<div id="error-summary" role="alert">'];
+    $toSee = ['<div id="error-summary" role="alert" class="error-summary">'];
 
     foreach ($errors as $key => $message) {
         $anchor = $anchors[$key] ?? $key;

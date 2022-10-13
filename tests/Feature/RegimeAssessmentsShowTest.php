@@ -93,7 +93,7 @@ test('show route render - authenticated', function () {
 
     $toSee = [
         '<title>Regime Assessment Summary: Toronto, Ontario, Canada &mdash; Legal Capacity Inclusion Lens</title>',
-        '<nav aria-label="Breadcrumbs">',
+        '<nav class="breadcrumbs" aria-label="Breadcrumbs">',
         '<a href="'.localized_route('regimeAssessments.index').'">Regime Assessments</a>',
         '<li  aria-current="page" >Toronto, Ontario, Canada</li>',
         '<h1',
@@ -111,17 +111,6 @@ test('show route render - authenticated', function () {
         '<ul>',
         '<li>Choose a measure to evaluate.',
         '<li>Change assessment status to “Draft”, “Needs Review”, “Published”',
-        '<details>',
-        "<summary>{$measureDimension->code} {$measureDimension->description}</summary>",
-        '<ol>',
-        '<a href="'.localized_route('evaluations.show', ['regimeAssessment' => $regimeAssessment, 'measure' => $measure]),
-        $measure->code.': '.$measure->title,
-        '<ul>',
-        '<li>1 fully</li>',
-        '<li>0 partially</li>',
-        '<li>0 not_at_all</li>',
-        '<li>0 do not apply</li>',
-        '</details>',
         '<aside>',
         '<h2 id="ra-status-heading">Regime Assessment Status</h2>',
         '<form method="POST" action="'.route('regimeAssessments.update', $regimeAssessment),
@@ -146,6 +135,17 @@ test('show route render - authenticated', function () {
         "<dd>{$regimeAssessment->ra_id}</dd>",
         '<a href="'.\localized_route('regimeAssessments.edit', $regimeAssessment),
         'View / Edit Details',
+        '<details>',
+        "<summary>{$measureDimension->code} {$measureDimension->description}</summary>",
+        '<ol>',
+        '<a href="'.localized_route('evaluations.show', ['regimeAssessment' => $regimeAssessment, 'measure' => $measure]),
+        $measure->code.': '.$measure->title,
+        '<ul>',
+        '<li>1 fully</li>',
+        '<li>0 partially</li>',
+        '<li>0 not_at_all</li>',
+        '<li>0 do not apply</li>',
+        '</details>',
     ];
 
     $view = $this->actingAs($user)
@@ -330,7 +330,7 @@ test('show route render errors', function () {
     ];
 
     $toSee = [
-        '<div id="error-summary" role="alert">',
+        '<div id="error-summary" role="alert" class="error-summary">',
         "<li><a href=\"#status\">{$errors['status']}</a></li>",
         'id="status"',
         'aria-describedby',

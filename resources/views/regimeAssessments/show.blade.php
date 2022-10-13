@@ -48,6 +48,70 @@
         </ul>
     @endauth
 
+        @auth
+        <aside>
+            <h2 id="ra-status-heading">{{ __('Regime Assessment Status') }}</h2>
+
+            <form method="POST" action="{{ route('regimeAssessments.updateStatus', $regimeAssessment) }}">
+                @csrf
+                @method('patch')
+
+                <ul role="list">
+                    <li>
+                        <x-hearth-select
+                            name="status"
+                            aria-labelledby="ra-status-heading"
+                            required
+                            :options="\App\Enums\RegimeAssessmentStatuses::options()->toArray()"
+                            :selected="old('status', $regimeAssessment?->status?->value)"
+                        />
+                        <x-hearth-error for="status" />
+                    </li>
+                    <li><button type="submit">{{ __('Save') }}</button></li>
+                </ul>
+            </form>
+        </aside>
+    @endauth
+
+    <aside>
+        <h2>{{ __('Regime Assessment Details') }}</h2>
+        <dl>
+            <dt>{{ __('Jurisdiction:') }}</dt>
+            <dd>{{ get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality) }}</dd>
+
+            @isset($regimeAssessment->description)
+                <dt>{{ __('Description:') }}</dt>
+                <dd>{{ $regimeAssessment->description }}</dd>
+            @endisset
+
+            @isset($regimeAssessment->year_in_effect)
+                <dt>{{ __('Effective Data:') }}</dt>
+                <dd>{{ $regimeAssessment->year_in_effect }}</dd>
+            @endisset
+
+            <dt>{{ __('ID:') }}</dt>
+            <dd>{{ $regimeAssessment->ra_id }}</dd>
+        </dl>
+
+        @if ($regimeAssessment->lawPolicySources->count())
+            <h3>{{ __('Law and Policy Sources') }}</h3>
+            <ul>
+                @foreach ($regimeAssessment->lawPolicySources->sortBy('name') as $lawPolicySource)
+                    <li>
+                        <a href="{{ localized_route('lawPolicySources.show', $lawPolicySource) }}">{{ $lawPolicySource->name }}</a>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+
+        @auth
+            <a href="{{ \localized_route('regimeAssessments.edit', $regimeAssessment) }}">
+                {{ __('View / Edit Details') }}
+            </a>
+        @endauth
+
+    </aside>
+
     @php
         $numProvisions = $regimeAssessment->lawPolicySources->reduce(function ($carry, $lawPolicySource) {
             return ($carry ?? 0) + $lawPolicySource->provisions->count();
@@ -77,66 +141,4 @@
             </ol>
         </details>
     @endforeach
-
-    @auth
-        <aside>
-            <h2 id="ra-status-heading">{{ __('Regime Assessment Status') }}</h2>
-
-            <form method="POST" action="{{ route('regimeAssessments.updateStatus', $regimeAssessment) }}">
-                @csrf
-                @method('patch')
-
-                <ul>
-                    <li>
-                        <x-hearth-select
-                            name="status"
-                            aria-labelledby="ra-status-heading"
-                            required
-                            :options="\App\Enums\RegimeAssessmentStatuses::options()->toArray()"
-                            :selected="old('status', $regimeAssessment?->status?->value)"
-                        />
-                        <x-hearth-error for="status" />
-                    </li>
-                    <li><button type="submit">{{ __('Save') }}</button></li>
-                </ul>
-            </form>
-        </aside>
-    @endauth
-
-    <aside>
-        <h2>{{ __('Regime Assessment Details') }}</h2>
-        <dl>
-            <dt>{{ __('Jurisdiction:') }}</dt>
-            <dd>{{ get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality) }}</dd>
-
-            <dt>{{ __('Description:') }}</dt>
-            <dd>{{ $regimeAssessment->description }}</dd>
-
-            @isset($regimeAssessment->year_in_effect)
-                <dt>{{ __('Effective Data:') }}</dt>
-                <dd>{{ $regimeAssessment->year_in_effect }}</dd>
-            @endisset
-
-            <dt>{{ __('ID:') }}</dt>
-            <dd>{{ $regimeAssessment->ra_id }}</dd>
-        </dl>
-
-        @if ($regimeAssessment->lawPolicySources->count())
-            <h3>{{ __('Law and Policy Sources') }}</h3>
-            <ul>
-                @foreach ($regimeAssessment->lawPolicySources->sortBy('name') as $lawPolicySource)
-                    <li>
-                        <a href="{{ localized_route('lawPolicySources.show', $lawPolicySource) }}">{{ $lawPolicySource->name }}</a>
-                    </li>
-                @endforeach
-            </ul>
-        @endif
-
-        @auth
-            <a href="{{ \localized_route('regimeAssessments.edit', $regimeAssessment) }}">
-                {{ __('View / Edit Details') }}
-            </a>
-        @endauth
-
-    </aside>
 </x-app-layout>

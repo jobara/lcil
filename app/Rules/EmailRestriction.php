@@ -23,7 +23,7 @@ class EmailRestriction implements InvokableRule
         $allowlist = config('settings.registration.allowlist');
         $blocklist = config('settings.registration.blocklist');
         $domain = substr($value, strpos($value, '@') + 1);
-        $failMessage = __('Sorry, at the moment registration for :app is restricted.', ['app' => config('app.name')]);
+        $failMessage = __('At the moment registration for :app is restricted.', ['app' => config('app.name')]);
 
         if (in_array($domain, $blocklist)) {
             $fail($failMessage);

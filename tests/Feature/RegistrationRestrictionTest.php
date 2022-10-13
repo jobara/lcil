@@ -18,7 +18,7 @@ test('CreateNewUser', function ($config, $expected) {
     if ($expected) {
         $response->assertSessionHasNoErrors();
     } else {
-        $response->assertSessionHasErrors(['email' => __('Sorry, at the moment registration for :app is restricted.', ['app' => config('app.name')])]);
+        $response->assertSessionHasErrors(['email' => __('At the moment registration for :app is restricted.', ['app' => config('app.name')])]);
     }
 })->with('emailRestrictions');
 
@@ -34,6 +34,6 @@ test('UpdateUserProfileInformation', function ($config, $expected) {
     if ($expected) {
         $response->assertSessionHasNoErrors();
     } else {
-        $response->assertSessionHasErrorsIn('updateProfileInformation', ['email' => __('Sorry, at the moment registration for :app is restricted.', ['app' => config('app.name')])]);
+        $response->assertSessionHasErrorsIn('updateProfileInformation', ['email' => __('At the moment registration for :app is restricted.', ['app' => config('app.name')])]);
     }
 })->with('emailRestrictions');

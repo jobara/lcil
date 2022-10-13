@@ -24,9 +24,9 @@ class ProvisionFactory extends Factory
         $capabilities = DecisionMakingCapabilities::values();
         $capabilitiesToSelect = $this->faker->numberBetween(1, count($capabilities));
 
-        $body = '<p><strong><em>Example <u>Provision</u> Text</em></strong></p><ol><li><p>Some details</p></li>
-                <li><p><p>Some more</p><ul><li><p>sub point</p></li><li><p><strike>sub point removed</strike></p>
-                </li></ul></p></li></ol>';
+        $body = '<p><strong><em>Example <u>Provision</u> Text</em></strong></p><ol><li><p>Some details</p></li>'
+                .'<li><p><p>Some more</p><ul><li><p>sub point</p></li><li><p><strike>sub point removed</strike></p>'
+                .'</li></ul></p></li></ol>';
 
         return [
             'law_policy_source_id' => LawPolicySource::factory(),

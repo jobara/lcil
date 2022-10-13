@@ -1,0 +1,5 @@
+.card {
+    outline: 0.1rem solid var(--primary-background);
+    padding: 0.5rem;
+    margin: 1rem 0;
+}

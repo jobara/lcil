@@ -447,6 +447,28 @@ If you do so, you'll need to rerun the cache or clear it (see below) after makin
 php artisan event:clear
 ```
 
+### Google-Fonts
+
+You can fetch Google Fonts and store them on disk (uses  spatie/laravel-google-fonts).
+
+```bash
+php artisan google-fonts:fetch
+```
+
+### Icon cache
+
+You can discover icon sets and generate a manifest file (uses Blade UI kit)
+
+```bash
+php artisan icons:cache
+```
+
+You can also remove the blade icons manifest file.
+
+```bash
+php artisan icons:clear
+```
+
 ### Route cache
 
 Route caches are only for deployments.

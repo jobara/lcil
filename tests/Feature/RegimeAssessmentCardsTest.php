@@ -17,13 +17,13 @@ test('render cards', function () {
     );
 
     $toSee = [
-        '<ul role="list">',
-        '<li>',
+        '<ul role="list"',
+        '<li class="card">',
     ];
 
     foreach ($regimeAssessments as $regimeAssessment) {
         $toSee[] = '<h4>';
-        $toSee[] = get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality);
+        $toSee[] = htmlentities(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
     }
 
     $view->assertSeeInOrder($toSee, false);

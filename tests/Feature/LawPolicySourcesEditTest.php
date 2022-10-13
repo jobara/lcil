@@ -45,7 +45,7 @@ test('edit route render errors', function ($data, $errors, $anchors = []) {
     $user = User::factory()->create();
     $lawPolicySource = LawPolicySource::factory()->create();
 
-    $toSee = ['<div id="error-summary" role="alert">'];
+    $toSee = ['<div id="error-summary" role="alert" class="error-summary">'];
 
     foreach ($errors as $key => $message) {
         $anchor = $anchors[$key] ?? $key;

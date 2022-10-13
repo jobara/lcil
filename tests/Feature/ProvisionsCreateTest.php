@@ -31,12 +31,12 @@ test('create route render', function () {
         $lawPolicySource->name,
         'Add Provision',
         '<h1 itemprop="name">Add Provision</h1>',
-        '<form',
-        'method="POST"',
-        'action="'.route('provisions.store', $lawPolicySource),
         '<aside>',
         '<h2>',
         '<a href="'.\localized_route('lawPolicySources.show', $lawPolicySource)."\">{$lawPolicySource->name}</a>",
+        '<form',
+        'method="POST"',
+        'action="'.route('provisions.store', $lawPolicySource),
     ];
 
     $view = $this->actingAs($user)
@@ -52,7 +52,7 @@ test('create route render errors', function ($data, $errors, $anchors = []) {
         'name' => 'test policy',
     ]);
 
-    $toSee = ['<div id="error-summary" role="alert">'];
+    $toSee = ['<div id="error-summary" role="alert" class="error-summary">'];
 
     foreach ($errors as $key => $message) {
         $anchor = $anchors[$key] ?? $key;

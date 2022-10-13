@@ -1,0 +1,9 @@
+.search-results,
+.search-results__sub {
+    padding: 0;
+    margin: 0;
+}
+
+.search-results h2 {
+    margin-top: 2rem;
+}

@@ -44,7 +44,7 @@ jobs:
       run: |
         php artisan migrate --database=mysql-test
         php artisan storage:link
-        vendor/bin/pest --ci --coverage --coverage-clover coverage.xml
+        vendor/bin/pest --ci --parallel --coverage --coverage-clover coverage.xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
       with:

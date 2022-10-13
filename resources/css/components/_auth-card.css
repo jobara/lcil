@@ -1,0 +1,18 @@
+.auth-card {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+
+
+}
+
+.auth-card>* {
+    max-width: calc(65ch / 2);
+    width: 100%;
+}
+
+.auth-card__logo {
+    text-align: center;
+}

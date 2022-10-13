@@ -1,5 +1,5 @@
 <!-- Site Navigation -->
-<nav aria-label="{{ __('Site Navigation') }}">
+<nav aria-label="{{ __('Site Navigation') }}" class="nav-site">
 
     <!-- Navigation Links -->
     <ul role="list">

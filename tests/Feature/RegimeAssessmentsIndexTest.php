@@ -272,6 +272,7 @@ test('index route rendered - without parameters', function () {
     ];
 
     $dontSee = [
+        '<nav class="nav-actions" aria-label="Section Actions">',
         'Create new regime assessment if it does not already exist',
         'Status:',
         'Found',
@@ -282,7 +283,7 @@ test('index route rendered - without parameters', function () {
     $response = $this->get(localized_route('regimeAssessments.index'));
 
     $response->assertSeeInOrder($toSee, false);
-    assertDontSeeAnyText($response, $dontSee);
+    assertDontSeeAny($response, $dontSee, false);
 })->group('RegimeAssessments');
 
 test('index route rendered - with parameters', function () {
@@ -327,6 +328,7 @@ test('index route rendered - authenticated', function () {
     $user = User::factory()->create();
 
     $toSee = [
+        '<nav class="nav-actions" aria-label="Section Actions">',
         'Search for regime assessments',
         'Create new regime assessment if it does not already exist',
         'Status:',
@@ -334,7 +336,7 @@ test('index route rendered - authenticated', function () {
 
     $response = $this->actingAs($user)->get(localized_route('regimeAssessments.index'));
 
-    $response->assertSeeTextInOrder($toSee);
+    $response->assertSeeInOrder($toSee, false);
 })->group('RegimeAssessments');
 
 test('index route rendered - regime assessments', function () {

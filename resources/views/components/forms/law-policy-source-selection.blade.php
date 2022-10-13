@@ -12,7 +12,7 @@
                         @if (count($groupedLawPolicySources))
                             <ul role="list">
                                 @foreach ($groupedLawPolicySources as $lawPolicySource)
-                                    <li>
+                                    <li class="card inline-label">
                                         <x-heading :level="$level + 2">
                                             {{ $lawPolicySource->name }}
                                         </x-heading>
@@ -20,7 +20,7 @@
                                             $lpName = 'lawPolicySources['.$lawPolicySource->id.']'
                                         @endphp
                                         <x-hearth-checkbox :name="$lpName" :checked="$checked->contains($lawPolicySource)" />
-                                        <x-hearth-label :for="$lpName" :value="__('Add to regime assessment')" />
+                                        <x-hearth-label :for="$lpName" :value="__('Add to regime assessment')"  />
                                         <dl>
                                             @php
                                                 $jurisdictionName = get_jurisdiction_name($lawPolicySource->jurisdiction, $lawPolicySource->municipality)

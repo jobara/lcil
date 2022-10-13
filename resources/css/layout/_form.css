@@ -1,0 +1,13 @@
+form ul {
+    padding: 0;
+    margin: 0;
+}
+
+form label {
+    display: block;
+    width: 100%;
+}
+
+form li {
+    margin-bottom: 1.5rem;
+}

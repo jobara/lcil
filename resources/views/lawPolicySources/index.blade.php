@@ -6,11 +6,29 @@
 
     <div x-data="{country: '{{ old('country', request('country')) }}'}">
         @auth
-            {{-- push focus to the first focusable element in the search form --}}
-            <a href="#" @click.prevent="$focus.within($refs.search).first()">
-                {{ __('Search for sources of law and policy to view or edit') }}
-            </a>
-            <a href="{{ localized_route('lawPolicySources.create') }}">{{ __('Create new law or policy source if it does not already exist') }}</a>
+            <nav class="nav-actions" aria-label="{{  __('Section Actions') }}">
+                {{-- push focus to the first focusable element in the search form --}}
+                <ul role="list">
+                    <li>
+                        <a href="#" @click.prevent="$focus.within($refs.search).first()">
+                            <div class="icon-round">
+                                @svg('gmdi-search', ['aria-hidden' => 'true'])
+                            </div>
+                            {{ __('Search for sources of law and policy to view or edit') }}
+                            @svg('gmdi-arrow-downward', 'icon-inline', ['aria-hidden' => 'true'])
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ localized_route('lawPolicySources.create') }}">
+                            <div class="icon-round">
+                                @svg('gmdi-description', ['aria-hidden' => 'true'])
+                            </div>
+                            {{ __('Create new law or policy source if it does not already exist') }}
+                            @svg('gmdi-arrow-forward', 'icon-inline', ['aria-hidden' => 'true'])
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         @else
             <p>{{ __('Search for sources of law and policy to view') }}</p>
         @endauth
@@ -45,11 +63,11 @@
                 :keywords="old('keywords', request('keywords'))"
             />
             @if (count($lawPolicySources))
-                <ul role="list">
+                <ul role="list" class="search-results">
                     @foreach (group_by_jurisdiction($lawPolicySources->items()) as $countryName => $subdivisionGroups)
                         <li>
                             <h2>{{ $countryName }}</h2>
-                            <ul role="list">
+                            <ul role="list" class="search-results__sub">
                                 @foreach ($subdivisionGroups as $subdivisionName => $groupedLawPolicySources)
                                     <li>
                                         <h3>{{ $subdivisionName ? $subdivisionName : __('Federal') }}</h3>
@@ -63,7 +81,7 @@
                 {{ $lawPolicySources->links() }}
             @endif
         @else
-            <p role="status">{{ __('Search results will appear here') }}</p>
+            <p role="status" class="card">{{ __('Search results will appear here') }}</p>
         @endisset
     </div>
 </x-app-layout>

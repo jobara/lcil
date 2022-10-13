@@ -1,0 +1,21 @@
+.nav-site {
+    background-color: var(--body-background);
+}
+
+.nav-site li {
+    display: flex;
+    justify-content: center;
+    height: 1.8rem;
+    border-top: 0.1rem solid var(--primary-background);
+}
+
+@media (min-width: 48rem) {
+    .nav-site {
+        margin-bottom: 0.2rem;
+        padding: 0.5rem 0;
+    }
+    .nav-site ul {
+        width: 100vw;
+        margin: 0;
+    }
+}

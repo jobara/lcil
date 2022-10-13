@@ -179,6 +179,7 @@ test('index route rendered - without parameters', function () {
     ];
 
     $dontSee = [
+        '<nav class="nav-actions" aria-label="Section Actions">',
         'Search for sources of law and policy to view or edit',
         'Create new law or policy source if it does not already exist',
         'Found',
@@ -189,7 +190,7 @@ test('index route rendered - without parameters', function () {
     $response = $this->get(localized_route('lawPolicySources.index'));
 
     $response->assertSeeInOrder($toSee, false);
-    assertDontSeeAnyText($response, $dontSee);
+    assertDontSeeAny($response, $dontSee, false);
 })->group('LawPolicySources');
 
 test('index route rendered - with parameters', function () {
@@ -233,6 +234,7 @@ test('index route rendered - paged', function () {
 
 test('index route rendered - with authenticated user', function () {
     $toSee = [
+        '<nav class="nav-actions" aria-label="Section Actions">',
         'Search for sources of law and policy to view or edit',
         'Create new law or policy source if it does not already exist',
     ];
@@ -241,7 +243,7 @@ test('index route rendered - with authenticated user', function () {
 
     $response = $this->actingAs($user)->get(localized_route('lawPolicySources.index'));
 
-    $response->assertSeeTextInOrder($toSee);
+    $response->assertSeeInOrder($toSee, false);
 })->group('LawPolicySources');
 
 test('index route rendered - sources', function () {

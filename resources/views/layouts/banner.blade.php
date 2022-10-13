@@ -3,7 +3,6 @@
         @include('components.brand')
         @include('components.navigation')
     </div>
-    <div class="wrapper">
-        @include('components.site-navigation')
-    </div>
+    @include('components.site-navigation')
+    
 </header>

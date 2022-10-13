@@ -79,8 +79,10 @@
             <dt>{{ __('Jurisdiction:') }}</dt>
             <dd>{{ get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality) }}</dd>
 
-            <dt>{{ __('Description:') }}</dt>
-            <dd>{{ $regimeAssessment->description }}</dd>
+            @isset($regimeAssessment->description)
+                <dt>{{ __('Description:') }}</dt>
+                <dd>{{ $regimeAssessment->description }}</dd>
+            @endisset
 
             @isset($regimeAssessment->year_in_effect)
                 <dt>{{ __('Effective Data:') }}</dt>

@@ -23,7 +23,7 @@ test('render cards', function () {
 
     foreach ($regimeAssessments as $regimeAssessment) {
         $toSee[] = '<h4>';
-        $toSee[] = get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality);
+        $toSee[] = htmlentities(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
     }
 
     $view->assertSeeInOrder($toSee, false);

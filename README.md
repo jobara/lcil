@@ -304,6 +304,17 @@ If using sail, in the `.env` file set `SAIL_XDEBUG_MODE=develop,debug,coverage` 
 _**NOTE:** Coverage reporting requires [Xdebug](https://xdebug.org/) or [PCOV](https://pecl.php.net/package/pcov).
 see: [Test coverage with Xdebug](https://laracasts.com/series/whats-new-in-laravel-9/episodes/7)_
 
+_**NOTE:** If tests are running slow, you may want to run them in parallel using the `--parallel` flag. See:
+[Memory leak on testing](https://github.com/laravel/framework/discussions/39255) for more discussion on potential
+issues with tests._
+
+A composer script has been included to make running tests locally easier; includes coverage reporting and running all
+tests in parallel:
+
+```bash
+php composer coverage
+```
+
 ### Linting
 
 Static analysis of PHP files is done using [Larastan](https://github.com/nunomaduro/larastan). The default configuration

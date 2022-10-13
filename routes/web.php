@@ -7,6 +7,7 @@ use App\Http\Controllers\LawPolicySourceController;
 use App\Http\Controllers\MeasureController;
 use App\Http\Controllers\ProvisionController;
 use App\Http\Controllers\RegimeAssessmentController;
+use App\Http\Controllers\TokenController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomeController;
 use Illuminate\Support\Facades\Route;
@@ -115,6 +116,19 @@ Route::multilingual('regime-assessments/{regimeAssessment}/evaluations/{measure}
 
 Route::post('regime-assessments/{regimeAssessment}/evaluations/{measure}', [EvaluationController::class, 'update'])
     ->name('evaluations.update')
+    ->middleware(['auth', 'verified']);
+
+// API Tokens
+Route::post('tokens/{id}', [TokenController::class, 'destroy'])
+    ->name('tokens.destroy')
+    ->middleware(['auth', 'verified']);
+
+Route::multilingual('tokens', [TokenController::class, 'show'])
+    ->name('tokens.show')
+    ->middleware(['auth', 'verified']);
+
+Route::post('tokens', [TokenController::class, 'store'])
+    ->name('tokens.store')
     ->middleware(['auth', 'verified']);
 
 // e-mail verification notice

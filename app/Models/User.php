@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Sanctum\HasApiTokens;
 use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -19,6 +20,7 @@ use Spatie\Sluggable\SlugOptions;
 class User extends Authenticatable implements HasLocalePreference, MustVerifyEmail
 {
     use CascadesDeletes;
+    use HasApiTokens;
     use HasFactory;
     use HasSlug;
     use Notifiable;

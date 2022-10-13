@@ -4,5 +4,8 @@
         <h1 itemprop="name">{{ __('hearth::dashboard.title') }}</h1>
     </x-slot>
 
-    <p>{{ __('hearth::dashboard.welcome', ['name' => Auth::user()->name]) }}</p>
+    <ul>
+        <li><a href="{{ localized_route('welcome') }}">{{ __('Home') }}</a></li>
+        <li><a href="{{ localized_route('tokens.show') }}">{{ __('Manage API Tokens') }}</a></li>
+    </ul>
 </x-app-layout>

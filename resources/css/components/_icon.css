@@ -20,3 +20,14 @@
     top: 0.26em;
     width: 1.2rem;
 }
+
+.icon-table-cell {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.icon-table-cell svg {
+    height: 2rem;
+    width: 2rem;
+}

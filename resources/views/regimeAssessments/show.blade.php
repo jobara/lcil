@@ -56,7 +56,7 @@
                 @csrf
                 @method('patch')
 
-                <ul>
+                <ul role="list">
                     <li>
                         <x-hearth-select
                             name="status"

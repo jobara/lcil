@@ -31,7 +31,7 @@
         </li>
         <li>
             <h2>{{ __('Additional Information') }}</h2>
-            <ul>
+            <ul role="list">
                 <li>
                     <x-forms.label for="legal_capacity_approach" :value="__('Approach to Legal Capacity')" />
                     <x-hearth-select
@@ -56,7 +56,7 @@
         </li>
         <li>
             <h2>{{ __('Legal Information') }}</h2>
-            <ul x-data="{
+            <ul role="list" x-data="{
                 courtChallenge: '{{ old('court_challenge', $provision?->court_challenge?->value) }}',
                 get hasChallenge() { return this.courtChallenge && this.courtChallenge !== '{{ App\Enums\ProvisionCourtChallenges::NotRelated->value }}' },
             }">

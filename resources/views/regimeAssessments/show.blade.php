@@ -48,37 +48,7 @@
         </ul>
     @endauth
 
-    @php
-        $numProvisions = $regimeAssessment->lawPolicySources->reduce(function ($carry, $lawPolicySource) {
-            return ($carry ?? 0) + $lawPolicySource->provisions->count();
-        });
-    @endphp
-    @foreach ($measureDimensions as $measureDimension)
-        <details>
-            <summary>{{ $measureDimension->code }} {{ $measureDimension->description }}</summary>
-
-            <ol>
-                @foreach ($measureDimension->indicators as $indicators)
-                    @foreach ($indicators->measures as $measure)
-                        <li>
-                            <a href="{{ localized_route('evaluations.show', ['regimeAssessment' => $regimeAssessment, 'measure' => $measure]) }}">{{ $measure->code }}@if ($measure->title): {{ $measure->title }}@endif</a>
-                            <ul>
-                                @php
-                                    $evaluations = $regimeAssessment->evaluations->where('measure_id', $measure->id);
-                                @endphp
-                                @foreach (App\Enums\EvaluationAssessments::values() as $evaluationAssessment)
-                                    <li>{{ $evaluations->where('assessment', App\Enums\EvaluationAssessments::from($evaluationAssessment))->count() }} {{ $evaluationAssessment }}</li>
-                                @endforeach
-                                <li>{{ __(':count do not apply', ['count' => ($numProvisions - $evaluations->count())]) }}</li>
-                            </ul>
-                        </li>
-                    @endforeach
-                @endforeach
-            </ol>
-        </details>
-    @endforeach
-
-    @auth
+        @auth
         <aside>
             <h2 id="ra-status-heading">{{ __('Regime Assessment Status') }}</h2>
 
@@ -139,4 +109,34 @@
         @endauth
 
     </aside>
+
+    @php
+        $numProvisions = $regimeAssessment->lawPolicySources->reduce(function ($carry, $lawPolicySource) {
+            return ($carry ?? 0) + $lawPolicySource->provisions->count();
+        });
+    @endphp
+    @foreach ($measureDimensions as $measureDimension)
+        <details>
+            <summary>{{ $measureDimension->code }} {{ $measureDimension->description }}</summary>
+
+            <ol>
+                @foreach ($measureDimension->indicators as $indicators)
+                    @foreach ($indicators->measures as $measure)
+                        <li>
+                            <a href="{{ localized_route('evaluations.show', ['regimeAssessment' => $regimeAssessment, 'measure' => $measure]) }}">{{ $measure->code }}@if ($measure->title): {{ $measure->title }}@endif</a>
+                            <ul>
+                                @php
+                                    $evaluations = $regimeAssessment->evaluations->where('measure_id', $measure->id);
+                                @endphp
+                                @foreach (App\Enums\EvaluationAssessments::values() as $evaluationAssessment)
+                                    <li>{{ $evaluations->where('assessment', App\Enums\EvaluationAssessments::from($evaluationAssessment))->count() }} {{ $evaluationAssessment }}</li>
+                                @endforeach
+                                <li>{{ __(':count do not apply', ['count' => ($numProvisions - $evaluations->count())]) }}</li>
+                            </ul>
+                        </li>
+                    @endforeach
+                @endforeach
+            </ol>
+        </details>
+    @endforeach
 </x-app-layout>

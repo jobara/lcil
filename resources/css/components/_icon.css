@@ -1,6 +1,6 @@
 .icon-round {
     align-items: center;
-    background-color: var(--icon-background);
+    background-color: var(--primary-background);
     border-radius: 1rem;
     display: flex;
     height: 2rem;

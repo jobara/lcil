@@ -1,12 +1,12 @@
 .nav-site {
-    background-color: var(--body-background);   
+    background-color: var(--body-background);
 }
 
 .nav-site li {
     display: flex;
     justify-content: center;
     height: 1.8rem;
-    border-top: 0.1rem solid var(--banner-background);
+    border-top: 0.1rem solid var(--primary-background);
 }
 
 @media (min-width: 48rem) {

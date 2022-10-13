@@ -1,6 +1,8 @@
 @import "modern-css-reset";
 @import "vendor/_alpine.css";
 
+@import "abstracts/_props.css";
+
 @import "base/_base.css";
 @import "base/_typography.css";
 

@@ -22,6 +22,7 @@
     },
     "require-dev": {
         "amirami/localizator": "^0.9.1@alpha",
+        "brianium/paratest": "^6.6",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.1",
         "laravel/sail": "^1.0.1",
@@ -30,6 +31,7 @@
         "nunomaduro/larastan": "^2.0",
         "pestphp/pest": "^1.21",
         "pestphp/pest-plugin-laravel": "^1.2",
+        "pestphp/pest-plugin-parallel": "^1.2",
         "phpunit/phpunit": "^9.5.10"
     },
     "autoload": {
@@ -63,7 +65,7 @@
         ],
         "coverage": [
             "@putenv XDEBUG_MODE=coverage",
-            "@php artisan test --coverage"
+            "@php artisan test --coverage --parallel"
         ],
         "format": "vendor/bin/pint",
         "lint": [

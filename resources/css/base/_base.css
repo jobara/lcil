@@ -36,20 +36,13 @@ dt {
     max-width: 8rem;
 }
 
+.inline-label label {
+    display: inline;
+}
+
 .wrapper {
     padding-left: 1rem;
     padding-right: 1rem;
-}
-
-.sidebar {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.sidebar:first-child {
-    flex-shrink: 2;
-    min-width: 10rem;
 }
 
 [aria-expanded]+ul {

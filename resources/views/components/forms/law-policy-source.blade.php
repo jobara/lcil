@@ -65,7 +65,7 @@
             />
             <x-hearth-error for="type" />
         </li>
-        <li>
+        <li class="inline-label">
             <fieldset>
                 <legend id="is_core-label">{{ __('Effect on Legal Capacity') }}</legend>
                     <x-hearth-radio-buttons name="is_core"

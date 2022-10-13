@@ -41,7 +41,7 @@
                     />
                     <x-hearth-error for="legal_capacity_approach" />
                 </li>
-                <li>
+                <li class="inline-label">
                     <fieldset>
                         <legend id="decision_making_capability-label">{{ __('How does this provision recognize decision making capability? Check all that apply.') }}</legend>
                             <x-hearth-checkboxes
@@ -60,7 +60,7 @@
                 courtChallenge: '{{ old('court_challenge', $provision?->court_challenge?->value) }}',
                 get hasChallenge() { return this.courtChallenge && this.courtChallenge !== '{{ App\Enums\ProvisionCourtChallenges::NotRelated->value }}' },
             }">
-                <li>
+                <li class="inline-label">
                     <fieldset>
                         <legend id="court_challenge-label">{{ __('Court Challenge Details. Choose the option that best describes this provision.') }}</legend>
                             <x-hearth-radio-buttons
@@ -72,7 +72,7 @@
                             <x-hearth-error for="court_challenge" />
                     </fieldset>
                 </li>
-                <li>
+                <li class="inline-label">
                     <fieldset x-bind:disabled="!hasChallenge">
                         <legend id="decision_type-label">{{ __('Type of Decision') }}</legend>
                             <x-hearth-checkboxes

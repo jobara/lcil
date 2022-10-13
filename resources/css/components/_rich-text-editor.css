@@ -17,7 +17,7 @@
 }
 
 .richTextEditor__toolbar {
-    background-color: #E8E8E8;
+    background-color: var(--secondary-background);
     border-top-left-radius: 0.2rem;
     border-top-right-radius: 0.2rem;
     display: flex;
@@ -47,11 +47,11 @@
  }
 
 .richTextEditor__toolbar > [aria-pressed=true]:hover {
-    background-color: #E8E8E8;
+    background-color: var(--secondary-background);
  }
 
 .richTextEditor__editableContainer {
-    background-color: #E8E8E8;
+    background-color: var(--secondary-background);
     border-bottom-left-radius: 0.2rem;
     border-bottom-right-radius: 0.2rem;
     padding-inline: 0.5rem;

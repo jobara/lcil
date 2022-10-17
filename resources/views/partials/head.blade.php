@@ -4,7 +4,7 @@
 
 <title>@if (isset($title) && $title){{ $title }} &mdash; @endif{{ config('app.name') }}</title>
 
-<meta name="description" content="Hearth is a simple starter kit for the Laravel framework.">
+<meta name="description" content="{{ __('The :name (:abbr) is a tool for assessing the inclusivity of legal regimes regulating legal capacity by evaluating main sources of law to established measures.', ['name' => config('app.name'),'abbr' => config('app.abbr')]) }}">
 <meta name="theme-color" content="#fff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000" media="(prefers-color-scheme: dark)">
 

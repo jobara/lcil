@@ -1,6 +1,8 @@
 <x-app-layout>
     <x-slot name="header">
         <h1 itemprop="name">{{ config('app.name', 'Hearth') }}</h1>
+        <p>{{ __('The :name (:abbr) is a tool for assessing the inclusivity of legal regimes regulating legal capacity by evaluating main sources of law to established measures.', ['name' => config('app.name'),'abbr' => config('app.abbr')]) }}</p>
+        <p>{{ __('The :abbr will eventually provide tools as a way for monitoring legal capacity progress across jurisdictions.', ['abbr' => config('app.abbr')]) }}</p>
     </x-slot>
 
     <section>

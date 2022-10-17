@@ -16,6 +16,7 @@ return [
     */
 
     'name' => env('APP_NAME', 'Legal Capacity Inclusion Lens'),
+    'abbr' => env('APP_NAME_ABBR', 'LCIL'),
 
     /*
     |--------------------------------------------------------------------------

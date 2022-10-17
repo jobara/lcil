@@ -58,6 +58,8 @@ test('welcome route display - authenticated users', function () {
 test('welcome route render', function () {
     $toSee = [
         '<h1 itemprop="name">Legal Capacity Inclusion Lens</h1>',
+        'The Legal Capacity Inclusion Lens (LCIL) is a tool for assessing the inclusivity of legal regimes regulating legal capacity by evaluating main sources of law to established measures.',
+        'The LCIL will eventually provide tools as a way for monitoring legal capacity progress across jurisdictions.',
         '<section>',
         '<h2>Search Regime Assessments</h2>',
         '<div x-data="{country: \'\'}">',

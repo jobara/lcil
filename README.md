@@ -515,3 +515,4 @@ php artisan view:clear
 * [Sequel Ace](https://github.com/Sequel-Ace/Sequel-Ace): Mac database management application
 * [DBngin](https://dbngin.com): Database version management tool
 * [Laravel Valet](https://laravel.com/docs/9.x/valet): development environment for macOS
+* [Postman](https://www.postman.com/): test API end points

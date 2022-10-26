@@ -118,7 +118,7 @@ Route::post('regime-assessments/{regimeAssessment}/evaluations/{measure}', [Eval
     ->name('evaluations.update')
     ->middleware(['auth', 'verified']);
 
-// API Tokens
+// API
 Route::post('tokens/{id}', [TokenController::class, 'destroy'])
     ->name('tokens.destroy')
     ->middleware(['auth', 'verified']);
@@ -129,6 +129,10 @@ Route::multilingual('tokens', [TokenController::class, 'show'])
 
 Route::post('tokens', [TokenController::class, 'store'])
     ->name('tokens.store')
+    ->middleware(['auth', 'verified']);
+
+Route::multilingual('api', [TokenController::class, 'showDocs'])
+    ->name('api.show')
     ->middleware(['auth', 'verified']);
 
 // e-mail verification notice

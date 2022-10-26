@@ -24,6 +24,25 @@ class TokenController extends Controller
         ]);
     }
 
+    public function showDocs(): View
+    {
+        $routeNames = [
+            'api.evaluations.index',
+            'api.evaluations.show',
+            'api.lawPolicySources.index',
+            'api.lawPolicySources.show',
+            'api.regimeAssessments.index',
+            'api.regimeAssessments.show',
+            'api.regimeAssessments.evaluations',
+        ];
+
+        $routeURIs = array_map(fn ($routeName) => request()->getSchemeAndHttpHost().'/'.app('router')->getRoutes()->getByName($routeName)->uri(), $routeNames);
+
+        return view('api-docs', [
+            'endPoints' => array_combine($routeNames, $routeURIs),
+        ]);
+    }
+
     public function store(StoreTokenRequest $request): RedirectResponse
     {
         $token = $request->user()->createToken($request->safe()->all()['token']);

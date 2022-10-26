@@ -5,7 +5,7 @@
     </x-slot>
 
     <ul>
-        <li><a href="{{ localized_route('welcome') }}">{{ __('Home') }}</a></li>
+        <li><a href="{{ localized_route('api.show') }}">{{ __('API') }}</a></li>
         <li><a href="{{ localized_route('tokens.show') }}">{{ __('Manage API Tokens') }}</a></li>
     </ul>
 </x-app-layout>

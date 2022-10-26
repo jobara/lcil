@@ -24,10 +24,12 @@
         @endif
     @endauth
 
-    <p>
-        {!! Str::inlineMarkdown(__('API tokens can be used to access to fetch data and for use in other applications.
-        The token should be included in the `Aunthentication` header as a `Bearer` token.')) !!}
-    </p>
+    {!!
+        Str::markdown(__('API tokens can be used to access to fetch data using the [API](:apiURL).
+        The token should be included in the `Aunthentication` header as a `Bearer` token.', [
+            'apiURL' => localized_route('api.show')
+        ]))
+    !!}
 
     @auth
         <h2>{{ __('Generate Token') }}</h2>

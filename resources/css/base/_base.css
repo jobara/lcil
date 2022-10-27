@@ -33,7 +33,19 @@ dl {
 
 dt {
     font-weight: bold;
-    max-width: 8rem;
+    max-width: 9rem;
+}
+
+thead {
+    background-color: var(--primary-background);
+}
+
+tbody tr {
+    background-color: var(--secondary-background);
+}
+
+td, th {
+    padding-inline: 0.5rem;
 }
 
 .inline-label label {

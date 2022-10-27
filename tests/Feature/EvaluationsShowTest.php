@@ -77,7 +77,7 @@ test('show route render - no law and policy sources', function () {
     $regimeAssessment = $evaluation->regimeAssessment;
     $measure = $evaluation->measure;
 
-    $jurisdiction = htmlentities(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
+    $jurisdiction = htmlspecialchars(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
 
     $toSee = [
         "<title>Regime Assessment Evaluation - {$measure->code}: {$jurisdiction} &mdash; Legal Capacity Inclusion Lens</title>",
@@ -144,7 +144,7 @@ test('show route render - with law and policy source', function () {
         ->for($lawPolicySource->provisions->first())
         ->create();
 
-    $jurisdiction = htmlentities(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
+    $jurisdiction = htmlspecialchars(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
 
     $toSee = [
         '<form method="POST" action="'.route('evaluations.update', ['regimeAssessment' => $regimeAssessment, 'measure' => $measure]),
@@ -222,7 +222,7 @@ test('show route render - guest with law and policy source', function () {
             'comment' => 'test comment',
         ]);
 
-    $jurisdiction = htmlentities(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
+    $jurisdiction = htmlspecialchars(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
 
     $toSee = [
         '<section x-data="{open: false}">',
@@ -294,7 +294,7 @@ test('show route render - guest with law and policy source no evaluation', funct
         ]);
     $regimeAssessment->lawPolicySources()->attach($lawPolicySource);
 
-    $jurisdiction = htmlentities(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
+    $jurisdiction = htmlspecialchars(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
 
     $toSee = [
         '<section x-data="{open: false}">',
@@ -400,7 +400,7 @@ test('show route render - law and policy source minimum fields', function () {
         ]);
     $regimeAssessment->lawPolicySources()->attach($lawPolicySource);
 
-    $jurisdiction = htmlentities(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
+    $jurisdiction = htmlspecialchars(get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality));
 
     $toSee = [
         '<section x-data="{open: false}">',

@@ -24,7 +24,7 @@ test('edit route render', function () {
     $user = User::factory()->create();
     $lawPolicySource = LawPolicySource::factory()->create();
 
-    $escapedName = htmlentities($lawPolicySource->name);
+    $escapedName = htmlspecialchars($lawPolicySource->name);
 
     $toSee = [
         "<title>Edit Law or Policy Source: {$escapedName} &mdash; Legal Capacity Inclusion Lens</title>",

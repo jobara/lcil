@@ -56,7 +56,7 @@ test('show route render - all fields', function () {
             'section' => 12,
         ]);
 
-    $escapedName = htmlentities($lawPolicySource->name);
+    $escapedName = htmlspecialchars($lawPolicySource->name);
 
     $toSee = [
         "<title>{$escapedName} &mdash; Legal Capacity Inclusion Lens</title>",

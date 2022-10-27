@@ -155,7 +155,7 @@ test('welcome route render - authenticated with creation activities', function (
     ]);
     $responseCreateLP->assertSessionHasNoErrors();
     $lpSource = LawPolicySource::first();
-    $lpAudit = Audit::first();
+    $lpAudit = Audit::latest('id')->first();
     $lpAudit->created_at = Carbon::now()->addDays(-2);
     $lpAudit->save();
 
@@ -165,7 +165,7 @@ test('welcome route render - authenticated with creation activities', function (
     ]);
     $responseCreateProv->assertSessionHasNoErrors();
     $provision = Provision::first();
-    $provAudit = Audit::skip(1)->first();
+    $provAudit = Audit::latest('id')->first();
     $provAudit->created_at = Carbon::now()->addDays(-1);
     $provAudit->save();
 
@@ -175,7 +175,7 @@ test('welcome route render - authenticated with creation activities', function (
     $responseCreateRA->assertSessionHasNoErrors();
     $regimeAssessment = RegimeAssessment::first();
     $regimeAssessment->lawPolicySources()->attach($lpSource);
-    $raAudit = Audit::skip(2)->first();
+    $raAudit = Audit::latest('id')->first();
     $raAudit->created_at = Carbon::now()->addHours(-10);
     $raAudit->save();
 
@@ -184,7 +184,7 @@ test('welcome route render - authenticated with creation activities', function (
     ]);
     $responseCreateOtherRA->assertSessionHasNoErrors();
     $regimeAssessmentOther = RegimeAssessment::latest()->first();
-    $raOtherAudit = Audit::skip(3)->first();
+    $raOtherAudit = Audit::latest('id')->first();
     $raOtherAudit->created_at = Carbon::now()->addMinutes(-10);
     $raOtherAudit->save();
 
@@ -243,7 +243,12 @@ test('welcome route render - authenticated with updated activities', function ()
     $lpSource = LawPolicySource::factory()->create([
         'name' => 'Test LP',
         'jurisdiction' => 'CA',
+        'municipality' => null,
     ]);
+
+    $lpAuditCreate = Audit::first();
+    $lpAuditCreate->created_at = Carbon::now()->addDays(-4);
+    $lpAuditCreate->save();
 
     $responseUpdateLP = $this->actingAs($otherUser)->patch(route('lawPolicySources.update', ['lawPolicySource' => $lpSource]), [
         'name' => 'Test LP',
@@ -252,10 +257,7 @@ test('welcome route render - authenticated with updated activities', function ()
     ]);
     $responseUpdateLP->assertSessionHasNoErrors();
 
-    $lpAuditCreate = Audit::first();
-    $lpAuditCreate->created_at = Carbon::now()->addDays(-4);
-    $lpAuditCreate->save();
-    $lpAuditUpdate = Audit::skip(1)->first();
+    $lpAuditUpdate = Audit::latest('id')->first();
     $lpAuditUpdate->created_at = Carbon::now()->addDays(-2);
     $lpAuditUpdate->save();
 
@@ -266,34 +268,37 @@ test('welcome route render - authenticated with updated activities', function ()
             'body' => 'test provision',
         ]);
 
+    $provAuditCreate = Audit::latest('id')->first();
+    $provAuditCreate->created_at = Carbon::now()->addDays(-4);
+    $provAuditCreate->save();
+
     $responseUpdateProv = $this->actingAs($user)->patch(route('provisions.update', ['lawPolicySource' => $lpSource, 'slug' => $provision->slug]), [
         'section' => '2b',
         'body' => 'test provision update',
     ]);
     $responseUpdateProv->assertSessionHasNoErrors();
 
-    $provAuditCreate = Audit::skip(2)->first();
-    $provAuditCreate->created_at = Carbon::now()->addDays(-4);
-    $provAuditCreate->save();
-    $provAuditUpdate = Audit::skip(3)->first();
+    $provAuditUpdate = Audit::latest('id')->first();
     $provAuditUpdate->created_at = Carbon::now()->addHours(-1);
     $provAuditUpdate->save();
 
     $regimeAssessment = RegimeAssessment::factory()
         ->create([
             'jurisdiction' => 'CA',
+            'municipality' => null,
         ]);
     $regimeAssessment->lawPolicySources()->attach($lpSource);
+    $raAuditCreate = Audit::latest('id')->first();
+    $raAuditCreate->created_at = Carbon::now()->addDays(-2);
+    $raAuditCreate->save();
 
     $responseUpdateRA = $this->actingAs($user)->patch(route('regimeAssessments.update', ['regimeAssessment' => $regimeAssessment]), [
         'country' => 'CA',
         'subdivision' => 'ON',
     ]);
     $responseUpdateRA->assertSessionHasNoErrors();
-    $raAuditCreate = Audit::skip(4)->first();
-    $raAuditCreate->created_at = Carbon::now()->addDays(-2);
-    $raAuditCreate->save();
-    $raAuditUpdate = Audit::skip(5)->first();
+
+    $raAuditUpdate = Audit::latest('id')->first();
     $raAuditUpdate->created_at = Carbon::now()->addMinutes(-5);
     $raAuditUpdate->save();
 

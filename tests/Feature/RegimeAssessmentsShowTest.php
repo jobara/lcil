@@ -69,7 +69,7 @@ test('show route render - authenticated', function () {
     $regimeAssessment = RegimeAssessment::factory()->create([
         'jurisdiction' => 'CA-ON',
         'municipality' => 'Toronto',
-        'year_in_effect' => 2022,
+        'year_of_assessment' => 2022,
         'description' => 'test description',
         'status' => RegimeAssessmentStatuses::Published->value,
     ]);
@@ -130,7 +130,7 @@ test('show route render - authenticated', function () {
         '<dt>Description:</dt>',
         "<dd>{$regimeAssessment->description}</dd>",
         '<dt>Effective Data:</dt>',
-        "<dd>{$regimeAssessment->year_in_effect}</dd>",
+        "<dd>{$regimeAssessment->year_of_assessment}</dd>",
         '<dt>ID:</dt>',
         "<dd>{$regimeAssessment->ra_id}</dd>",
         '<a href="'.\localized_route('regimeAssessments.edit', $regimeAssessment),
@@ -164,7 +164,7 @@ test('show route render - unauthenticated', function () {
     $regimeAssessment = RegimeAssessment::factory()->create([
         'jurisdiction' => 'CA-ON',
         'municipality' => 'Toronto',
-        'year_in_effect' => 2022,
+        'year_of_assessment' => 2022,
         'description' => 'test description',
         'status' => RegimeAssessmentStatuses::Published->value,
     ]);
@@ -221,7 +221,7 @@ test('show route render - no measure title', function () {
     $regimeAssessment = RegimeAssessment::factory()->create([
         'jurisdiction' => 'CA-ON',
         'municipality' => 'Toronto',
-        'year_in_effect' => 2022,
+        'year_of_assessment' => 2022,
     ]);
 
     $provision = Provision::factory()
@@ -250,14 +250,14 @@ test('show route render - no measure title', function () {
     $view->assertSeeInOrder($toSee, false);
 })->group('RegimeAssessments');
 
-test('show route render - no year in effect', function () {
+test('show route render - no year of assessment', function () {
     // create models needed for the test
     $user = User::factory()->create();
     Measure::factory()->create();
     $regimeAssessment = RegimeAssessment::factory()->create([
         'jurisdiction' => 'CA-ON',
         'municipality' => 'Toronto',
-        'year_in_effect' => null,
+        'year_of_assessment' => null,
     ]);
 
     $provision = Provision::factory()
@@ -287,7 +287,7 @@ test('show route render - no law and policy sources', function () {
     $regimeAssessment = RegimeAssessment::factory()->create([
         'jurisdiction' => 'CA-ON',
         'municipality' => 'Toronto',
-        'year_in_effect' => null,
+        'year_of_assessment' => null,
     ]);
 
     $toSee = [
@@ -320,7 +320,7 @@ test('show route render errors', function () {
     $regimeAssessment = RegimeAssessment::factory()->create([
         'jurisdiction' => 'CA-ON',
         'municipality' => 'Toronto',
-        'year_in_effect' => 2022,
+        'year_of_assessment' => 2022,
         'description' => 'test description',
         'status' => RegimeAssessmentStatuses::Published->value,
     ]);

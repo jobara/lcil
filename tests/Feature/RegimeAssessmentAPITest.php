@@ -42,7 +42,7 @@ test('Resource', function () {
         ->jurisdiction_name->toBe('Toronto, Ontario, Canada')
         ->municipality->toBe($regimeAssessment->municipality)
         ->description->toBe($regimeAssessment->description)
-        ->year_in_effect->toBe($regimeAssessment->year_in_effect)
+        ->year_of_assessment->toBe($regimeAssessment->year_of_assessment)
         ->status->toBe($regimeAssessment->status->value)
         ->evaluations->toBeArray()
         ->ra_id->toBe($regimeAssessment->ra_id)
@@ -64,7 +64,7 @@ test('Resource - relationships loaded', function () {
         ->jurisdiction_name->toBe('Toronto, Ontario, Canada')
         ->municipality->toBe($regimeAssessment->municipality)
         ->description->toBe($regimeAssessment->description)
-        ->year_in_effect->toBe($regimeAssessment->year_in_effect)
+        ->year_of_assessment->toBe($regimeAssessment->year_of_assessment)
         ->status->toBe($regimeAssessment->status->value)
         ->evaluations->toBeArray()
         ->evaluations_count->toBeInt()
@@ -90,7 +90,7 @@ test('Route - show', function () {
                 'data.jurisdiction_name',
                 'data.municipality',
                 'data.description',
-                'data.year_in_effect',
+                'data.year_of_assessment',
                 'data.status',
                 'data.evaluations',
                 'data.evaluations_count',

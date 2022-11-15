@@ -35,17 +35,17 @@
             <x-hearth-error for="municipality" />
         </li>
         <li>
-            <x-forms.label for="year_in_effect" :value="__('Year in Effect')" />
+            <x-forms.label for="year_of_assessment" :value="__('Year of Assessment')" />
             <x-hearth-input
                 type="number"
-                name="year_in_effect"
+                name="year_of_assessment"
                 min="{{ config('settings.year.min') }}"
                 max="{{ config('settings.year.max') }}"
                 hinted
-                :value="old('year_in_effect', $regimeAssessment?->year_in_effect)"
+                :value="old('year_of_assessment', $regimeAssessment?->year_of_assessment)"
             />
-            <x-hearth-hint for="year_in_effect">{{ __('YYYY format. Example: 2022.') }}</x-hearth-hint>
-            <x-hearth-error for="year_in_effect" />
+            <x-hearth-hint for="year_of_assessment">{{ __('YYYY format. Example: 2022.') }}</x-hearth-hint>
+            <x-hearth-error for="year_of_assessment" />
         </li>
 
         <li>

@@ -9,9 +9,9 @@
     <p>{{ $regimeAssessment->description }}</p>
 @endisset
 <dl>
-    @isset($regimeAssessment->year_in_effect)
+    @isset($regimeAssessment->year_of_assessment)
         <dt>{{ __('Effective date:') }}</dt>
-        <dd>{{ $regimeAssessment->year_in_effect }}</dd>
+        <dd>{{ $regimeAssessment->year_of_assessment }}</dd>
     @endisset
     @if (isset($regimeAssessment->lawPolicySources) && $regimeAssessment->lawPolicySources->count() > 0)
         <dt>{{ __('Law and Policy Sources:') }}</dt>

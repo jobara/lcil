@@ -35,7 +35,7 @@ test('store route - all values', function () {
         'country' => 'CA',
         'subdivision' => 'ON',
         'municipality' => 'Toronto',
-        'year_in_effect' => 2022,
+        'year_of_assessment' => 2022,
         'description' => 'test ra description',
         'status' => RegimeAssessmentStatuses::Published->value,
     ];
@@ -48,7 +48,7 @@ test('store route - all values', function () {
 
     expect($regimeAssessment->jurisdiction)->toBe('CA-ON');
     expect($regimeAssessment->municipality)->toBe($data['municipality']);
-    expect($regimeAssessment->year_in_effect)->toBe($data['year_in_effect']);
+    expect($regimeAssessment->year_of_assessment)->toBe($data['year_of_assessment']);
     expect($regimeAssessment->description)->toBe($data['description']);
     expect($regimeAssessment->status)->toBe(RegimeAssessmentStatuses::Published);
     expect($regimeAssessment->ra_id)->toBe($id);

@@ -200,7 +200,7 @@
     "Retrieve a specific Regime Assessment": "Retrieve a specific Regime Assessment",
     "Review the provisions from the sources of law and policy and evaluate how well the provision satisfies the measure :code: :title.": "Review the provisions from the sources of law and policy and evaluate how well the provision satisfies the measure :code: :title.",
     "Revoke": "Revoke",
-    "Revoke :tokenName": "Revoke :tokenName",
+    "Revoke :tokenName token": "Revoke :tokenName token",
     "Save": "Save",
     "Search": "Search",
     "Search for regime assessments": "Search for regime assessments",

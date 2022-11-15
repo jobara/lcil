@@ -63,14 +63,16 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
+        "test": [
+            "@php artisan test --parallel"
+        ],
         "coverage": [
             "@putenv XDEBUG_MODE=coverage",
-            "@php artisan test --coverage --parallel"
+            "@test --coverage"
         ],
         "format": "vendor/bin/pint",
-        "lint": [
-            "./vendor/bin/phpstan analyse"
-        ],
+        "analyze": "@lint",
+        "lint": "./vendor/bin/phpstan analyse",
         "localize": [
             "rm -f -- lang/en.json",
             "@php artisan localize en"

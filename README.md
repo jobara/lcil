@@ -248,6 +248,16 @@ sail artisan test
 php artisan test
 ```
 
+For convenience, the `test` composer script is provided to run all tests in parallel.
+
+```bash
+# if using sail
+sail composer test
+
+# when running locally
+php composer test
+```
+
 Use the `--testsuite` flag to only run a particular test suite:
 
 ```bash
@@ -336,6 +346,8 @@ sail composer format
 php composer lint
 php composer format
 ```
+
+_**NOTE:** The `analyze` composer script can be used as an alias for `lint`. For example `php composer analyze`._
 
 You can pass in flags to the format script after `--`.
 

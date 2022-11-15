@@ -46,7 +46,7 @@ jobs:
         php artisan storage:link
         vendor/bin/pest --ci --parallel --coverage --coverage-clover coverage.xml
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v3
       with:
         fail_ci_if_error: true
       if: github.repository == 'fluid-project/lcil'

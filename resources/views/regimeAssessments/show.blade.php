@@ -2,11 +2,11 @@
     @php
         $jurisdiction = get_jurisdiction_name($regimeAssessment->jurisdiction, $regimeAssessment->municipality);
     @endphp
-    <x-slot name="title">{{ __('Regime Assessment Summary: :jurisdiction', ['jurisdiction' => $jurisdiction]) }}</x-slot>
+    <x-slot name="title">{{ __('Regime Assessment Summary for :jurisdiction', ['jurisdiction' => $jurisdiction]) }}</x-slot>
     <x-slot name="header">
         {{ Breadcrumbs::render('regimeAssessments.show', $regimeAssessment) }}
         <h1 itemprop="name">
-            <span>{{ __('Regime Assessment Summary') }}</span>
+            <span>{{ __('Regime Assessment Summary for') }}</span>
             <span>{{ $jurisdiction }}</span>
             @auth
                 <span>({{ \App\Enums\RegimeAssessmentStatuses::labels()[$regimeAssessment->status->value] }})</span>
@@ -43,7 +43,7 @@
     @auth
         <span>{{ __('Possible actions:') }}</span>
         <ul>
-            <li>{{ __('Choose a measure to evaluate.') }}</li>
+            <li>{{ __('Choose one or more measures to evaluate, working through each one.') }}</li>
             <li>{{ __('Change assessment status to “Draft”, “Needs Review”, “Published”.') }}</li>
         </ul>
     @endauth

@@ -90,7 +90,7 @@ test('show route render - no law and policy sources', function () {
         '<dl>',
         "<dt>{$measure->code}: {$measure->title}</dt>",
         "<dd>{$measure->description}</dd>",
-        '<h2>Make an evaluation</h2>',
+        '<h2>Evaluate this Measure</h2>',
         "Review the provisions from the sources of law and policy and evaluate how well the provision satisfies the measure {$measure->code}: {$measure->title}",
     ];
 

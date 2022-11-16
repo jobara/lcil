@@ -12,7 +12,7 @@
         </dl>
     </x-slot>
 
-    <h2>{{ __('Make an evaluation') }}</h2>
+    <h2>{{ __('Evaluate this Measure') }}</h2>
     <p>
         {{
             __('Review the provisions from the sources of law and policy and evaluate how well the provision satisfies the measure :code: :title.', [

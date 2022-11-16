@@ -92,12 +92,12 @@ test('show route render - authenticated', function () {
             ]);
 
     $toSee = [
-        '<title>Regime Assessment Summary: Toronto, Ontario, Canada &mdash; Legal Capacity Inclusion Lens</title>',
+        '<title>Regime Assessment Summary for Toronto, Ontario, Canada &mdash; Legal Capacity Inclusion Lens</title>',
         '<nav class="breadcrumbs" aria-label="Breadcrumbs">',
         '<a href="'.localized_route('regimeAssessments.index').'">Regime Assessments</a>',
         '<li  aria-current="page" >Toronto, Ontario, Canada</li>',
         '<h1',
-        '<span>Regime Assessment Summary</span>',
+        '<span>Regime Assessment Summary for</span>',
         '<span>Toronto, Ontario, Canada</span>',
         '<span>('.RegimeAssessmentStatuses::labels()[$regimeAssessment->status->value].')</span>',
         '</h1>',
@@ -109,7 +109,7 @@ test('show route render - authenticated', function () {
         '<a href="'.localized_route('about').'">More about Legal Capacity Measurements</a>',
         '<span>Possible actions:',
         '<ul>',
-        '<li>Choose a measure to evaluate.',
+        '<li>Choose one or more measures to evaluate, working through each one.',
         '<li>Change assessment status to “Draft”, “Needs Review”, “Published”',
         '<aside>',
         '<h2 id="ra-status-heading">Regime Assessment Status</h2>',

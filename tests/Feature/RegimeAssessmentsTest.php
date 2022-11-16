@@ -17,7 +17,7 @@ test('model relationships', function () {
     $regimeAssessment = RegimeAssessment::factory()->create([
         'jurisdiction' => 'CA-ON',
         'municipality' => 'Toronto',
-        'year_in_effect' => 2022,
+        'year_of_assessment' => 2022,
     ]);
 
     $lawPolicySource = LawPolicySource::factory()->create([

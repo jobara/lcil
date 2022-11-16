@@ -62,12 +62,12 @@
                     @foreach ($tokens as $token)
                         <tr>
                             <td>{{ $token->name }}</td>
-                            <td x-data="{}" class="icon-table-cell">
-                                <a href="{{ route('tokens.destroy', $token->id) }}" aria-label="{{ __('Revoke :tokenName', ['tokenName' => $token->name]) }}" x-on:click.prevent="$refs.form.submit()">
-                                    @svg('gmdi-delete-forever-o', ['aria-hidden' => 'true'])
-                                </a>
-                                <form method="POST" action="{{ route('tokens.destroy', $token->id) }}" x-ref="form">
+                            <td class="icon-table-cell">
+                                <form method="POST" action="{{ route('tokens.destroy', $token->id) }}">
                                     @csrf
+                                    <button type="submit" aria-label="{{ __('Revoke :tokenName token', ['tokenName' => $token->name]) }}">
+                                        @svg('gmdi-delete-forever-o', ['aria-hidden' => 'true'])
+                                    </button>
                                 </form>
                             </td>
                         </tr>

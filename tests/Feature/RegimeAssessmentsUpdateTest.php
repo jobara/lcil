@@ -12,7 +12,7 @@ beforeEach(function () {
     RegimeAssessment::factory()->create([
         'jurisdiction' => 'CA-ON',
         'municipality' => 'Toronto',
-        'year_in_effect' => 2022,
+        'year_of_assessment' => 2022,
         'description' => 'test ra description',
         'status' => RegimeAssessmentStatuses::Draft->value,
     ]);
@@ -36,7 +36,7 @@ test('update route', function () {
 
     expect($update->jurisdiction)->toBe($regimeAssessment->jurisdiction);
     expect($update->municipality)->toBe($regimeAssessment->municipality);
-    expect($update->year_in_effect)->toBe($regimeAssessment->year_in_effect);
+    expect($update->year_of_assessment)->toBe($regimeAssessment->year_of_assessment);
     expect($update->description)->toBe($regimeAssessment->description);
     expect($update->status)->toBe(RegimeAssessmentStatuses::Published);
     expect($update->ra_id)->toBe($regimeAssessment->ra_id);
@@ -51,7 +51,7 @@ test('update route - all values', function () {
         'country' => 'US',
         'subdivision' => 'NY',
         'municipality' => null,
-        'year_in_effect' => 2020,
+        'year_of_assessment' => 2020,
         'description' => 'updated ra description',
         'status' => RegimeAssessmentStatuses::Published->value,
     ];
@@ -64,7 +64,7 @@ test('update route - all values', function () {
 
     expect($update->jurisdiction)->toBe('US-NY');
     expect($update->municipality)->toBeNull();
-    expect($update->year_in_effect)->toBe($data['year_in_effect']);
+    expect($update->year_of_assessment)->toBe($data['year_of_assessment']);
     expect($update->description)->toBe($data['description']);
     expect($update->status)->toBe(RegimeAssessmentStatuses::Published);
     expect($update->ra_id)->toBe($regimeAssessment->ra_id);

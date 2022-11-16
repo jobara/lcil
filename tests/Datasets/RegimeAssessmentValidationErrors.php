@@ -33,45 +33,45 @@ dataset('regimeAssessmentValidationErrors', function () {
             ],
             ['subdivision' => 'The Province / Territory (subdivision) cannot be empty if the Municipality (municipality) is specified.'],
         ],
-        'year_in_effect not an integer' => [
+        'year_of_assessment not an integer' => [
             // Uses Bound Datasets to resolve the dataset after the setup/before functions so that the `config` global
             // function is available. See: https://pestphp.com/docs/datasets#bound-datasets
             fn () => [
                 'country' => 'CA',
-                'year_in_effect' => 20.22,
+                'year_of_assessment' => 20.22,
                 'status' => RegimeAssessmentStatuses::Draft->value,
             ],
-            fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
+            fn () => ['year_of_assessment' => 'The Year of Assessment (year_of_assessment) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
         ],
-        'year_in_effect below min' => [
+        'year_of_assessment below min' => [
             // Uses Bound Datasets to resolve the dataset after the setup/before functions so that the `config` global
             // function is available. See: https://pestphp.com/docs/datasets#bound-datasets
             fn () => [
                 'country' => 'CA',
-                'year_in_effect' => config('settings.year.min') - 1,
+                'year_of_assessment' => config('settings.year.min') - 1,
                 'status' => RegimeAssessmentStatuses::Draft->value,
             ],
-            fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
+            fn () => ['year_of_assessment' => 'The Year of Assessment (year_of_assessment) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
         ],
-        'year_in_effect above max' => [
+        'year_of_assessment above max' => [
             // Uses Bound Datasets to resolve the dataset after the setup/before functions so that the `config` global
             // function is available. See: https://pestphp.com/docs/datasets#bound-datasets
             fn () => [
                 'country' => 'CA',
-                'year_in_effect' => config('settings.year.max') + 1,
+                'year_of_assessment' => config('settings.year.max') + 1,
                 'status' => RegimeAssessmentStatuses::Draft->value,
             ],
-            fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
+            fn () => ['year_of_assessment' => 'The Year of Assessment (year_of_assessment) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
         ],
-        'year_in_effect not a number' => [
+        'year_of_assessment not a number' => [
             // Uses Bound Datasets to resolve the dataset after the setup/before functions so that the `config` global
             // function is available. See: https://pestphp.com/docs/datasets#bound-datasets
             fn () => [
                 'country' => 'CA',
-                'year_in_effect' => false,
+                'year_of_assessment' => false,
                 'status' => RegimeAssessmentStatuses::Draft->value,
             ],
-            fn () => ['year_in_effect' => 'The Year in Effect (year_in_effect) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
+            fn () => ['year_of_assessment' => 'The Year of Assessment (year_of_assessment) must be within '.config('settings.year.min').' and '.config('settings.year.max').'.'],
         ],
         'status not in RegimeAssessmentStatuses enum' => [
             [

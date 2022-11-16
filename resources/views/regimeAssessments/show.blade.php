@@ -84,9 +84,9 @@
                 <dd>{{ $regimeAssessment->description }}</dd>
             @endisset
 
-            @isset($regimeAssessment->year_in_effect)
+            @isset($regimeAssessment->year_of_assessment)
                 <dt>{{ __('Effective Data:') }}</dt>
-                <dd>{{ $regimeAssessment->year_in_effect }}</dd>
+                <dd>{{ $regimeAssessment->year_of_assessment }}</dd>
             @endisset
 
             <dt>{{ __('ID:') }}</dt>

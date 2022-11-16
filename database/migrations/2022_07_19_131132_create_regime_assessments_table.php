@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('jurisdiction'); // ISO 3166-1 alpha-2 code or ISO 3166-2 code
             $table->string('municipality')->nullable();
             $table->text('description')->fulltext()->nullable();
-            $table->unsignedSmallInteger('year_in_effect')->nullable(); // the year type only satisfies years from 1901 - 2155
+            $table->unsignedSmallInteger('year_of_assessment')->nullable(); // the year type only satisfies years from 1901 - 2155
             $table->string('status'); // RegimeAssessmentStatuses
             $table->string('ra_id')->unique();
             $table->timestamps();

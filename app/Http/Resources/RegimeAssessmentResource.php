@@ -28,7 +28,7 @@ class RegimeAssessmentResource extends JsonResource
             'jurisdiction_name' => get_jurisdiction_name($this->jurisdiction, $this->municipality),
             'municipality' => $this->municipality,
             'description' => $this->description,
-            'year_in_effect' => $this->year_in_effect,
+            'year_of_assessment' => $this->year_of_assessment,
             'status' => $this->status,
             'lawPolicySources' => LawPolicySourceResource::collection($this->whenLoaded('lawPolicySources')),
             'lawPolicySources_count' => $this->whenCounted('lawPolicySources'),

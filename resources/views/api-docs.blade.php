@@ -362,7 +362,7 @@
         "jurisdiction_name": "Toronto, Ontario, Canada",
         "municipality": "Toronto",
         "description": "Test Regime Assessment",
-        "year_in_effect": 2022,
+        "year_of_assessment": 2022,
         "status": "draft",
         "lawPolicySources": [
             ...
@@ -437,7 +437,7 @@
             "jurisdiction_name": "Nova Scotia, Canada",
             "municipality": null,
             "description": null,
-            "year_in_effect": null,
+            "year_of_assessment": null,
             "status": "needs_review",
             "lawPolicySources": [
 
@@ -457,7 +457,7 @@
             "jurisdiction_name": "Nunavut, Canada",
             "municipality": null,
             "description": null,
-            "year_in_effect": 1800,
+            "year_of_assessment": 1800,
             "status": "needs_review",
             "lawPolicySources": [
                 ...

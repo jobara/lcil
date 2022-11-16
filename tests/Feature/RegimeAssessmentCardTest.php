@@ -15,7 +15,7 @@ test('render - all values - guest', function () {
         ->create([
             'jurisdiction' => 'CA-ON',
             'municipality' => 'Toronto',
-            'year_in_effect' => 2022,
+            'year_of_assessment' => 2022,
             'description' => $this->faker->paragraph(),
         ]);
 
@@ -59,7 +59,7 @@ test('render - all values - authenticated', function () {
         ->create([
             'jurisdiction' => 'CA-ON',
             'municipality' => 'Toronto',
-            'year_in_effect' => 2022,
+            'year_of_assessment' => 2022,
             'description' => $this->faker->paragraph(),
         ]);
 
@@ -156,7 +156,7 @@ test('render - without description', function () {
 test('render - without year', function () {
     $regimeAssessment = RegimeAssessment::factory()
         ->create([
-            'year_in_effect' => null,
+            'year_of_assessment' => null,
         ]);
 
     $view = $this->blade(

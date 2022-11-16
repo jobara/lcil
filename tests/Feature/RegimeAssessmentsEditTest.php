@@ -15,7 +15,7 @@ test('edit route display', function () {
         'jurisdiction' => 'CA-ON',
         'municipality' => 'Toronto',
         'description' => 'Test Description',
-        'year_in_effect' => 2022,
+        'year_of_assessment' => 2022,
         'status' => RegimeAssessmentStatuses::Draft->value,
     ]);
 
@@ -35,7 +35,7 @@ test('edit route render', function () {
         'jurisdiction' => 'CA-ON',
         'municipality' => 'Toronto',
         'description' => 'Test Description',
-        'year_in_effect' => 2022,
+        'year_of_assessment' => 2022,
         'status' => RegimeAssessmentStatuses::Draft->value,
     ]);
 

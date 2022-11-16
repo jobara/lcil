@@ -30,7 +30,7 @@ class StoreRegimeAssessmentRequest extends RedirectFormRequest
             'country' => __('Country (country)'),
             'subdivision' => __('Province / Territory (subdivision)'),
             'municipality' => __('Municipality (municipality)'),
-            'year_in_effect' => __('Year in Effect (year_in_effect)'),
+            'year_of_assessment' => __('Year of Assessment (year_of_assessment)'),
             'description' => __('Description (description)'),
             'status' => __('Regime Assessment Status (status)'),
         ];
@@ -43,10 +43,10 @@ class StoreRegimeAssessmentRequest extends RedirectFormRequest
             'country.required' => 'A :attribute, specified using an ISO 3166-1 alpha-2 country code, is required.',
             'subdivision.min' => 'The :attribute must be specified using the subdivision portion of an ISO 3166-2 code.',
             'subdivision.required_with' => 'The :attribute cannot be empty if the :values is specified.',
-            'year_in_effect.integer' => 'The :attribute must be within '.config('settings.year.min').' and '.config('settings.year.max').'.',
-            'year_in_effect.max' => 'The :attribute must be within '.config('settings.year.min').' and '.config('settings.year.max').'.',
-            'year_in_effect.min' => 'The :attribute must be within '.config('settings.year.min').' and '.config('settings.year.max').'.',
-            'year_in_effect.numeric' => 'The :attribute must be within '.config('settings.year.min').' and '.config('settings.year.max').'.',
+            'year_of_assessment.integer' => 'The :attribute must be within '.config('settings.year.min').' and '.config('settings.year.max').'.',
+            'year_of_assessment.max' => 'The :attribute must be within '.config('settings.year.min').' and '.config('settings.year.max').'.',
+            'year_of_assessment.min' => 'The :attribute must be within '.config('settings.year.min').' and '.config('settings.year.max').'.',
+            'year_of_assessment.numeric' => 'The :attribute must be within '.config('settings.year.min').' and '.config('settings.year.max').'.',
             'status.Illuminate\Validation\Rules\Enum' => 'The :attribute must be one of the following: '.implode(', ', RegimeAssessmentStatuses::values()).'.',
         ];
     }
@@ -62,7 +62,7 @@ class StoreRegimeAssessmentRequest extends RedirectFormRequest
             'country' => ['required', 'min:2', 'string'],
             'subdivision' => ['required_with:municipality', 'nullable', 'min:2', 'string'],
             'municipality' => ['nullable', 'string'],
-            'year_in_effect' => [
+            'year_of_assessment' => [
                 'nullable',
                 'numeric',
                 'integer',

@@ -40,7 +40,7 @@ class RegimeAssessmentFactory extends Factory
             'description' => $this->faker->boolean(50) ?
                 $this->faker->paragraph() :
                 null,
-            'year_in_effect' => $this->faker->boolean(50) ?
+            'year_of_assessment' => $this->faker->boolean(50) ?
                 $this->faker->numberBetween(config('settings.year.min'), config('settings.year.max')) :
                 null,
             'status' => $this->faker->randomElement(RegimeAssessmentStatuses::values()),

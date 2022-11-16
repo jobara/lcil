@@ -28,7 +28,7 @@ class RegimeAssessment extends Model implements Auditable
         'jurisdiction',
         'municipality',
         'description',
-        'year_in_effect',
+        'year_of_assessment',
         'status',
     ];
 

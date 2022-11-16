@@ -13,11 +13,13 @@ class RegistrationTest extends TestCase
     {
         $response = $this->get(localized_route('register'));
 
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     public function test_new_users_can_register()
     {
+        config(['settings.registration.restricted' => false]);
+
         $response = $this->post(localized_route('register'), [
             'name' => 'Test User',
             'email' => 'test@example.com',

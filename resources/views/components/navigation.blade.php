@@ -1,25 +1,21 @@
 <!-- Primary Navigation Menu -->
-<nav x-data="{ open: false }" aria-label="{{ 'primary menu' }}" @keyup.escape.window="open = false" @click.outside="open = false" @close.stop="open = false">
+<nav class="nav-user" x-data="{ open: false }" aria-label="{{ 'primary menu' }}" @keyup.escape.window="open = false" @click.outside="open = false" @close.stop="open = false">
     <button @click="open = ! open" x-bind:aria-expanded="open.toString()">
         {{ __('Menu') }}
     </button>
 
     <!-- Navigation Links -->
-    <ul role="list" class="nav">
-        @auth
-        <x-nav-link :href="localized_route('dashboard')" :active="request()->routeIs(locale() . '.dashboard')">
-            {{ __('hearth::dashboard.title') }}
-        </x-nav-link>
-        @else
-        @if (Route::has(locale() . '.register'))
-        <x-nav-link :href="localized_route('register')">
-            {{ __('hearth::auth.create_account') }}
-        </x-nav-link>
-        @endif
-        <x-nav-link :href="localized_route('login')">
-            {{ __('hearth::auth.sign_in') }}
-        </x-nav-link>
-        @endauth
+    <ul role="list">
+        @guest
+            @if (Route::has(locale() . '.register'))
+                <x-nav-link :href="localized_route('register')">
+                    {{ __('hearth::auth.create_account') }}
+                </x-nav-link>
+            @endif
+            <x-nav-link :href="localized_route('login')">
+                {{ __('hearth::auth.sign_in') }}
+            </x-nav-link>
+        @endguest
 
         @auth
         <!-- User Dropdown -->
@@ -29,6 +25,10 @@
             </x-slot>
 
             <x-slot name="content">
+                <x-nav-link :href="localized_route('dashboard')" :active="request()->routeIs(locale() . '.dashboard')">
+                    {{ __('hearth::dashboard.title') }}
+                </x-nav-link>
+
                 <x-nav-link href="{{ localized_route('users.edit') }}" :active="request()->routeIs(locale() . '.users.edit')">
                     {{ __('hearth::user.settings') }}
                 </x-nav-link>

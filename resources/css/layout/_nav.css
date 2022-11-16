@@ -1,0 +1,28 @@
+
+/* Navigation */
+
+nav {
+    margin-inline-start: 0;
+}
+
+nav ul {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    padding-inline-start: 0;
+}
+
+@media (min-width: 48rem) {
+    nav ul {
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+
+    nav > [aria-expanded] {
+        display: none;
+    }
+
+    nav > [aria-expanded] + ul {
+        display: flex;
+    }
+}

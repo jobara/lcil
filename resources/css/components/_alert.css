@@ -1,0 +1,12 @@
+.alert {
+    border: var(--ll-border-thin);
+    border-radius: var(--ll-border-radius);
+    padding: var(--step-0) var(--step-1);
+}
+
+.alert .title {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    font-weight: 700;
+}

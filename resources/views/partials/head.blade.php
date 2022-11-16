@@ -2,8 +2,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>{{ config('app.name', 'Hearth') }}</title>
-<meta name="description" content="Hearth is a simple starter kit for the Laravel framework.">
+<title>@if (isset($title) && $title){{ $title }} &mdash; @endif{{ config('app.name') }}</title>
+
+<meta name="description" content="{{ __('The :name (:abbr) is a tool for assessing the inclusivity of legal regimes regulating legal capacity by evaluating main sources of law to established measures.', ['name' => config('app.name'),'abbr' => config('app.abbr')]) }}">
 <meta name="theme-color" content="#fff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000" media="(prefers-color-scheme: dark)">
 
@@ -16,11 +17,9 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
 <!-- Styles -->
-<link href="{{ mix('css/app.css') }}" rel="stylesheet" />
+@vite('resources/css/app.css')
 @googlefonts
 
 <!-- Scripts -->
 <script>document.documentElement.className = document.documentElement.className.replace("no-js", "js");</script>
-<script src="{{ mix('js/manifest.js') }}" defer></script>
-<script src="{{ mix('js/vendor.js') }}" defer></script>
-<script src="{{ mix('js/app.js') }}" defer></script>
+

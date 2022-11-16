@@ -1,0 +1,5 @@
+[role="status"] p {
+    display: flex;
+    justify-content: center;
+    font-style: italic;
+}

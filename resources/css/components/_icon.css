@@ -1,0 +1,33 @@
+.icon-round {
+    align-items: center;
+    background-color: var(--primary-background);
+    border-radius: 1rem;
+    display: flex;
+    height: 2rem;
+    justify-content: center;
+    width: 2rem;
+}
+
+.icon-round svg {
+    height: 1.1rem;
+    width: 1.1rem;
+}
+
+.icon-inline {
+    height: 1.2rem;
+    margin-block-start: -0.2rem;
+    position: relative;
+    top: 0.26em;
+    width: 1.2rem;
+}
+
+.icon-table-cell {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.icon-table-cell svg {
+    height: 2rem;
+    width: 2rem;
+}

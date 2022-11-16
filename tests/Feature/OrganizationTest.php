@@ -2,13 +2,14 @@
 
 namespace Tests\Feature;
 
-use App\Models\Invitation;
-use App\Models\Membership;
 use App\Models\Organization;
 use App\Models\User;
+use Hearth\Models\Invitation;
+use Hearth\Models\Membership;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
-use Illuminate\Support\Str;
+use Spatie\Translatable\Exceptions\AttributeIsNotTranslatable;
 use Tests\TestCase;
 
 class OrganizationTest extends TestCase
@@ -24,15 +25,17 @@ class OrganizationTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->actingAs($user)->get(localized_route('organizations.create'));
-        $response->assertStatus(200);
+        $response->assertOk();
 
         $response = $this->actingAs($user)->post(localized_route('organizations.create'), [
-            'name' => $user->name . ' Consulting',
+            'name' => $user->name.' Consulting',
             'locality' => 'Truro',
             'region' => 'NS',
         ]);
 
-        $url = localized_route('organizations.show', ['organization' => Str::slug($user->name . ' Consulting')]);
+        $organization = Organization::where('name->en', $user->name.' Consulting')->first();
+
+        $url = localized_route('organizations.show', $organization);
 
         $response->assertSessionHasNoErrors();
 
@@ -51,7 +54,7 @@ class OrganizationTest extends TestCase
             ->create();
 
         $response = $this->actingAs($user)->get(localized_route('organizations.edit', $organization));
-        $response->assertStatus(200);
+        $response->assertOk();
 
         $response = $this->actingAs($user)->put(localized_route('organizations.update', $organization), [
             'name' => $organization->name,
@@ -73,14 +76,14 @@ class OrganizationTest extends TestCase
             ->create();
 
         $response = $this->actingAs($user)->get(localized_route('organizations.edit', $organization));
-        $response->assertStatus(403);
+        $response->assertForbidden();
 
         $response = $this->actingAs($user)->put(localized_route('organizations.update', $organization), [
             'name' => $organization->name,
             'locality' => 'St John\'s',
             'region' => 'NL',
         ]);
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     public function test_non_members_can_not_edit_organizations()
@@ -101,14 +104,48 @@ class OrganizationTest extends TestCase
             ->create();
 
         $response = $this->actingAs($user)->get(localized_route('organizations.edit', $other_organization));
-        $response->assertStatus(403);
+        $response->assertForbidden();
 
         $response = $this->actingAs($user)->put(localized_route('organizations.update', $other_organization), [
             'name' => $other_organization->name,
             'locality' => 'St John\'s',
             'region' => 'NL',
         ]);
-        $response->assertStatus(403);
+        $response->assertForbidden();
+    }
+
+    public function test_organizations_can_be_translated()
+    {
+        if (! config('hearth.organizations.enabled')) {
+            return $this->markTestSkipped('Organization support is not enabled.');
+        }
+
+        $organization = Organization::factory()->create();
+
+        $organization->setTranslation('name', 'en', 'Name in English');
+        $organization->setTranslation('name', 'fr', 'Name in French');
+
+        $this->assertEquals('Name in English', $organization->name);
+        App::setLocale('fr');
+        $this->assertEquals('Name in French', $organization->name);
+
+        $this->assertEquals('Name in English', $organization->getTranslation('name', 'en'));
+        $this->assertEquals('Name in French', $organization->getTranslation('name', 'fr'));
+
+        $translations = ['en' => 'Name in English', 'fr' => 'Name in French'];
+
+        $this->assertEquals($translations, $organization->getTranslations('name'));
+
+        $this->expectException(AttributeIsNotTranslatable::class);
+        $organization->setTranslation('locality', 'en', 'Locality in English');
+
+        $user = User::factory()->create();
+
+        $response = $this->actingAs($user)->get('/en/organizations/name-in-english');
+        $response->assertOk();
+
+        $response = $this->actingAs($user)->get('/fr/organizations/name-in-french');
+        $response->assertOk();
     }
 
     public function test_users_with_admin_role_can_update_other_member_roles()
@@ -126,8 +163,8 @@ class OrganizationTest extends TestCase
             ->create();
 
         $membership = Membership::where('user_id', $other_user->id)
-            ->where('membership_type', 'App\Models\Organization')
-            ->where('membership_id', $organization->id)
+            ->where('membershipable_type', 'App\Models\Organization')
+            ->where('membershipable_id', $organization->id)
             ->first();
 
         $response = $this
@@ -152,8 +189,8 @@ class OrganizationTest extends TestCase
             ->create();
 
         $membership = Membership::where('user_id', $user->id)
-            ->where('membership_type', 'App\Models\Organization')
-            ->where('membership_id', $organization->id)
+            ->where('membershipable_type', 'App\Models\Organization')
+            ->where('membershipable_id', $organization->id)
             ->first();
 
         $response = $this
@@ -163,7 +200,7 @@ class OrganizationTest extends TestCase
                 'role' => 'admin',
             ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     public function test_only_administrator_can_not_downgrade_their_role()
@@ -174,15 +211,17 @@ class OrganizationTest extends TestCase
 
         $user = User::factory()->create();
         $other_user = User::factory()->create();
+        $yet_another_user = User::factory()->create();
 
         $organization = Organization::factory()
             ->hasAttached($user, ['role' => 'admin'])
-            ->hasAttached($other_user, ['role' => 'member'])
+            ->hasAttached($other_user, ['role' => 'admin'])
+            ->hasAttached($yet_another_user, ['role' => 'member'])
             ->create();
 
         $membership = Membership::where('user_id', $user->id)
-            ->where('membership_type', 'App\Models\Organization')
-            ->where('membership_id', $organization->id)
+            ->where('membershipable_type', 'App\Models\Organization')
+            ->where('membershipable_id', $organization->id)
             ->first();
 
         $response = $this
@@ -192,7 +231,22 @@ class OrganizationTest extends TestCase
                 'role' => 'member',
             ]);
 
-        $response->assertSessionHasErrors(['membership']);
+        $response->assertSessionHasNoErrors();
+        $response->assertRedirect(localized_route('organizations.show', $organization));
+
+        $membership = Membership::where('user_id', $other_user->id)
+            ->where('membershipable_type', 'App\Models\Organization')
+            ->where('membershipable_id', $organization->id)
+            ->first();
+
+        $response = $this
+            ->actingAs($other_user)
+            ->from(localized_route('memberships.edit', $membership))
+            ->put(localized_route('memberships.update', $membership), [
+                'role' => 'member',
+            ]);
+
+        $response->assertSessionHasErrors(['role']);
         $response->assertRedirect(localized_route('memberships.edit', $membership));
     }
 
@@ -212,8 +266,8 @@ class OrganizationTest extends TestCase
             ->actingAs($user)
             ->from(localized_route('organizations.edit', ['organization' => $organization]))
             ->post(localized_route('invitations.create'), [
-                'inviteable_id' => $organization->id,
-                'inviteable_type' => get_class($organization),
+                'invitationable_id' => $organization->id,
+                'invitationable_type' => get_class($organization),
                 'email' => 'newuser@here.com',
                 'role' => 'member',
             ]);
@@ -237,13 +291,13 @@ class OrganizationTest extends TestCase
             ->actingAs($user)
             ->from(localized_route('organizations.edit', ['organization' => $organization]))
             ->post(localized_route('invitations.create'), [
-                'inviteable_id' => $organization->id,
-                'inviteable_type' => get_class($organization),
+                'invitationable_id' => $organization->id,
+                'invitationable_type' => get_class($organization),
                 'email' => 'newuser@here.com',
                 'role' => 'member',
             ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     public function test_users_with_admin_role_can_cancel_invitations()
@@ -257,8 +311,8 @@ class OrganizationTest extends TestCase
             ->hasAttached($user, ['role' => 'admin'])
             ->create();
         $invitation = Invitation::factory()->create([
-            'inviteable_id' => $organization->id,
-            'inviteable_type' => get_class($organization),
+            'invitationable_id' => $organization->id,
+            'invitationable_type' => get_class($organization),
             'email' => 'me@here.com',
         ]);
 
@@ -282,8 +336,8 @@ class OrganizationTest extends TestCase
             ->hasAttached($user, ['role' => 'member'])
             ->create();
         $invitation = Invitation::factory()->create([
-            'inviteable_id' => $organization->id,
-            'inviteable_type' => get_class($organization),
+            'invitationable_id' => $organization->id,
+            'invitationable_type' => get_class($organization),
             'email' => 'me@here.com',
         ]);
 
@@ -292,7 +346,7 @@ class OrganizationTest extends TestCase
             ->from(localized_route('organizations.edit', ['organization' => $organization]))
             ->delete(route('invitations.destroy', ['invitation' => $invitation]));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     public function test_existing_members_cannot_be_invited()
@@ -313,8 +367,8 @@ class OrganizationTest extends TestCase
             ->actingAs($user)
             ->from(localized_route('organizations.edit', ['organization' => $organization]))
             ->post(localized_route('invitations.create'), [
-                'inviteable_id' => $organization->id,
-                'inviteable_type' => get_class($organization),
+                'invitationable_id' => $organization->id,
+                'invitationable_type' => get_class($organization),
                 'email' => $other_user->email,
                 'role' => 'member',
             ]);
@@ -332,8 +386,8 @@ class OrganizationTest extends TestCase
         $user = User::factory()->create();
         $organization = Organization::factory()->create();
         $invitation = Invitation::factory()->create([
-            'inviteable_id' => $organization->id,
-            'inviteable_type' => get_class($organization),
+            'invitationable_id' => $organization->id,
+            'invitationable_type' => get_class($organization),
             'email' => $user->email,
         ]);
 
@@ -343,6 +397,32 @@ class OrganizationTest extends TestCase
 
         $this->assertTrue($organization->fresh()->hasUserWithEmail($user->email));
         $response->assertRedirect(localized_route('organizations.show', $organization));
+    }
+
+    public function test_invitation_cannot_be_accepted_by_user_with_existing_membership()
+    {
+        if (! config('hearth.organizations.enabled')) {
+            return $this->markTestSkipped('Organization support is not enabled.');
+        }
+
+        $user = User::factory()->create();
+        $organization = Organization::factory()
+            ->hasAttached($user, ['role' => 'admin'])
+            ->create();
+        $other_organization = Organization::factory()->create();
+        $invitation = Invitation::factory()->create([
+            'invitationable_id' => $other_organization->id,
+            'invitationable_type' => get_class($other_organization),
+            'email' => $user->email,
+        ]);
+
+        $acceptUrl = URL::signedRoute('invitations.accept', ['invitation' => $invitation]);
+
+        $response = $this->from(localized_route('dashboard'))->actingAs($user)->get($acceptUrl);
+
+        $this->assertFalse($other_organization->fresh()->hasUserWithEmail($user->email));
+        $response->assertSessionHasErrors();
+        $response->assertRedirect(localized_route('dashboard'));
     }
 
     public function test_invitation_cannot_be_accepted_by_different_user()
@@ -357,8 +437,8 @@ class OrganizationTest extends TestCase
             ->hasAttached($other_user, ['role' => 'admin'])
             ->create();
         $invitation = Invitation::factory()->create([
-            'inviteable_id' => $organization->id,
-            'inviteable_type' => get_class($organization),
+            'invitationable_id' => $organization->id,
+            'invitationable_type' => get_class($organization),
             'email' => $user->email,
         ]);
 
@@ -386,8 +466,8 @@ class OrganizationTest extends TestCase
             ->create();
 
         $membership = Membership::where('user_id', $other_user->id)
-            ->where('membership_type', 'App\Models\Organization')
-            ->where('membership_id', $organization->id)
+            ->where('membershipable_type', 'App\Models\Organization')
+            ->where('membershipable_id', $organization->id)
             ->first();
 
         $response = $this
@@ -414,8 +494,8 @@ class OrganizationTest extends TestCase
             ->create();
 
         $membership = Membership::where('user_id', $other_user->id)
-            ->where('membership_type', 'App\Models\Organization')
-            ->where('membership_id', $organization->id)
+            ->where('membershipable_type', 'App\Models\Organization')
+            ->where('membershipable_id', $organization->id)
             ->first();
 
         $response = $this
@@ -423,7 +503,7 @@ class OrganizationTest extends TestCase
             ->from(localized_route('organizations.edit', ['organization' => $organization]))
             ->delete(route('memberships.destroy', $membership));
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     public function test_only_administrator_can_not_remove_themself()
@@ -439,8 +519,8 @@ class OrganizationTest extends TestCase
             ->create();
 
         $membership = Membership::where('user_id', $user->id)
-            ->where('membership_type', 'App\Models\Organization')
-            ->where('membership_id', $organization->id)
+            ->where('membershipable_type', 'App\Models\Organization')
+            ->where('membershipable_id', $organization->id)
             ->first();
 
         $response = $this
@@ -519,7 +599,7 @@ class OrganizationTest extends TestCase
             'current_password' => 'password',
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     public function test_non_members_can_not_delete_organizations()
@@ -548,7 +628,7 @@ class OrganizationTest extends TestCase
             'current_password' => 'password',
         ]);
 
-        $response->assertStatus(403);
+        $response->assertForbidden();
     }
 
     public function test_users_can_view_organizations()
@@ -566,10 +646,10 @@ class OrganizationTest extends TestCase
         ]);
 
         $response = $this->get(localized_route('organizations.index'));
-        $response->assertStatus(200);
+        $response->assertOk();
 
         $response = $this->get(localized_route('organizations.show', $organization));
-        $response->assertStatus(200);
+        $response->assertOk();
     }
 
     public function test_guests_can_not_view_organizations()

@@ -1,27 +1,29 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
-        "hot": "mix watch --hot",
-        "postinstall": "npm run dev",
-        "prod": "npm run production",
-        "production": "mix --production",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000"
+        "build": "vite build",
+        "dev": "vite",
+        "lint": "fluid-lint-all",
+        "postinstall": "npm run build"
     },
     "devDependencies": {
-        "axios": "^0.25",
-        "laravel-mix": "^6.0.6",
-        "lodash": "^4.17.19",
-        "postcss": "^8.1.14",
-        "resolve-url-loader": "^4.0.0",
-        "sass": "^1.35",
-        "sass-loader": "^12.1"
+        "eslint-config-fluid": "^2.0.1",
+        "eslint-plugin-jsdoc": "^39.3.3",
+        "fluid-lint-all": "^1.2.2",
+        "laravel-vite-plugin": "^0.4.0",
+        "sass": "^1.53.0",
+        "vite": "^2.9.14",
+        "vite-plugin-full-reload": "^1.0.1",
+        "vite-plugin-manifest-sri": "^0.1.0"
     },
     "dependencies": {
-        "@fluid-project/looseleaf": "^1.6",
-        "alpinejs": "^3.0",
-        "luxon": "^2.0"
+        "@alpinejs/focus": "^3.10.2",
+        "@tiptap/core": "^2.0.0-beta.182",
+        "@tiptap/extension-underline": "^2.0.0-beta.25",
+        "@tiptap/starter-kit": "^2.0.0-beta.191",
+        "alpinejs": "^3.10.0",
+        "axios": "^0.27.2",
+        "luxon": "^3.0.1",
+        "modern-css-reset": "^1.4.0"
     }
 }

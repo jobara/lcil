@@ -1,0 +1,15 @@
+.notice {
+        background-color: var(--primary-background);
+        border-radius: 0.2rem;
+        padding: 0.5rem;
+}
+
+.notice strong {
+        background-color: var(--secondary-background);
+        border-radius: 0.2rem;
+        padding: 0.5rem;
+}
+
+.notice > * + * {
+    margin: 1.5rem;
+}

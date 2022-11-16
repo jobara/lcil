@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
+use Hearth\Models\Membership;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Sanctum\HasApiTokens;
 use ShiftOneLabs\LaravelCascadeDeletes\CascadesDeletes;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
@@ -17,6 +20,7 @@ use Spatie\Sluggable\SlugOptions;
 class User extends Authenticatable implements HasLocalePreference, MustVerifyEmail
 {
     use CascadesDeletes;
+    use HasApiTokens;
     use HasFactory;
     use HasSlug;
     use Notifiable;
@@ -25,7 +29,7 @@ class User extends Authenticatable implements HasLocalePreference, MustVerifyEma
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<string>
      */
     protected $fillable = [
         'name',
@@ -37,7 +41,7 @@ class User extends Authenticatable implements HasLocalePreference, MustVerifyEma
     /**
      * The attributes that should be hidden for arrays.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
@@ -49,7 +53,7 @@ class User extends Authenticatable implements HasLocalePreference, MustVerifyEma
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
@@ -60,7 +64,7 @@ class User extends Authenticatable implements HasLocalePreference, MustVerifyEma
      *
      * @var array
      */
-    protected $cascadeDeletes = [
+    protected mixed $cascadeDeletes = [
         'organizations',
     ];
 
@@ -79,7 +83,7 @@ class User extends Authenticatable implements HasLocalePreference, MustVerifyEma
      *
      * @return string
      */
-    public function getRouteKeyName()
+    public function getRouteKeyName(): string
     {
         return 'slug';
     }
@@ -89,57 +93,94 @@ class User extends Authenticatable implements HasLocalePreference, MustVerifyEma
      *
      * @return string
      */
-    public function preferredLocale()
+    public function preferredLocale(): string
     {
         return $this->locale;
     }
 
     /**
-     * Get the user's memberships.
+     * Get the user's resource collections.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     *
+     * @return HasMany
      */
-    public function memberships(): HasMany
+    public function resourceCollections(): HasMany
     {
-        return $this->hasMany(Membership::class);
+        return $this->hasMany(ResourceCollection::class);
     }
 
     /**
-     * Get the consulting organizations that belong to this user.
+     * Get the user's resources.
+     */
+    public function resources()
+    {
+        return $this->hasMany(Resource::class);
+    }
+
+    /**
+     * Get the parent joinable model.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     * @return MorphTo
+     */
+    public function joinable(): MorphTo
+    {
+        return $this->morphTo();
+    }
+
+    /**
+     * Has the user requested to join a model?
      *
+     * @param  mixed  $model
+     * @return bool
+     */
+    public function hasRequestedToJoin(mixed $model)
+    {
+        return $this->joinable && $this->joinable->id === $model->id;
+    }
+
+    /**
+     * Get the organizations that belong to this user.
+     *
+     * @return MorphToMany
      */
     public function organizations(): MorphToMany
     {
-        return $this->morphedByMany(Organization::class, 'membership')
-            ->using('\App\Models\Membership')
-            ->withPivot('id')
-            ->withPivot('role')
+        return $this->morphedByMany(Organization::class, 'membershipable', 'memberships')
+            ->as('membership')
+            ->using(Membership::class)
+            ->withPivot(['role', 'id'])
             ->withTimestamps();
     }
 
     /**
-     * Determine if the user is a member of a given memberable.
+     * Get the organization that belongs to the user.
      *
-     * @param mixed $memberable
-     * @return bool
+     * @return mixed
      */
-    public function isMemberOf($memberable)
+    public function getOrganizationAttribute(): mixed
     {
-        return $memberable->hasUserWithEmail($this->email);
+        return $this->organizations->first();
     }
 
     /**
-     * Determine if the user is an administrator of a given memberable.
+     * Determine if the user is a member of a given membershipable model.
      *
-     * @param mixed $memberable
+     * @param  mixed  $model
      * @return bool
      */
-    public function isAdministratorOf($memberable)
+    public function isMemberOf(mixed $model): bool
     {
-        return $memberable->hasAdministratorWithEmail($this->email);
+        return $model->hasMemberWithEmail($this->email);
+    }
+
+    /**
+     * Determine if the user is an administrator of a given model.
+     *
+     * @param  mixed  $model
+     * @return bool
+     */
+    public function isAdministratorOf(mixed $model): bool
+    {
+        return $model->hasAdministratorWithEmail($this->email);
     }
 
     /**
@@ -147,7 +188,7 @@ class User extends Authenticatable implements HasLocalePreference, MustVerifyEma
      *
      * @return bool
      */
-    public function twoFactorAuthEnabled()
+    public function twoFactorAuthEnabled(): bool
     {
         return ! is_null($this->two_factor_secret);
     }

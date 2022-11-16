@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use App\Rules\EmailRestriction;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -17,9 +18,9 @@ class CreateNewUser implements CreatesNewUsers
      * Validate and create a newly registered user.
      *
      * @param  array  $input
-     * @return \App\Models\User
+     * @return User
      */
-    public function create(array $input)
+    public function create(array $input): User
     {
         Validator::make(
             $input,
@@ -31,20 +32,23 @@ class CreateNewUser implements CreatesNewUsers
                     'email',
                     'max:255',
                     Rule::unique(User::class),
+                    new EmailRestriction,
                 ],
                 'password' => $this->passwordRules(),
+                'locale' => ['required', Rule::in(config('locales.supported', ['en', 'fr']))],
             ],
             [
 
             ]
         )->validate();
 
-        Cookie::queue('locale', \locale());
+        Cookie::queue('locale', $input['locale']);
 
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
+            'locale' => $input['locale'],
         ]);
     }
 }

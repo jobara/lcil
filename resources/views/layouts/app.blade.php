@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="no-js">
     <head>
-        @include('partials.head')
+        @include('partials.head', ['title' => $title ?? null])
     </head>
     <body>
         @include('layouts.banner')
@@ -23,5 +23,7 @@
                 </div>
             </article>
         </main>
+        @livewireScripts
+        @vite('resources/js/app.js')
     </body>
 </html>

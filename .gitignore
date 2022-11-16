@@ -1,3 +1,5 @@
+/.idea
+/.vscode
 /node_modules
 /public/hot
 /public/storage
@@ -5,10 +7,14 @@
 /vendor
 .env
 .env.backup
+.php_cs
+.php_cs.cache
+.php-cs-fixer.cache
 .phpunit.result.cache
+coverage.xml
+docker/provision/mysql/init/02_perms_test_db.sql
 Homestead.json
 Homestead.yaml
 npm-debug.log
+phpstan.neon
 yarn-error.log
-/.idea
-/.vscode

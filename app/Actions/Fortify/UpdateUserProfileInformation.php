@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Rules\EmailRestriction;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Validator;
@@ -27,6 +28,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'email',
                 'max:255',
                 Rule::unique('users')->ignore($user->id),
+                new EmailRestriction,
             ],
             'locale' => ['required', Rule::in(config('locales.supported', ['en', 'fr']))],
         ])->validateWithBag('updateProfileInformation');

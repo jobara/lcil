@@ -29,7 +29,7 @@
             <x-hearth-error for="region" />
         </div>
 
-        <x-hearth-button>{{ __('forms.save_changes') }}</x-hearth-button>
+        <button>{{ __('forms.save_changes') }}</button>
     </form>
 
     <h2>{{ __('organization.members_title') }}</h2>
@@ -57,9 +57,9 @@
                     <form action="{{ route('memberships.destroy', $user->membership->id) }}" method="POST">
                         @csrf
                         @method('delete')
-                        <x-hearth-button class="link" :aria-label="__('organization.action_remove_member_with_name', ['user' => $user->name, 'organization' => $organization->name])">
+                        <button class="link" :aria-label="__('organization.action_remove_member_with_name', ['user' => $user->name, 'organization' => $organization->name])">
                             {{ __('organization.action_remove_member') }}
-                        </x-hearth-button>
+                        </button>
                     </form>
                 </td>
             </tr>
@@ -89,12 +89,49 @@
                     <form action="{{ route('invitations.destroy', $invitation) }}" method="POST">
                         @csrf
                         @method('delete')
-                        <x-hearth-button class="link" :aria-label="__('invitation.cancel_member_invitation_link_with_email', ['email' => $invitation->email])">
+                        <button class="link" :aria-label="__('invitation.cancel_member_invitation_link_with_email', ['email' => $invitation->email])">
                             {{ __('invitation.cancel_member_invitation_link') }}
-                        </x-hearth-button>
+                        </button>
                     </form>
                 </td>
             </tr>
+            @endforeach
+        </table>
+    </div>
+    @endif
+
+    <h2>{{ __('Requests to join') }}</h2>
+
+    @if(!$organization->requestsToJoin->isEmpty())
+    <div role="region" aria-label="{{ __('Requests to join') }}" tabindex="0">
+        <table>
+            <thead>
+            <tr>
+                <th>{{ __('Name') }}</th>
+                <th>{{ __('Email address') }}</th>
+                <th></th>
+            </tr>
+            </thead>
+            @foreach ($organization->requestsToJoin as $user)
+                <tr>
+                    <td id="request-{{ $user->id }}">{{ $user->name }}</td>
+                    <td>{{ $user->email }}</td>
+                    <td>
+                        <form action="{{ localized_route('requests.deny', $user) }}" method="POST">
+                            @csrf
+                            <button class="link" aria-label="{{ __('Deny :name’s request to join :organization', ['name' => $user->name, 'organization' => $organization->name]) }}">
+                                {{ __('Deny request') }}
+                            </button>
+                        </form>
+
+                        <form action="{{ localized_route('requests.approve', $user) }}" method="POST">
+                            @csrf
+                            <button class="link" aria-label="{{ __('Approve :name’s request to join :organization', ['name' => $user->name, 'organization' => $organization->name]) }}">
+                                {{ __('Approve request') }}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
             @endforeach
         </table>
     </div>
@@ -107,9 +144,9 @@
     <form action="{{ localized_route('invitations.create') }}" method="POST" novalidate>
         @csrf
 
-        <x-hearth-input type="hidden" name="inviteable_id" :value="$organization->id"></x-hearth-input>
+        <x-hearth-input type="hidden" name="invitationable_id" :value="$organization->id"></x-hearth-input>
 
-        <x-hearth-input type="hidden" name="inviteable_type" :value="get_class($organization)"></x-hearth-input>
+        <x-hearth-input type="hidden" name="invitationable_type" :value="get_class($organization)"></x-hearth-input>
 
         <div class="field @error('email', 'inviteOrganizationMember') field--error @enderror">
             <x-hearth-label for="email" :value="__('forms.label_email')" />
@@ -122,9 +159,9 @@
             <x-hearth-error for="role" bag="inviteOrganizationMember" />
         </div>
 
-        <x-hearth-button>
+        <button>
             {{ __('invitation.action_send_invitation') }}
-        </x-hearth-button>
+        </button>
     </form>
 
     <h2>
@@ -143,8 +180,8 @@
             <x-hearth-error for="current_password" bag="destroyOrganization" />
         </div>
 
-        <x-hearth-button>
+        <button>
             {{ __('organization.action_delete') }}
-        </x-hearth-button>
+        </button>
     </form>
 </x-app-layout>

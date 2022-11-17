@@ -1,8 +1,6 @@
 # Legal Capacity Inclusion Lens
 
-| main  | dev |
-| ----- | --- |
-| [![code coverage badge for main branch](https://codecov.io/gh/fluid-project/lcil/branch/main/graph/badge.svg?token=XZ7R5ISIBR)](https://codecov.io/gh/fluid-project/lcil) | [![code coverage badge for dev branch](https://codecov.io/gh/fluid-project/lcil/branch/dev/graph/badge.svg?token=XZ7R5ISIBR)](https://app.codecov.io/gh/fluid-project/lcil/branch/dev)  |
+[![codecov code coverage badge](https://codecov.io/gh/fluid-project/lcil/branch/main/graph/badge.svg?token=XZ7R5ISIBR)](https://codecov.io/gh/fluid-project/lcil)
 
 ## Overview
 

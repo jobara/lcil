@@ -5,7 +5,7 @@ file for information on how to build and setup the development environment.
 
 ## Process/Workflow
 
-The project's [source code](https://github.com/fluid-project/lcil) is hosted on GitHub. In development work is submitted
+The project's [source code](https://github.com/fluid-project/lcil) is hosted on GitHub. In development, work is submitted
 via Pull Request (PR) and merged to the dev branch after passing review. From time-to-time work will be collected and
 packaged into a release. A production site can be deployed based off of a production branch, which will merge in
 releases from dev. If necessary a staging branch can be setup to deploy a staging site and test changes before adding

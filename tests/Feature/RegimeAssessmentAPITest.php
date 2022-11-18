@@ -159,7 +159,7 @@ test('Route - related evaluations - filtered by provisionID ', function () {
 test('Route - related evaluations - filtered by assessment ', function () {
     Sanctum::actingAs(User::factory()->create());
     $regimeAssessment = RegimeAssessment::first();
-    $assessment = EvaluationAssessments::Partially->value;
+    $assessment = EvaluationAssessments::Mostly->value;
 
     $response = $this->get(route('api.regimeAssessments.evaluations', [
         'regimeAssessment' => $regimeAssessment,
@@ -177,7 +177,7 @@ test('Route - related evaluations - filtered by all fields ', function () {
     $regimeAssessment = RegimeAssessment::first();
     $measureCode = '1.2.3.4';
     $provisionID = 2;
-    $assessment = EvaluationAssessments::Partially->value;
+    $assessment = EvaluationAssessments::Mostly->value;
 
     $response = $this->get(route('api.regimeAssessments.evaluations', [
         'regimeAssessment' => $regimeAssessment,

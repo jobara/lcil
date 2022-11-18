@@ -234,7 +234,7 @@ test('Route - index - filtered by provisionID ', function () {
 test('Route - index - filtered by assessment ', function () {
     Sanctum::actingAs(User::factory()->create());
 
-    $assessment = EvaluationAssessments::Partially->value;
+    $assessment = EvaluationAssessments::Mostly->value;
 
     $evaluation = Evaluation::factory()
         ->create([
@@ -269,7 +269,7 @@ test('Route - index - filtered by all fields ', function () {
     $regimeAssessment = RegimeAssessment::factory()->create();
     $measure = Measure::factory()->create(['code' => '1.1.2.1']);
     $provision = Provision::factory()->create();
-    $assessment = EvaluationAssessments::Partially->value;
+    $assessment = EvaluationAssessments::Mostly->value;
 
     Evaluation::factory(2)
         ->for($regimeAssessment)

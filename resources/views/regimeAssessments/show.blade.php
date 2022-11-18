@@ -131,9 +131,9 @@
                                     $evaluations = $regimeAssessment->evaluations->where('measure_id', $measure->id);
                                 @endphp
                                 @foreach (App\Enums\EvaluationAssessments::values() as $evaluationAssessment)
-                                    <li>{{ $evaluations->where('assessment', App\Enums\EvaluationAssessments::from($evaluationAssessment))->count() }} {{ $evaluationAssessment }}</li>
+                                    <li>{{ $evaluations->where('assessment', App\Enums\EvaluationAssessments::from($evaluationAssessment))->count() }} {{ App\Enums\EvaluationAssessments::labels()[$evaluationAssessment] }}</li>
                                 @endforeach
-                                <li>{{ __(':count do not apply', ['count' => ($numProvisions - $evaluations->count())]) }}</li>
+                                <li>{{ __(':count Do not apply', ['count' => ($numProvisions - $evaluations->count())]) }}</li>
                             </ul>
                         </li>
                     @endforeach

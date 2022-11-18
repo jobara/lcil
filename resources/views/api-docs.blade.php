@@ -46,7 +46,7 @@
 {
     "data": {
         "id": 123,
-        "assessment": "partially",
+        "assessment": "somewhat",
         "comment": null,
         "regimeAssessment": {
             ...
@@ -133,7 +133,7 @@
         },
         {
             "id": 124,
-            "assessment": "partially",
+            "assessment": "somewhat",
             "comment": "The comment.",
             "regimeAssessment": {
                 ...
@@ -569,7 +569,7 @@
         },
         {
             "id": 124,
-            "assessment": "partially",
+            "assessment": "somewhat",
             "comment": "The comment.",
             "regimeAssessment": {
                 ...

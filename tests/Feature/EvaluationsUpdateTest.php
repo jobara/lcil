@@ -74,7 +74,7 @@ test('update route - update', function () {
         ->for($measure)
         ->for($provision)
         ->create([
-            'assessment' => EvaluationAssessments::Partially->value,
+            'assessment' => EvaluationAssessments::Mostly->value,
             'comment' => 'Initial comment',
         ]);
 
@@ -129,7 +129,7 @@ test('update route - delete', function () {
         ->for($measure)
         ->for($provision)
         ->create([
-            'assessment' => EvaluationAssessments::Partially->value,
+            'assessment' => EvaluationAssessments::Mostly->value,
             'comment' => 'Initial comment',
         ]);
 

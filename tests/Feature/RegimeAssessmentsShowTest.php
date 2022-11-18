@@ -141,10 +141,11 @@ test('show route render - authenticated', function () {
         '<a href="'.localized_route('evaluations.show', ['regimeAssessment' => $regimeAssessment, 'measure' => $measure]),
         $measure->code.': '.$measure->title,
         '<ul>',
-        '<li>1 fully</li>',
-        '<li>0 partially</li>',
-        '<li>0 not_at_all</li>',
-        '<li>0 do not apply</li>',
+        '<li>1 Fully</li>',
+        '<li>0 Mostly</li>',
+        '<li>0 Somewhat</li>',
+        '<li>0 Not at all</li>',
+        '<li>0 Do not apply</li>',
         '</details>',
     ];
 
@@ -297,10 +298,11 @@ test('show route render - no law and policy sources', function () {
         '<a href="'.localized_route('evaluations.show', ['regimeAssessment' => $regimeAssessment, 'measure' => $measure]),
         $measure->code.': '.$measure->title,
         '<ul>',
-        '<li>0 fully</li>',
-        '<li>0 partially</li>',
-        '<li>0 not_at_all</li>',
-        '<li>0 do not apply</li>',
+        '<li>0 Fully</li>',
+        '<li>0 Mostly</li>',
+        '<li>0 Somewhat</li>',
+        '<li>0 Not at all</li>',
+        '<li>0 Do not apply</li>',
         '</details>',
     ];
 

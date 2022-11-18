@@ -22,7 +22,8 @@ dataset('enums', function () {
             EvaluationAssessments::class,
             [
                 'fully' => 'Fully',
-                'partially' => 'Partially',
+                'mostly' => 'Mostly',
+                'somewhat' => 'Somewhat',
                 'not_at_all' => 'Not at all',
             ],
         ],
